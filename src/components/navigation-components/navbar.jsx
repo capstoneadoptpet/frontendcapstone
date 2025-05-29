@@ -115,7 +115,6 @@ const Navbar = () => {
             )}
           </ul>
         </nav>
-
         {user && showSidebar && (
           <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
         )}

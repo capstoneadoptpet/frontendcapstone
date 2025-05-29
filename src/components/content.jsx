@@ -8,7 +8,6 @@ const Content = ({
     headline,
     description,
     img,
-    alt,
     imgStart,
 }) => {
     return (
@@ -20,18 +19,18 @@ const Content = ({
             >
                 <div className="container items-center">
                     <div
-                        className="row home__content-row justify-between px-[5rem] py-[2rem] "
+                        className="row home__content-row grid grid-rows-2 md:grid-cols-2 xl:grid-cols-2 justify-center "
                         style={{
                             display: "flex",
                             flexDirection: imgStart === "start" ? "row-reverse" : "row",
                         }}
                     >
-                        <div className="md: col-auto">
+                        <div className="">
                             <div className="home__content-text-wrapper">
-                                <div className="top-line">{topLine}</div>
                                 <h1 className={lightText ? "heading" : "heading dark"}>
                                     {headline}
                                 </h1>
+                                <div className="top-line">{topLine}</div>
                                 <p
                                     className={
                                         lightTextDesc
@@ -43,7 +42,7 @@ const Content = ({
                                 </p>
                             </div>
                         </div>
-                        <div className="md: col-auto">
+                        <div className="">
                             <div className="home__content-img-wrapper">
                                 <img
                                     src={img}

@@ -94,7 +94,7 @@ const CardList = ({ user }) => {
                     <CardItem key={post.id} post_id={post.id} pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
                 ))}
                 <div
-                    className="Card_Routes group relative flex flex-col items-center w-48 h-56 bg-[var(--blue-sky)] rounded-xl cursor-pointer"
+                    className="Card_Routes group relative flex flex-col items-center w-48 bg-[var(--blue-sky)] rounded-xl cursor-pointer"
                     onClick={handleNavigate}
                     role="button"
                     tabIndex={0}

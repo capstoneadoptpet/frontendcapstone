@@ -33,29 +33,27 @@ const Footer = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 flex-1">
           <div>
-            <h3 className="font-semibold mb-2">Resources</h3>
+            <h3 className="font-semibold mb-2">Halaman</h3>
             <ul className="space-y-1">
-              <li><a href="#">UI design</a></li>
-              <li><a href="#">UX design</a></li>
-              <li><a href="#">Wireframing</a></li>
-              <li><a href="#">Diagramming</a></li>
-              <li><a href="#">Brainstorming</a></li>
-              <li><a href="#">Online whiteboard</a></li>
-              <li><a href="#">Team collaboration</a></li>
+              <li><a href="/" className="hover:border-b-2">Beranda</a></li>
+              <li><a href="/findpet" className="hover:border-b-2">Temukan Hewan</a></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-2">About Adoption</h3>
+            <h3 className="font-semibold mb-2">Pengguna</h3>
             <ul className="space-y-1">
-              <li><a href="#">Adoption Pet</a></li>
-              <li><a href="#">Other Types Of Pet</a></li>
+              <li><a href="/profile" className="hover:border-b-2">Profil</a></li>
+              <li><a href="/favorites" className="hover:border-b-2">Favotite Hewan</a></li>
+              <li><a href="/my-posts" className="hover:border-b-2">Postingan</a></li>
+              <li><a href="/post" className="hover:border-b-2">Membuat Postingan</a></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Term &amp; Policy</h3>
+            <h3 className="font-semibold mb-2">Lainnya</h3>
             <ul className="space-y-1">
-              <li><a href="#">Terms</a></li>
-              <li><a href="#">Policy</a></li>
+              <li><a href="/terms-policy" className="hover:border-b-2">Syarat &amp; Kebijakan</a></li>
+              <li><a href="/animals" className="hover:border-b-2">Hewan</a></li>
+              <li><a href="/about-us" className="hover:border-b-2">Tentang Kami</a></li>
             </ul>
           </div>
         </div>
