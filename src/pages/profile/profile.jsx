@@ -3,8 +3,8 @@ import HeroSection from "../../components/profile-components/hero-section";
 
 const ProfilePage = () => {
     const [user, setUser] = useState({});
-    const [isEditing, setIsEditing] = useState(false); 
-    const [description, setDescription] = useState(''); 
+    const [isEditing, setIsEditing] = useState(false);
+    const [description, setDescription] = useState('');
     const apiURL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const ProfilePage = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
-                    setDescription(data.description); 
+                    setDescription(data.description);
                 } else {
                     console.error('Failed to fetch user data');
                 }
@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
 
     const handleEditClick = () => {
-        setIsEditing(true); 
+        setIsEditing(true);
     };
 
     const handleSaveClick = async () => {
@@ -55,11 +55,11 @@ const ProfilePage = () => {
             });
 
             if (response.ok) {
-                    alert('Biodata updated successfully');
-                    console.log('Successfully updated description');
-                } else {
-                    console.error('Failed to update description');
-                }
+                alert('Biodata updated successfully');
+                console.log('Successfully updated description');
+            } else {
+                console.error('Failed to update description');
+            }
         } catch (error) {
             console.error('Error:', error);
         }

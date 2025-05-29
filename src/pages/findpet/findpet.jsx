@@ -13,6 +13,7 @@ const FindPetPage = () => {
   const [kota, setKota] = useState('');
   const [kotas, setKotas] = useState([]);
   const [pets, setPets] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,6 +60,21 @@ const FindPetPage = () => {
     return matchCategory && matchBreed && matchGender && matchAge && matchKota;
   });
 
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      fetch(`${apiURL}/users/favorites`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(data => setFavorites(data.favorites || []))
+        .catch(err => console.error('Error fetching favorites:', err));
+    }
+  }, [apiURL]);
+
+
   // Pagination logic
   const totalPages = Math.ceil(filteredPets.length / petsPerPage);
   const paginatedPets = filteredPets.slice(
@@ -88,8 +104,8 @@ const FindPetPage = () => {
             }}
           >
             {cat.icon
-                ? <img src={`${apiURL}/${cat.icon}`} alt={cat.name} className="w-8 h-8 object-contain" />
-                : <span className="text-3xl">🐾</span>
+              ? <img src={`${apiURL}/${cat.icon}`} alt={cat.name} className="w-8 h-8 object-contain" />
+              : <span className="text-3xl">🐾</span>
             }
             {cat.name}
           </button>
@@ -131,10 +147,10 @@ const FindPetPage = () => {
         <div className="flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {paginatedPets.map((pet, idx) => (
-              <CardItem key={pet.id || idx} pet={pet} apiURL={apiURL} />
+              <CardItem key={pet.id || idx} pet={pet} apiURL={apiURL} favorites={favorites} />
             ))}
           </div>
-          {/* Pagination Controls */}  
+          {/* Pagination Controls */}
           <div className="flex justify-center mt-8 gap-2">
             <button
               className="px-3 py-1 rounded border bg-white cursor-pointer hover:border-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:border"
