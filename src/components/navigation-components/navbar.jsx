@@ -42,14 +42,14 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/"
-                  className={`text-2xl hover:underline-offset-10 underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
+                  className={`text-2xl hover:hover:border-b-3 underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
                   Beranda
                 </Link>
               </li>
               <li>
                 <Link
                   to="/findpet"
-                  className={`text-2xl hover:underline-offset-10 underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
+                  className={`text-2xl hover:border-b-3 underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
                   Temukan Hewan
                 </Link>
               </li>
@@ -85,14 +85,14 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/register"
-                  className={`text-2xl hover:underline-offset-10 underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
+                  className={`text-2xl hover:border-b-3 underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
                   Sign Up
                 </Link>
               </li>
               <li>
                 <Link
                   to="/login"
-                  className={`text-2xl hover:underline-offset-10 underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
+                  className={`text-2xl hover:border-b-3 underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
                   Sign In
                 </Link>
               </li>

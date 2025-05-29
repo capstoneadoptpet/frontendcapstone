@@ -1,5 +1,5 @@
 import Accordition from "../../components/accordition";
-import { content1, content2 } from "./data";
+import { content1, content2, content3, content4, content5 } from "./data";
 
 const TermsPolicy = () => {
     return (
@@ -10,6 +10,9 @@ const TermsPolicy = () => {
 
             <Accordition {...content1} />
             <Accordition {...content2} />
+            <Accordition {...content3} />
+            <Accordition {...content4} />
+            <Accordition {...content5} />
         </div>
     )
 }

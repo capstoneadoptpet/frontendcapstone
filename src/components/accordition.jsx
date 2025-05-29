@@ -12,9 +12,9 @@ const Accordition = ({
     return (
         <div className="py-2">
 
-            <Accordion>
+            <Accordion className="bg-[var(--white)] border-[var(--black)]">
                 <AccordionPanel>
-                    <AccordionTitle className="text-(--black)">{title}</AccordionTitle>
+                    <AccordionTitle className="text-(--black)"><strong>{title}</strong></AccordionTitle>
                     <AccordionContent>
                         <p className="mb-2 text-(--black) ">
                             {description1}
