@@ -34,7 +34,6 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
         <FaGrip className="text-5xl" />
       </button>
 
-      {/* Dashboard */}
       <Link
         to="/admin/dashboard"
         className={`w-full flex items-center justify-center p-4 mb-2 hover:bg-yellow-50 rounded-none  ${location.pathname === '/admin/dashboard' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
@@ -42,21 +41,19 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
         <FaRegClipboard className="text-2xl" />
       </Link>
 
-      {/* Users */}
       <Link
-        to="/admin/users"
-        className={`w-full flex items-center justify-center p-4 mb-2 hover:bg-yellow-50 rounded-none  ${location.pathname === '/admin/users' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
+        to="/admin/categories"
+        className={`w-full flex items-center justify-center p-4 mb-2 hover:bg-yellow-50 rounded-none  ${location.pathname === '/admin/categories' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
       >
         <FaLinesLeaning className="text-2xl" />
       </Link>
 
-      {/* Logout */}
       <button
         onClick={handleLogout}
         className="w-full flex items-center justify-center p-4 mt-auto hover:text-red-400 rounded"
         title="Logout"
       >
-      <FaArrowRightFromBracket className="inline-block text-xl cursor-pointer" />
+      <FaArrowRightFromBracket className="inline-block text-2xl cursor-pointer" />
       </button>
     </div>
 
@@ -65,19 +62,19 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
   if (admin && isOpen) {
   return (
-    <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-white w-70 h-screen">
+    <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-gray-50 w-70 h-screen">
       <div className="flex flex-col h-full">
-      <div className="bg-white p-4 flex min-h-[10%] h-[15%] items-center justify-center">
+      <div className="bg-gray-50 p-4 flex min-h-[10%] h-[15%] items-center justify-center">
         <div className="flex items-center gap-5">
           <FaGrip className="text-5xl" />
           <span className="text-3xl font-bold">MENU</span>
         </div>
       </div>
 
-      <DrawerItems className="p-0 m-0 bg-white h-[85%] flex flex-col">
-        <FlowSidebar className="p-0 mx-0 h-full w-70 bg-white rounded-none flex flex-col flex-grow">
-          <SidebarItems className="p-0 mx-0 flex flex-col gap-2">
-            <SidebarItemGroup className="p-0 mx-0">
+      <DrawerItems className="p-0 m-0 bg-gray-50 h-[85%] flex flex-col">
+        <FlowSidebar className="p-0 mx-0 h-full w-70 bg-gray-50 rounded-none flex flex-col flex-grow">
+          <SidebarItems className="p-0 mx-0 flex flex-col gap-2 bg-gray-50">
+            <SidebarItemGroup className="p-0 mx-0 bg-gray-50">
               <SidebarItem
                 as={Link}
                 to="/admin/dashboard"
@@ -103,16 +100,16 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
               </SidebarItem>
             </SidebarItemGroup>
           </SidebarItems>
-           <div className="p-4 mt-auto">
+        </FlowSidebar>
+           <div className="p-4 mt-auto bg-gray-50">
             <button
               onClick={handleLogout}
-              className="w-full font-semibold cursor-pointer hover:text-red-500"
+              className="w-full text-2xl font-semibold cursor-pointer hover:text-red-500"
             >
               <FaArrowRightFromBracket className="inline-block mr-2" />
-              <span className="text-xl">Logout</span> 
+              <span className="text-2xl">Logout</span> 
             </button>
           </div>
-        </FlowSidebar>
       </DrawerItems>
       </div>
     </Drawer>

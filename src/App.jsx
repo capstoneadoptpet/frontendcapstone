@@ -1,5 +1,5 @@
 // import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/navigation-components/navbar';
 import Footer from './components/navigation-components/footer';
 import RegisterPage from './pages/register/register';
@@ -20,11 +20,12 @@ import Animals from './pages/animals/animals';
 import Favorites from './pages/favorites/favorites';
 
 
-function App() {
-  // const [count, setCount] = useState(0)
+function Content() {
+  const location = useLocation();
+  const hideFooter = location.pathname.startsWith('/admin/');
 
   return (
-    <Router>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -44,11 +45,20 @@ function App() {
         <Route path='/animals' element={<Animals />} />
         <Route path='/about-us' element={<About />} />
 
-
+        <Route path="/admin/dashboard" element={<HomePage />} />
+        <Route path="/admin/categories" element={<HomePage />} />
       </Routes>
-      <Footer />
-    </Router>
-  )
+      {!hideFooter && <Footer />}
+    </>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <Content />
+    </Router>
+  );
+}
+
+export default App;

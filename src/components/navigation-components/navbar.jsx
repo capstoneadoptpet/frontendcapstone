@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/img/logo.png';
 import Sidebar from './sidebar';
+import Mobile_Sidebar from './mobile_sidebar';
+import { FaBars  } from 'react-icons/fa6';
 
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
   const location = useLocation();
-
   const [user, setUser] = useState(null);
-  const [showSidebar, setShowSidebar] = useState(false); 
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false); 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const apiURL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -23,6 +26,15 @@ const Navbar = () => {
         .catch(() => setUser(null));
     }
   }, [token]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 550);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   if (user && user.is_admin){
     return (
@@ -43,13 +55,14 @@ const Navbar = () => {
             </ul>
           </nav>
           {user && user.is_admin && (
-        <Sidebar user={user} onClose={() => setShowSidebar(false)} onOpen={() => setShowSidebar(true)}  isOpen={showSidebar} />      
+        <Mobile user={user} onClose={() => setShowSidebar(false)} onOpen={() => setShowSidebar(true)}  isOpen={showSidebar} />      
       )}
       </>
     )
   }
 
   else {
+  if (isMobile) {
     return (
       <>
         <nav className="bg-(--navy)  text-(--white)">
@@ -63,21 +76,7 @@ const Navbar = () => {
               </Link>
             </div>
             {token ? (
-              <div className="flex space-x-4">
-                <li>
-                  <Link
-                    to="/"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
-                    Beranda
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/findpet"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
-                    Temukan Hewan
-                  </Link>
-                </li>
+              <div className="flex space-x-12">
                 <li>
                   <button
                     type="button"
@@ -92,6 +91,15 @@ const Navbar = () => {
                       />
                     )}
                     Profile
+                  </button>
+                </li>
+                <li className="flex items-center">
+                  <button
+                    type="button"
+                    className='flex items-center'
+                    onClick={() => setShowMobileSidebar(true)}
+                  >
+                      <FaBars className="text-3xl"/>
                   </button>
                 </li>
               </div>
@@ -116,10 +124,86 @@ const Navbar = () => {
           </ul>
         </nav>
         {user && showSidebar && (
-          <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
+              <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
+            )}
+
+        {user && showMobileSidebar && (
+          <Mobile_Sidebar user={user} onClose={() => setShowMobileSidebar(false)} isOpen={showMobileSidebar} />      
+
         )}
       </>
-    );
+    )} else{
+        return (
+          <>
+            <nav className="bg-(--navy)  text-(--white)">
+              <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
+                <div className="flex items-center">
+                  <Link to="/" className="hover:underline">
+                    <span className='text-2xl font-extrabold'>
+                      <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
+                      Adopt House
+                    </span>
+                  </Link>
+                </div>
+                {token ? (
+                  <div className="flex space-x-4">
+                    <li>
+                      <Link
+                        to="/"
+                        className={`text-2xl underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
+                        Beranda
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/findpet"
+                        className={`text-2xl underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
+                        Temukan Hewan
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${location.pathname === '/profile' ? 'underline' : ''}`}
+                        onClick={() => setShowSidebar(true)}
+                      >
+                        {user && user.picture && (
+                          <img
+                            src={`${apiURL}/${user.picture}`}
+                            alt="Profile"
+                            className="w-8 h-8 rounded-full mr-2 border object-cover"
+                          />
+                        )}
+                        Profile
+                      </button>
+                    </li>
+                  </div>
+                ) : (
+                  <div className="flex space-x-4">
+                    <li>
+                      <Link
+                        to="/register"
+                        className={`text-2xl underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
+                        Sign Up
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/login"
+                        className={`text-2xl underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
+                        Sign In
+                      </Link>
+                    </li>
+                  </div>
+                )}
+              </ul>
+            </nav>
+            {user && showSidebar && (
+              <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
+            )}
+          </>
+        );
+    }
 };
 };
 

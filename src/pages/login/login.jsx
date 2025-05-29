@@ -24,11 +24,17 @@ const LoginPage = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Login successful:', data);
+        const isAdmin = data.user.is_admin;
 
         // Store the token in localStorage or sessionStorage
         localStorage.setItem('auth_token', data.token);
 
-        navigate('/');
+        if (isAdmin){
+          navigate('/admin/dashboard');
+        }
+        else{
+          navigate('/');
+        }
       } else {
         const errorData = await response.json();
         console.error('Login failed:', errorData.message);

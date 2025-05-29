@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from '../../assets/img/logo.png';
 import { FaXTwitter, FaInstagram, FaYoutube, FaLinkedin  } from "react-icons/fa6";
