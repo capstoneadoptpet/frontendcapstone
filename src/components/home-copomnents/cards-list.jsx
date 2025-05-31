@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const CardList = ({ user }) => {
     const apiURL = import.meta.env.VITE_API_URL;
+    console.log("api : ", apiURL);
     const [posts, setPosts] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

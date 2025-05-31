@@ -19,6 +19,8 @@ import About from './pages/about/about';
 import Animals from './pages/animals/animals';
 import Favorites from './pages/favorites/favorites';
 
+import Dasboard from './pages/dasboard/dasboard';
+import CategoriesPost from './pages/categories-post/categories-post';
 
 function Content() {
   const location = useLocation();
@@ -45,8 +47,10 @@ function Content() {
         <Route path='/animals' element={<Animals />} />
         <Route path='/about-us' element={<About />} />
 
+        {/* ADMIN */}
         <Route path="/admin/dashboard" element={<HomePage />} />
-        <Route path="/admin/categories" element={<HomePage />} />
+        <Route path='/admin/categories-post' element={<CategoriesPost/>}/>
+
       </Routes>
       {!hideFooter && <Footer />}
     </>
