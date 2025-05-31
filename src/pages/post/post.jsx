@@ -74,11 +74,43 @@ const PostPage = () => {
     }
   }, [animal_type, apiURL]);
 
-  const handlePictureChange = (idx, file) => {
-    const newPics = [...pictures];
-    newPics[idx] = file;
-    setPictures(newPics);
-  };
+const handlePictureChange = async (idx, file) => {
+  const newPics = [...pictures];
+  newPics[idx] = file;
+  const selectedCategory = categories.find(cat => String(cat.id) === String(animal_type));
+  const animalTypeName = selectedCategory ? selectedCategory.name : '';
+
+  if (file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('animal_class', animalTypeName);
+
+
+    try {
+      const response = await fetch(`${apiURL}/classification`, {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Classification result:', result.data);
+        if (result.data.is_match === true){
+          console.log('Classification Success:', result.message);
+          setPictures(newPics);
+        }
+        else{
+          alert('The image does not match the selected animal type.');
+          console.log('Classification Failed: The image does not match the selected animal type.');
+        }
+        // Optionally, set state for classification result here
+      } else {
+        console.error('Failed to classify image');
+      }
+    } catch (error) {
+      console.error('Error classifying image:', error);
+    }
+  }
+};
 
   useEffect(() => {
     if (alamatBerbeda === false) {
