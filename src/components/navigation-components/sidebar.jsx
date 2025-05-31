@@ -44,7 +44,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
       {/* Users */}
       <Link
-        to="/admin/users"
+        to="/admin/categories-post"
         className={`w-full flex items-center justify-center p-4 mb-2 hover:bg-yellow-50 rounded-none  ${location.pathname === '/admin/users' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
       >
         <FaLinesLeaning className="text-2xl" />

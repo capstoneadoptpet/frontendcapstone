@@ -27,10 +27,10 @@ const Navbar = () => {
   if (user && user.is_admin){
     return (
       <>      
-      <nav className="bg-(--navy)  text-(--white)">
+      <nav className="bg-(--navy)  text-(--white) ml-20">
         <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
           <div className="flex items-center">
-            <Link to="/" className="hover:underline">
+            <Link to="/admin/dashboard">
               <span className='text-2xl font-extrabold'>
                 <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
                 Adopt House
@@ -53,28 +53,28 @@ const Navbar = () => {
     return (
       <>
         <nav className="bg-(--navy)  text-(--white)">
+          {token ? (
           <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
             <div className="flex items-center">
-              <Link to="/" className="hover:underline">
+              <Link to="/">
                 <span className='text-2xl font-extrabold'>
                   <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
                   Adopt House
                 </span>
               </Link>
             </div>
-            {token ? (
               <div className="flex space-x-4">
                 <li>
                   <Link
                     to="/"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
+                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
                     Beranda
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/findpet"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
+                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
                     Temukan Hewan
                   </Link>
                 </li>
@@ -95,25 +95,35 @@ const Navbar = () => {
                   </button>
                 </li>
               </div>
+              </ul>
             ) : (
+          <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
+            <div className="flex items-center">
+              <Link>
+                <span className='text-2xl font-extrabold'>
+                  <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
+                  Adopt House
+                </span>
+              </Link>
+            </div>
               <div className="flex space-x-4">
                 <li>
                   <Link
                     to="/register"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
+                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
                     Sign Up
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/login"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
+                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
                     Sign In
                   </Link>
                 </li>
               </div>
+              </ul>
             )}
-          </ul>
         </nav>
         {user && showSidebar && (
           <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
