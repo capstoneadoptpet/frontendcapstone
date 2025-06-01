@@ -1,5 +1,6 @@
 // import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { ThemeConfig } from "flowbite-react";
 import Navbar from './components/navigation-components/navbar';
 import Footer from './components/navigation-components/footer';
 import RegisterPage from './pages/register/register';
@@ -19,7 +20,7 @@ import About from './pages/about/about';
 import Animals from './pages/animals/animals';
 import Favorites from './pages/favorites/favorites';
 
-import Dasboard from './pages/dasboard/dasboard';
+import Dashboard from './pages/dashboard/dashboard';
 import CategoriesPost from './pages/categories-post/categories-post';
 
 function Content() {
@@ -29,6 +30,7 @@ function Content() {
   return (
     <>
       <Navbar />
+        <ThemeConfig dark={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -48,7 +50,7 @@ function Content() {
         <Route path='/about-us' element={<About />} />
 
         {/* ADMIN */}
-        <Route path="/admin/dashboard" element={<HomePage />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path='/admin/categories-post' element={<CategoriesPost/>}/>
 
       </Routes>

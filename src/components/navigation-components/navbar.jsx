@@ -55,7 +55,7 @@ const Navbar = () => {
             </ul>
           </nav>
           {user && user.is_admin && (
-        <Mobile user={user} onClose={() => setShowSidebar(false)} onOpen={() => setShowSidebar(true)}  isOpen={showSidebar} />      
+        <Sidebar user={user} onClose={() => setShowSidebar(false)} onOpen={() => setShowSidebar(true)}  isOpen={showSidebar} />      
       )}
       </>
     )
@@ -76,7 +76,6 @@ const Navbar = () => {
                 </span>
               </Link>
             </div>
-            {token ? (
               <div className="flex space-x-12">
                 <li>
                   <button

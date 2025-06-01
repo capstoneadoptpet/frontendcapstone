@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Dasboard = () => {
+const Dashboard = () => {
     const [totalPosts, setTotalPosts] = useState(0);
     const apiURL = import.meta.env.VITE_API_URL;
 
@@ -43,4 +43,4 @@ const Dasboard = () => {
     )
 }
 
-export default Dasboard;
+export default Dashboard;
