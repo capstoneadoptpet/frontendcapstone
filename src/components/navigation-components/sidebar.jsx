@@ -11,7 +11,13 @@ import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket  } fro
 const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   const apiURL = import.meta.env.VITE_API_URL;
   const admin = user.is_admin;
-  console.log(isOpen)
+  console.log(isOpen);
+
+  const customTheme = {
+    root: {
+      "inner": "px-0 ",
+    }
+}
 
   const handleLogout = () => {
     const result = window.confirm("Anda yakin ingin logout?");
@@ -28,7 +34,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
       {/* Expand Button */}
       <button
         onClick={onOpen}
-        className="w-full flex items-center justify-center p-4 mb-2 hover:bg-yellow-50 rounded-none  cursor-pointer"
+        className="w-full flex items-center justify-center p-4 mb-2 hover:bg-yellow-50 rounded-none cursor-pointer"
         title="Expand Sidebar"
       >
         <FaGrip className="text-5xl" />
@@ -62,7 +68,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
   if (admin && isOpen) {
   return (
-    <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-gray-50 w-70 h-screen">
+    <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-gray-50 w-70 h-screen" theme={{customTheme}}>
       <div className="flex flex-col h-full">
       <div className="bg-gray-50 p-4 flex min-h-[10%] h-[15%] items-center justify-center">
         <div className="flex items-center gap-5">
@@ -71,15 +77,15 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
         </div>
       </div>
 
-      <DrawerItems className="p-0 m-0 bg-gray-50 h-[85%] flex flex-col">
-        <FlowSidebar className="p-0 mx-0 h-full w-70 bg-gray-50 rounded-none flex flex-col flex-grow">
-          <SidebarItems className="p-0 mx-0 flex flex-col gap-2 bg-gray-50">
-            <SidebarItemGroup className="p-0 mx-0 bg-gray-50">
+      <DrawerItems className="p-0 m-0 px-0 bg-gray-50 h-[85%] flex flex-col ">
+        <FlowSidebar theme={customTheme} className="p-0 mx-0 h-full w-70 bg-gray-50 rounded-none flex flex-col flex-grow">
+          <SidebarItems className="px-0 mx-0 flex flex-col gap-2 bg-gray-50">
+            <SidebarItemGroup className="p-0 mx-0 px-0 bg-gray-50">
               <SidebarItem
                 as={Link}
                 to="/admin/dashboard"
                 onClick={onClose}
-                className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/dashboard' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
+                className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 pb-0 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/dashboard' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
               >
                 <div className="flex items-center gap-4 py-4 px-0">
                   <FaRegClipboard className="text-2xl" />
