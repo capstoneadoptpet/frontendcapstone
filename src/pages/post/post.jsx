@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ModalTermsPost } from '../../components/modal-TP';
 
 const PostPage = () => {
   const [user, setUser] = useState({});
@@ -21,6 +22,8 @@ const PostPage = () => {
   const [kota, setKota] = useState('');
   const [provinsi, setProvinsi] = useState('');
   const [agree, setAgree] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const apiURL = import.meta.env.VITE_API_URL;
 
@@ -179,6 +182,22 @@ const handlePictureChange = async (idx, file) => {
       console.error(error);
     }
   }
+
+  const handleOpenModal = (e) => {
+      e.preventDefault();
+      setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+      setShowModal(false);
+  };
+
+  const handleAgree = () => {
+    setLoading(true);
+    setAgree(true);
+    setShowModal(false);
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
@@ -458,7 +477,7 @@ const handlePictureChange = async (idx, file) => {
               className="mr-2"
             />
             <label htmlFor="agree" className="text-sm">
-              Saya Menyetujui <a href="#" className="text-blue-600 underline">Syarat & Ketentuan</a>
+              Saya Menyetujui <button onClick={handleOpenModal} className="text-blue-600 underline">Syarat & Ketentuan</button>
             </label>
           </div>
 
@@ -471,6 +490,12 @@ const handlePictureChange = async (idx, file) => {
           </button>
         </form>
       </div>
+      <ModalTermsPost
+        show={showModal}
+        onClose={handleCloseModal}
+        handleSubmit={handleAgree}
+        loading={loading}
+      />
     </div>
   );
 

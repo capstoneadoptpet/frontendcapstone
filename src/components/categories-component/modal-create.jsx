@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Label, TextInput, FileInput, HelperText, Select } from "flowbite-react";
+import { Button, Modal, FileInput, HelperText } from "flowbite-react";
 import { IoCloseSharp } from "react-icons/io5";
 
 export const ModalCreateCategories = ({ show, onClose }) => {

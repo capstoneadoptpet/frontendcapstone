@@ -128,17 +128,51 @@ const PetDetail = () => {
     }
 
     return (
+
         <div className="grid grid-rows-1 gap-2 mt-10">
             <div className="flex h-56 sm:h-64 xl:h-80 2xl:h-96 mt-10">
-                {petDetails.data.pictures && petDetails.data.pictures.length > 0 && petDetails.data.pictures.map((pic, index) => (
-                    <img
-                        key={pic}
-                        src={`${apiURL}/${pic}`}
-                        alt={`Pet image ${index + 1}`}
-                        className={`absolute inset-x-[40%] sm:inset-x-[40%] -bottom-25 sm:bottom-30 h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                    />
-                ))}
+                                    {/* {petDetails.data.pictures && petDetails.data.pictures.length > 0 && petDetails.data.pictures.map((pic, index) => (
+                        <img
+                            key={pic}
+                            src={`${apiURL}/${pic}`}
+                            alt={`Pet image ${index + 1}`}
+                            className={`absolute inset-x-[40%] sm:inset-x-[40%] -bottom-25 sm:bottom-30 h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                        />
+                    ))} */}
                 {/* Prev Button */}
+                {/* <button
+                    onClick={goToPrev}
+                    className="absolute sm:top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-md"
+                    aria-label="Previous Slide"
+                >
+                    <FaChevronRight className="rotate-180 text-gray-700" />
+                </button> */}
+                {/* Next Button */}
+                {/* <button
+                    onClick={goToNext}
+                    className="absolute sm:top-1/2 -right-25 sm:right-2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-md"
+                    aria-label="Next Slide"
+                >
+                    <FaChevronRight className="text-gray-700" />
+                </button> */}
+                <Carousel slideInterval={3000}>
+                    {/* <img src={`${apiURL}/${petDetails.data.pictures[0]}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
+                    <img src={`${apiURL}/${petDetails.data.pictures[1]}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
+                    <img src={`${apiURL}/${petDetails.data.pictures[2]}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" /> */}
+                     {/* {petDetails.data.pictures && petDetails.data.pictures.map((pic) => (
+                        <div key={pic}>
+                            <img src={`${apiURL}/${pic}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
+                        </div>
+                    ))} */}
+                    {petDetails.data.pictures && petDetails.data.pictures.length > 0 && petDetails.data.pictures.map((pic, index) => (
+                        <img
+                            key={pic}
+                            src={`${apiURL}/${pic}`}
+                            alt={`Pet image ${index + 1}`}
+                            className={` h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                        />
+                    ))}
+                                    {/* Prev Button */}
                 <button
                     onClick={goToPrev}
                     className="absolute sm:top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-md"
@@ -154,16 +188,7 @@ const PetDetail = () => {
                 >
                     <FaChevronRight className="text-gray-700" />
                 </button>
-                {/* <Carousel slideInterval={3000}>
-                    <img src={`${apiURL}/${petDetails.data.pictures[0]}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
-                    <img src={`${apiURL}/${petDetails.data.pictures[1]}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
-                    <img src={`${apiURL}/${petDetails.data.pictures[2]}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
-                    {/* {petDetails.data.pictures && petDetails.data.pictures.map((pic) => (
-                        <div key={pic}>
-                            <img src={`${apiURL}/${pic}`} alt={`Pet image`} className="h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain w-full" />
-                        </div>
-                    ))}
-                </Carousel> */}
+                </Carousel>
             </div>
             <div className="grid lg:grid-flow-col lg:grid-rows-2 gap-4 p-[2rem]">
                 <div className="lg:col-span-2 md:col-span-1 row-start-1 row-end-3 bg-(--white) rounded-2xl mt-4 p-[4rem]">

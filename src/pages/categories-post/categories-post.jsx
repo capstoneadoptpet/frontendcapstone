@@ -2,6 +2,7 @@ import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow
 import { useEffect, useState } from "react";
 import { ModalCreateCategories, ModalCreateBreeds } from "../../components/categories-component/modal-create";
 import { ModalEditCategories, ModalEditBreeds } from "../../components/categories-component/modal-edit";
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 
 const CategoriesPost = () => {
     const [openCategoriesModal, setOpenCategoriesModal] = useState(false);
@@ -127,21 +128,16 @@ const CategoriesPost = () => {
                                         <TableHeadCell>No</TableHeadCell>
                                         <TableHeadCell>Nama</TableHeadCell>
                                         <TableHeadCell>Gambar</TableHeadCell>
-                                        <TableHeadCell>
-                                            <span className="sr-only">Edit Hapus</span>
-                                        </TableHeadCell>
-                                        <TableHeadCell>
-                                            <span className="sr-only">Hapus</span>
-                                        </TableHeadCell>
+                                        <TableHeadCell>Edit & Hapus</TableHeadCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody className="divide-y">
                                     {categories.map((category, index) => (
                                         <TableRow key={category.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                            <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                            <TableCell className="whitespace-nowrap font-medium text-white">
                                                 {index + 1}
                                             </TableCell>
-                                            <TableCell>{category.name}</TableCell>
+                                            <TableCell className="whitespace-nowrap font-medium text-white">{category.name}</TableCell>
                                             <TableCell>
                                                 {category.icon ? (
                                                     <img src={category.icon} alt={category.name} className="h-10 w-10 object-cover rounded" />
@@ -149,22 +145,21 @@ const CategoriesPost = () => {
                                                     "No Icon"
                                                 )}
                                             </TableCell>
-                                            <TableCell className="">
-                                                <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500" onClick={(e) => { e.preventDefault(); handleEditCategoryClick(category); }}>
-                                                    Edit
-                                                </a>
-                                            </TableCell>
-                                            <TableCell>
-                                                <a
-                                                    href="#"
-                                                    className="delete_categorie font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        deleteCategory(category.id);
-                                                    }}
-                                                >
-                                                    Hapus
-                                                </a>
+                                            <TableCell >
+                                                <div className="flex items-center gap-x-3">
+                                                    <button onClick={(e) => { e.preventDefault(); handleEditCategoryClick(category); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
+                                                        <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                            <FaRegEdit className="mr-2 text-lg" />
+                                                            Edit
+                                                        </span>
+                                                    </button>
+                                                    <button onClick={(e) => {e.preventDefault(); deleteCategory(category.id);}} className="text-white bg-red-700 border border-transparent hover:bg-red-800 focus:ring-4 focus:ring-red-300 disabled:hover:bg-red-800 p-0 font-medium rounded-lg">
+                                                        <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                            <FaTrashAlt className="mr-2 text-lg" />
+                                                            Hapus
+                                                        </span>
+                                                    </button>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -193,36 +188,32 @@ const CategoriesPost = () => {
                                                     <TableHeadCell>No</TableHeadCell>
                                                     <TableHeadCell>Nama</TableHeadCell>
                                                     <TableHeadCell>
-                                                        <span className="sr-only">Edit</span>
-                                                    </TableHeadCell>
-                                                    <TableHeadCell>
-                                                        <span className="sr-only">Hapus</span>
+                                                        Edit & Hapus
                                                     </TableHeadCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody className="divide-y">
                                                 {(breedsByCategory[category.id] || []).map((breed, index) => (
                                                     <TableRow key={breed.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                        <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                        <TableCell className="whitespace-nowrap font-medium text-white">
                                                             {index + 1}
                                                         </TableCell>
-                                                        <TableCell>{breed.name}</TableCell>
+                                                        <TableCell className="whitespace-nowrap font-medium text-white">{breed.name}</TableCell>
                                                         <TableCell>
-                                                            <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500" onClick={(e) => { e.preventDefault(); setSelectedBreed(breed); setOpenEditBreedModal(true); }}>
-                                                                Edit
-                                                            </a>
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            <a
-                                                                href="#"
-                                                                className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    deleteBreed(breed.id);
-                                                                }}
-                                                            >
-                                                                Hapus
-                                                            </a>
+                                                            <div className="flex items-center gap-x-3">
+                                                                <button onClick={(e) => { e.preventDefault(); setSelectedBreed(breed); setOpenEditBreedModal(true); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
+                                                                    <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                                        <FaRegEdit className="mr-2 text-lg" />
+                                                                        Edit
+                                                                    </span>
+                                                                </button>
+                                                                <button onClick={(e) => {e.preventDefault(); deleteBreed(breed.id);}} className="text-white bg-red-700 border border-transparent hover:bg-red-800 focus:ring-4 focus:ring-red-300 disabled:hover:bg-red-800 p-0 font-medium rounded-lg">
+                                                                    <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                                        <FaTrashAlt className="mr-2 text-lg" />
+                                                                        Hapus
+                                                                    </span>
+                                                                </button>
+                                                            </div>
                                                         </TableCell>
                                                     </TableRow>
                                                 ))}

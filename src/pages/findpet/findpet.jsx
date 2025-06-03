@@ -130,8 +130,8 @@ const FindPetPage = () => {
             Gender
             <select className="w-full mt-1 p-2 border rounded-lg" value={gender} onChange={e => { setGender(e.target.value); setCurrentPage(1); }}>
               <option value="">Any</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="Jantan">Jantan</option>
+              <option value="Betina">Betina</option>
             </select>
           </label>
           <label>

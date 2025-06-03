@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ModalTermsPolicy } from '../../components/modal-TP';
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
@@ -12,25 +13,43 @@ const RegisterPage = () => {
     const [kota, setKota] = useState('');
     const [provinsi, setProvinsi] = useState('');
     const [agree, setAgree] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (agree) {
             navigate('/reference', {
-            state: {
-                username,
-                email,
-                password,
-                phone,
-                alamat,
-                kelurahan,
-                kecamatan,
-                kota,
-                provinsi,
-            },
-        });
+                state: {
+                    username,
+                    email,
+                    password,
+                    phone,
+                    alamat,
+                    kelurahan,
+                    kecamatan,
+                    kota,
+                    provinsi,
+                },
+            });
         }
+    };
+
+    const handleOpenModal = (e) => {
+        e.preventDefault();
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleAgree = () => {
+        setLoading(true);
+        setAgree(true);
+        setShowModal(false);
+        setLoading(false);
     };
 
     return (
@@ -147,7 +166,7 @@ const RegisterPage = () => {
                             onChange={(e) => setAgree(e.target.checked)}
                             required
                         />
-                        <span>I accept the <a href="#" className="text-black-500 underline">Terms & Policy</a></span>
+                        <span>I accept the <button onClick={handleOpenModal} className="text-black-500 underline cursor-pointer">Terms & Policy</button></span>
                     </label>
 
                     <button
@@ -158,6 +177,12 @@ const RegisterPage = () => {
                         Continue
                     </button>
                 </div>
+                <ModalTermsPolicy
+                    show={showModal}
+                    onClose={handleCloseModal}
+                    handleSubmit={handleAgree}
+                    loading={loading}
+                />
             </div>
         </div>
     );
