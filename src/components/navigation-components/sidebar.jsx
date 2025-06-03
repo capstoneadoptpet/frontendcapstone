@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
+import getDriveImage from "../getDriveImage";
 import {
   Drawer, DrawerItems,
   Sidebar as FlowSidebar, SidebarItems,
@@ -9,7 +10,6 @@ import {
 import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket  } from "react-icons/fa6";
 
 const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
-  const apiURL = import.meta.env.VITE_API_URL;
   const admin = user.is_admin;
   console.log(isOpen);
 
@@ -139,7 +139,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
               <div className="text-2xl font-bold">{user.username}</div>
             </div>
             <img
-              src={`${apiURL}/${user.picture}`}
+              src={getDriveImage(user.picture)}
               alt={user.username}
               className="w-16 h-16 rounded-full border-4 border-white object-cover"
             />

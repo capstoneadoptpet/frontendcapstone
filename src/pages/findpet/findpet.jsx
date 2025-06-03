@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CardItem from '../../components/pets-components/card-item'
+// import getDriveImageUrl from '../../components/getDriveImage';
 
 const FindPetPage = () => {
   const apiURL = import.meta.env.VITE_API_URL;
@@ -87,10 +88,12 @@ const FindPetPage = () => {
   };
 
   return (
+
     <div className="bg-gray-100 min-h-screen py-8">
       <h2 className="text-3xl font-bold text-center mb-6">Category</h2>
       <div className="flex justify-center gap-4 mb-8">
         {categories.map(cat => (
+          
           <button
             key={cat.id}
             className={`flex flex-col items-center px-6 py-3 rounded-lg border-2 ${category === String(cat.id) ? 'border-blue-500 bg-blue-100' : 'border-gray-300 bg-white'}`}
@@ -104,7 +107,9 @@ const FindPetPage = () => {
             }}
           >
             {cat.icon
-              ? <img src={`${apiURL}/${cat.icon}`} alt={cat.name} className="w-8 h-8 object-contain" />
+              // ? <img src={getDriveImageUrl(cat.icon)} alt={cat.name} className="w-10 h-10 border-0 object-contain" />
+              ? <img src={`${apiURL}/${cat.icon}`} alt={cat.name} className="w-10 h-10 border-0 object-contain" />
+              // : <span className="text-3xl">🐾</span>
               : <span className="text-3xl">🐾</span>
             }
             {cat.name}

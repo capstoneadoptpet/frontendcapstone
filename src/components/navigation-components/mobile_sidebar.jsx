@@ -6,10 +6,9 @@ import {
   Sidebar as FlowSidebar, SidebarItems,
   SidebarItemGroup, SidebarItem,
 } from "flowbite-react";
-import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket  } from "react-icons/fa6";
+import getDriveImage from "../getDriveImage";
 
 const Mobile_Sidebar = ({ user, onClose,isOpen }) => {
-  const apiURL = import.meta.env.VITE_API_URL;
 
   return (
     <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 fixedz h-screen">
@@ -27,7 +26,7 @@ const Mobile_Sidebar = ({ user, onClose,isOpen }) => {
               <div className="text-2xl font-bold">{user.username}</div>
             </div>
             <img
-              src={`${apiURL}/${user.picture}`}
+              src={getDriveImage(user.picture)}
               alt={user.username}
               className="w-16 h-16 rounded-full border-4 border-white object-cover"
             />

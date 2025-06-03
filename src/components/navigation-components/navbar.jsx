@@ -4,6 +4,7 @@ import logo from '../../assets/img/logo.png';
 import Sidebar from './sidebar';
 import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars  } from 'react-icons/fa6';
+import getDriveImage from '../getDriveImage';
 
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
@@ -85,7 +86,7 @@ const Navbar = () => {
                   >
                     {user && user.picture && (
                       <img
-                        src={`${apiURL}/${user.picture}`}
+                        src={getDriveImage(user.picture)}
                         alt="Profile"
                         className="w-8 h-8 rounded-full mr-2 border object-cover"
                       />
@@ -179,7 +180,7 @@ const Navbar = () => {
                       >
                         {user && user.picture && (
                           <img
-                            src={`${apiURL}/${user.picture}`}
+                            src={getDriveImage(user.picture)}
                             alt="Profile"
                             className="w-8 h-8 rounded-full mr-2 border object-cover"
                           />
