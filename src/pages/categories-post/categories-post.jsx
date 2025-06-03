@@ -140,7 +140,7 @@ const CategoriesPost = () => {
                                             <TableCell className="whitespace-nowrap font-medium text-white">{category.name}</TableCell>
                                             <TableCell>
                                                 {category.icon ? (
-                                                    <img src={category.icon} alt={category.name} className="h-10 w-10 object-cover rounded" />
+                                                    <img src={`${apiURL}/${category.icon}`} alt={category.name} className="h-10 w-10 object-cover rounded" />
                                                 ) : (
                                                     "No Icon"
                                                 )}
