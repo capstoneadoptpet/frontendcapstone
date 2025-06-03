@@ -6,6 +6,7 @@ import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars } from 'react-icons/fa6';
 import getDriveImage from '../getDriveImage';
 
+
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
   const location = useLocation();
@@ -30,7 +31,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 550);
+      setIsMobile(window.innerWidth < 768);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -74,7 +75,86 @@ const Navbar = () => {
                 </span>
               </Link>
             </div>
-            <div className="flex space-x-12">
+              <div className="flex space-x-12">
+                <li>
+                  <button
+                    type="button"
+                    className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${location.pathname === '/profile' ? 'underline' : ''}`}
+                    onClick={() => setShowSidebar(true)}
+                  >
+                    {user && user.picture && (
+                      <img
+                        src={getDriveImageUrl(user.picture)}
+                        alt="Profile"
+                        className="w-8 h-8 rounded-full mr-2 border object-cover"
+                      />
+                    )}
+                    Profile
+                  </button>
+                </li>
+                <li className="flex items-center">
+                  <button
+                    type="button"
+                    className='flex items-center'
+                    onClick={() => setShowMobileSidebar(true)}
+                  >
+                      <FaBars className="text-3xl"/>
+                    </button>
+                  </li>
+                </div>
+              </ul>
+            ) : (
+              <>
+                <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
+                  <div className="flex items-center">
+                    <Link>
+                      <span className='text-2xl font-extrabold'>
+                        <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
+                        Adopt House
+                      </span>
+                    </Link>
+                  </div>
+                  <div className="flex space-x-4">
+                    <li>
+                      <Link
+                        to="/register"
+                        className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
+                        Sign Up
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/login"
+                        className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
+                        Sign In
+                      </Link>
+                    </li>
+                  </div>
+                </ul>
+              </>
+            )}
+          </nav>
+          {user && showSidebar && (
+            <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
+          )}
+          {user && showMobileSidebar && (
+            <Mobile_Sidebar user={user} onClose={() => setShowMobileSidebar(false)} isOpen={showMobileSidebar} />      
+          )}
+        </>
+      )
+    } else {
+      return (
+        <>
+          <nav className="bg-(--navy)  text-(--white)">
+            <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
+              <div className="flex items-center">
+                <Link to="/">
+                  <span className='text-2xl font-extrabold'>
+                    <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
+                    Adopt House
+                  </span>
+                </Link>
+              </div>
               {token ? (
                 <>
                   <li>
@@ -85,7 +165,7 @@ const Navbar = () => {
                     >
                       {user && user.picture && (
                         <img
-                          src={getDriveImage(user.picture)}
+                          src={getDriveImageUrl(user.picture)}
                           alt="Profile"
                           className="w-8 h-8 rounded-full mr-2 border object-cover"
                         />
