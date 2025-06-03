@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import ProfBG from '../../assets/img/ProfBG.png';
+import getDriveImage from '../getDriveImage';
 
 const HeroSection = ({ user, isEditing, setUser }) => {
     const fileInputRef = useRef(null);
