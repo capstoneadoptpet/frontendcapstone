@@ -167,7 +167,7 @@ const PetDetail = () => {
                     {petDetails.data.pictures && petDetails.data.pictures.length > 0 && petDetails.data.pictures.map((pic, index) => (
                         <img
                             key={pic}
-                            src={`${apiURL}/${pic}`}
+                            src={pic}
                             alt={`Pet image ${index + 1}`}
                             className={` h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                         />

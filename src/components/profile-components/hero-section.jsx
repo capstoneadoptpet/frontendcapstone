@@ -58,7 +58,7 @@ const HeroSection = ({ user, isEditing, setUser }) => {
                 {isEditing ? (
                     <>
                         <img
-                            src={`${apiURL}/${user.picture}`}
+                            src={user.picture}
                             alt="Profile"
                             className="w-36 h-36 rounded-full border-4 p-1 border-green-400 shadow-lg cursor-pointer object-cover"
                             onClick={handleImageClick}
@@ -73,7 +73,7 @@ const HeroSection = ({ user, isEditing, setUser }) => {
                     </>
                 ) : (
                     <img
-                        src={`${apiURL}/${user.picture}`}
+                        src={user.picture}
                         alt="Profile"
                         className="w-36 h-36 rounded-full p-2 shadow-lg object-cover"
                     />
