@@ -95,7 +95,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
               <SidebarItem
                 as={Link}
-                to="/admin/categories"
+                to="/admin/categories-post"
                 onClick={onClose}
                 className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/categories' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
               >

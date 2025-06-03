@@ -11,7 +11,7 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false); 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const apiURL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const Navbar = () => {
           <nav className="bg-(--navy)  text-(--white)">
             <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
               <div className="flex items-center">
-                <Link to="/" className="hover:underline">
+                <Link to="/">
                   <span className='text-2xl font-extrabold'>
                     <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
                     Adopt House
@@ -160,14 +160,14 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/"
-                      className={`text-2xl underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
+                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
                       Beranda
                     </Link>
                   </li>
                   <li>
                     <Link
                       to="/findpet"
-                      className={`text-2xl underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
+                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
                       Temukan Hewan
                     </Link>
                   </li>
@@ -193,14 +193,14 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/register"
-                      className={`text-2xl underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
+                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
                       Sign Up
                     </Link>
                   </li>
                   <li>
                     <Link
                       to="/login"
-                      className={`text-2xl underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
+                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
                       Sign In
                     </Link>
                   </li>
