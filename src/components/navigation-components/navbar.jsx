@@ -4,6 +4,7 @@ import logo from '../../assets/img/logo.png';
 import Sidebar from './sidebar';
 import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars } from 'react-icons/fa6';
+import getDriveImageUrl from '../getDriveImage'; // Make sure this is the correct path
 
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
@@ -25,11 +26,11 @@ const Navbar = () => {
         .then(data => setUser(data))
         .catch(() => setUser(null));
     }
-  }, [token]);
+  }, [token, apiURL]);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 550);
+      setIsMobile(window.innerWidth < 768);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -84,7 +85,7 @@ const Navbar = () => {
                     >
                       {user && user.picture && (
                         <img
-                          src={user.picture}
+                          src={getDriveImageUrl(user.picture)}
                           alt="Profile"
                           className="w-8 h-8 rounded-full mr-2 border object-cover"
                         />
@@ -171,7 +172,7 @@ const Navbar = () => {
                   >
                     {user && user.picture && (
                       <img
-                        src={user.picture}
+                        src={getDriveImageUrl(user.picture)}
                         alt="Profile"
                         className="w-8 h-8 rounded-full mr-2 border object-cover"
                       />
