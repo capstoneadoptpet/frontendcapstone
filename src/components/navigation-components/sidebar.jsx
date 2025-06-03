@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
-import getDriveImage from "../getDriveImage";
+import getDriveImageUrl from "../getDriveImage";
 import {
   Drawer, DrawerItems,
   Sidebar as FlowSidebar, SidebarItems,
@@ -139,7 +139,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
               <div className="text-2xl font-bold">{user.username}</div>
             </div>
             <img
-              src={getDriveImage(user.picture)}
+              src={getDriveImageUrl(user.picture)}
               alt={user.username}
               className="w-16 h-16 rounded-full border-4 border-white object-cover"
             />

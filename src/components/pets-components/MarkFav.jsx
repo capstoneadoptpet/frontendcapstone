@@ -88,7 +88,7 @@ const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
     }
 
     return (
-        <div>
+        <div className="flex items-center ">
             <button
                 type="button"
                 onClick={isFavorited ? handleUnfavorite : handleFavorite}
