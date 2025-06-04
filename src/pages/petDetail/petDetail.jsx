@@ -32,7 +32,6 @@ const PetDetail = () => {
                     console.log("Fetched pet details:", data);
                     setPetDetails(data);
                     console.log("gambar ", data.data.pictures)
-
                 } catch (err) {
                     setError(err.message);
                 } finally {
@@ -134,7 +133,7 @@ const PetDetail = () => {
                     {petDetails.data.pictures && petDetails.data.pictures.length > 0 && petDetails.data.pictures.map((pic, index) => (
                         <img
                             key={pic}
-                            src={`${apiURL}/${pic}`}
+                            src={pic}
                             alt={`Pet image ${index + 1}`}
                             className={` h-56 sm:h-64 xl:h-80 2xl:h-96 object-contain transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                         />
@@ -183,7 +182,7 @@ const PetDetail = () => {
                         <div className="flex gap-2 my-4">
                             {petDetails.data.user?.picture && (
                                 <img
-                                    src={`${apiURL}/${petDetails.data.user.picture}`}
+                                    src={`${petDetails.data.user.picture}`}
                                     alt={petDetails.data.user.username}
                                     className="w-10 h-10 rounded-full mr-3 object-cover"
                                 />

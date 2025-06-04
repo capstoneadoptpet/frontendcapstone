@@ -51,20 +51,8 @@ const EditPost = () => {
                     setBerat(detail.data.weight || '');
                     setAnimalGender(detail.data.gender || '');
                     setAboutPet(detail.data.about_pet || '');
+                    setPictures(detail.data.pictures.map(pic => pic) || [null, null, null]);
 
-                    // setEmail(data.user?.email || '');
-                    // setPhone(data.user?.phone || '');
-                    // setAlamat(data.user?.address || '');
-                    // setKelurahan(data.user?.kelurahan || '');
-                    // setKecamatan(data.user?.kecamatan || '');
-                    // setKota(data.user?.kota || '');
-                    // setProvinsi(data.provinsi || '');
-                    // setAlamatBerbeda(
-                    //     data.user?.email !== data.user?.email ||
-                    //     data.user?.phone !== data.user?.phone ||
-                    //     data.user?.address !== data.user?.address
-                    // );
-                    // Pictures handling can be added if API provides URLs
                 } else {
                     console.error('Failed to fetch pet data');
                 }
@@ -77,32 +65,6 @@ const EditPost = () => {
             fetchPetData();
         }
     }, [pet_id, apiURL]);
-
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         const token = localStorage.getItem('auth_token');
-    //         try {
-    //             const response = await fetch(`${apiURL}/users/profile`, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${token}`,
-    //                 },
-    //             });
-
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setUser(data);
-    //             } else {
-    //                 console.error('Failed to fetch user data');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error:', error);
-    //         }
-    //     };
-
-    //     fetchUser();
-    // }, []);
 
     useEffect(() => {
         fetch(`${apiURL}/pet-categories`)
@@ -124,10 +86,42 @@ const EditPost = () => {
         }
     }, [animal_type, apiURL]);
 
-    const handlePictureChange = (idx, file) => {
+    const handlePictureChange =  async (idx, file) => {
         const newPics = [...pictures];
         newPics[idx] = file;
-        setPictures(newPics);
+        const selectedCategory = categories.find(cat => String(cat.id) === String(animal_type));
+        const animalTypeName = selectedCategory ? selectedCategory.name : '';
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('animal_class', animalTypeName);
+
+
+            try {
+            const response = await fetch(`${apiURL}/classification`, {
+                method: 'POST',
+                body: formData,
+            });
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Classification result:', result.data);
+                if (result.data.is_match === true){
+                console.log('Classification Success:', result.message);
+                setPictures(newPics);
+                }
+                else{
+                alert('The image does not match the selected animal type.');
+                console.log('Classification Failed: The image does not match the selected animal type.');
+                }
+                // Optionally, set state for classification result here
+            } else {
+                console.error('Failed to classify image');
+            }
+            } catch (error) {
+            console.error('Error classifying image:', error);
+            }
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -157,15 +151,8 @@ const EditPost = () => {
                 formData.append('pictures[]', pic);
             }
         });
-        // formData.append('user_id', user.user_id);
-        // formData.append('email', email);
-        // formData.append('phone', phone);
-        // formData.append('address', alamat);
-        // formData.append('kelurahan', kelurahan);
-        // formData.append('kecamatan', kecamatan);
-        // formData.append('kota', kota);
-        // formData.append('provinsi', provinsi);
         console.log("data", formData.pet_name)
+        console.log(pictures);
         try {
             const response = await fetch(`${apiURL}/pet/${pet_id}`, {
                 method: 'POST',
@@ -374,7 +361,11 @@ const EditPost = () => {
                                 >
                                     {pictures[idx] ? (
                                         <img
-                                            src={URL.createObjectURL(pictures[idx])}
+                                            src={
+                                                pictures[idx] instanceof File || pictures[idx] instanceof Blob
+                                                    ? URL.createObjectURL(pictures[idx])
+                                                    : pictures[idx]
+                                            }
                                             alt={`Pet ${idx + 1}`}
                                             className="w-full h-full object-cover rounded"
                                         />

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import ProfBG from '../../assets/img/ProfBG.png';
-import getDriveImageUrl from '../getDriveImage';
 import Swal from 'sweetalert2';
+
 
 const HeroSection = ({ user, isEditing, setUser }) => {
     const fileInputRef = useRef(null);

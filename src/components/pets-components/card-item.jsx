@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import MarkFav from "./MarkFav";
-import getDriveImageUrl from '../../components/getDriveImage';
 
 
 const CardItem = ({ pet, apiURL, favorites, updateFavorites }) => {
