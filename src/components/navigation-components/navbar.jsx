@@ -5,7 +5,6 @@ import Sidebar from './sidebar';
 import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars  } from 'react-icons/fa6';
 
-
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
   const location = useLocation();
@@ -26,7 +25,7 @@ const Navbar = () => {
         .then(data => setUser(data))
         .catch(() => setUser(null));
     }
-  }, [token, apiURL]);
+  }, [token]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -120,14 +119,14 @@ const Navbar = () => {
                       <Link
                         to="/register"
                         className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
-                        Sign Up
+                        Daftar
                       </Link>
                     </li>
                     <li>
                       <Link
                         to="/login"
                         className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
-                        Sign In
+                        Masuk
                       </Link>
                     </li>
                   </div>
@@ -195,14 +194,14 @@ const Navbar = () => {
                     <Link
                       to="/register"
                       className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
-                      Sign Up
+                      Daftar
                     </Link>
                   </li>
                   <li>
                     <Link
                       to="/login"
                       className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
-                      Sign In
+                      Masuk
                     </Link>
                   </li>
                 </div>
@@ -216,82 +215,6 @@ const Navbar = () => {
       );
     }
   }
-  // Desktop Navbar (non-admin)
-  return (
-    <>
-      <nav className="bg-(--navy) text-(--white)">
-        <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
-          <div className="flex items-center">
-            <Link to="/" className="hover:underline">
-              <span className='text-2xl font-extrabold'>
-                <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
-                Adopt House
-              </span>
-            </Link>
-          </div>
-          <div className="flex space-x-4">
-            {token ? (
-              <>
-                <li>
-                  <Link
-                    to="/"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
-                    Beranda
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/findpet"
-                    className={`text-2xl underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
-                    Temukan Hewan
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${location.pathname === '/profile' ? 'underline' : ''}`}
-                    onClick={() => setShowSidebar(true)}
-                  >
-                    {user && user.picture && (
-                      <img
-                        src={getDriveImageUrl(user.picture)}
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full mr-2 border object-cover"
-                      />
-                    )}
-                    Profile
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    to="/register"
-                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
-                    Sign Up
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/login"
-                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
-                    Sign In
-                  </Link>
-                </li>
-              </>
-            )}
-          </div>
-        </ul>
-      </nav>
-      {user && showSidebar && (
-        <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
-      )}
-      {user && showMobileSidebar && (
-        <Mobile_Sidebar user={user} onClose={() => setShowMobileSidebar(false)} isOpen={showMobileSidebar} />
-      )}
-    </>
-  );
 };
 
 export default Navbar;

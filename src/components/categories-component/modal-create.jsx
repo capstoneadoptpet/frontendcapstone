@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, FileInput, HelperText } from "flowbite-react";
 import { IoCloseSharp } from "react-icons/io5";
+import Swal from 'sweetalert2';
 
 export const ModalCreateCategories = ({ show, onClose }) => {
     const [name, setName] = useState("");
@@ -29,11 +30,24 @@ export const ModalCreateCategories = ({ show, onClose }) => {
             });
 
             if (response.ok) {
-                alert('Category created successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Kategori baru berhasil ditambahkan',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 // Refresh or update categories list if needed
             } else {
                 const errorData = await response.json();
                 alert(errorData.message || 'Failed to create category');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorData.message || 'Gagal menambahkan kategori',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
 
             setName("");
@@ -140,12 +154,18 @@ export const ModalCreateBreeds = ({ show, onClose }) => {
             });
 
             if (response.ok) {
-                alert("Breed created successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Jenis baru berhasil ditambahkan',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 setName("");
                 setSelectedCategory("");
                 onClose();
             } else {
-                let errorMessage = "Failed to create breed";
+                let errorMessage = "Gagal menambahkan kategori";
                 try {
                     const errorData = await response.json();
                     errorMessage = errorData.message || errorMessage;
@@ -154,7 +174,13 @@ export const ModalCreateBreeds = ({ show, onClose }) => {
                     console.error("Non-JSON error response:", text);
                     errorMessage = text;
                 }
-                alert(errorMessage);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMessage || 'Gagal menambahkan jenis baru',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
         } catch (err) {
             console.error(err);

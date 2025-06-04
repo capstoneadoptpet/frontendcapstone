@@ -7,6 +7,7 @@ import {
   SidebarItemGroup, SidebarItem,
 } from "flowbite-react";
 import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket  } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   const admin = user.is_admin;
@@ -19,12 +20,20 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 }
 
   const handleLogout = () => {
-    const result = window.confirm("Anda yakin ingin logout?");
-    if (result) {
-      alert("Anda telah logout");
-      localStorage.removeItem("auth_token");
-      window.location.href = "/login";
-    }
+    Swal.fire({
+      title: "Anda yakin ingin logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, logout!",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("auth_token");
+        window.location.href = "/login";
+      }
+    });
   };
 
   if (admin && !isOpen) {
@@ -96,7 +105,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
                 as={Link}
                 to="/admin/categories-post"
                 onClick={onClose}
-                className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/categories' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
+                className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/categories-post' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
               >
               <div className="flex items-center gap-4 py-4 px-0">
                 <FaLinesLeaning className="text-2xl" />

@@ -103,7 +103,13 @@ const handlePictureChange = async (idx, file) => {
           setPictures(newPics);
         }
         else{
-          alert('The image does not match the selected animal type.');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Gambar tidak selaras dengan jenis hewan yang dipilih.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
           console.log('Classification Failed: The image does not match the selected animal type.');
         }
         // Optionally, set state for classification result here
@@ -174,7 +180,7 @@ const handlePictureChange = async (idx, file) => {
           Swal.fire({
             icon: 'success',
             title: 'Success',
-            text: 'Post created successfully!',
+            text: 'Postingan berhasil dibuat',
             timer: 2000,
             showConfirmButton: false,
           });
@@ -184,7 +190,7 @@ const handlePictureChange = async (idx, file) => {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: errorData.message || 'Failed to create post',
+            text: errorData.message || 'Gagal membuat postingan',
             timer: 2000,
             showConfirmButton: false,
           });
@@ -194,7 +200,7 @@ const handlePictureChange = async (idx, file) => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'An error occurred while creating the post.',
+          text: 'Terjadi kealahan dalam membuat postingan.',
           timer: 2000,
           showConfirmButton: false,
         });

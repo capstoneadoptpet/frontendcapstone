@@ -11,6 +11,7 @@ import ReferencePage from './pages/register/reference';
 import PostPage from './pages/post/post';
 import EditPost from './pages/post/editPost';
 import ProfilePage from './pages/profile/profile';
+import ProfileDetailPage from './pages/profile/profileDetail';
 import FindPetPage from './pages/findpet/findpet';
 import MyPosts from './pages/post/myposts';
 import PetDetail from './pages/petDetail/petDetail';
@@ -40,6 +41,7 @@ function Content() {
         <Route path="/post" element={<PostPage />} />
         <Route path="/edit-post/:pet_id" element={<EditPost />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile-detail/:id" element={<ProfileDetailPage />} />
         <Route path="/findpet" element={<FindPetPage />} />
         <Route path="/my-posts" element={<MyPosts />} />
         <Route path='/pet-detail/:id' element={<PetDetail />} />

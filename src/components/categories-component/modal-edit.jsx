@@ -36,11 +36,22 @@ export const ModalEditCategories = ({ show, onClose, categoryId, initialData }) 
             });
 
             if (response.ok) {
-                alert('Category updated successfully!');
-                // Refresh or update categories list if needed
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Kategori berhasil diperbarui',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             } else {
                 const errorData = await response.json();
-                alert(errorData.message || 'Failed to update category');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorData.message || 'Gagal memperbarui kategori',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
 
             setName("");
@@ -156,11 +167,18 @@ export const ModalEditBreeds = ({ show, onClose, breedId, initialData }) => {
 
             if (response.ok) {
                 alert("Breed updated successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Jenis berhasil diperbarui',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 setName("");
                 setSelectedCategory("");
                 onClose();
             } else {
-                let errorMessage = "Failed to update breed";
+                let errorMessage = "Gagal memperbarui jenis";
                 try {
                     const errorData = await response.json();
                     errorMessage = errorData.message || errorMessage;
@@ -170,6 +188,13 @@ export const ModalEditBreeds = ({ show, onClose, breedId, initialData }) => {
                     errorMessage = text;
                 }
                 alert(errorMessage);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorData.message || 'Gagal memperbarui jenis',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
         } catch (err) {
             console.error(err);
