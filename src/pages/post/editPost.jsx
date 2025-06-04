@@ -140,8 +140,10 @@ const EditPost = () => {
         formData.append('gender', animal_gender);
         formData.append('about_pet', about_pet);
         pictures.forEach((pic) => {
-            if (pic) {
-                formData.append('pictures[]', pic);
+            if (pic instanceof File || pic instanceof Blob) {
+                formData.append('pictures[]', pic); 
+            } else if (typeof pic === 'string' && pic.startsWith('http')) {
+                formData.append('existing_pictures[]', pic);
             }
         });
         console.log("data", formData.pet_name)
