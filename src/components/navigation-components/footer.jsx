@@ -7,8 +7,8 @@ const Footer = () => {
   const authFooter = location.pathname === '/login' || location.pathname === '/register';
 
   if (!authFooter) return (
-    <footer className="bg-white text-black py-16 px-10">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
+    <footer className="bg-white text-black py-16 px-10 overflow-x-hidden w-full">
+      <div className="mx-auto flex flex-col md:flex-row justify-between gap-12">
         <div>
           <div className="flex items-center mb-6">
             <img src={logo} alt="Logo" className="h-16 w-16 mr-2" />
@@ -61,7 +61,7 @@ const Footer = () => {
   );
 
   return (
-    <footer className="bg-white text-(--black)">
+    <footer className="bg-white text-(--black) overflow-x-hidden w-full">
       <div className="border-t-2 mx-10"></div>
       <div className="flex justify-between items-center px-10 py-20 ">
         <div className="flex items-center">

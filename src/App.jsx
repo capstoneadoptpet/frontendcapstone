@@ -30,7 +30,7 @@ function Content() {
   return (
     <>
       <Navbar />
-        <ThemeConfig dark={false} />
+      <ThemeConfig dark={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />

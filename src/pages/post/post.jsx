@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ModalTermsPost } from '../../components/modal-TP';
+import Swal from 'sweetalert2';
 
 const PostPage = () => {
   const [user, setUser] = useState({});
@@ -161,26 +162,44 @@ const handlePictureChange = async (idx, file) => {
     formData.append('kota', kota);
     formData.append('provinsi', provinsi);
     const token = localStorage.getItem('auth_token');
-    try {
-      const response = await fetch(`${apiURL}/posts/create`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-      if (response.ok) {
-        alert('Post created successfully!');
-        navigate('/');
-      } else {
-        const errorData = await response.json();
-        alert(errorData.message || 'Failed to create post');
+      try {
+        const response = await fetch(`${apiURL}/posts/create`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Post created successfully!',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          navigate('/');
+        } else {
+          const errorData = await response.json();
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorData.message || 'Failed to create post',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        }
       }
-    }
-    catch (error) {
-      alert('An error occurred while creating the post.');
-      console.error(error);
-    }
+      catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred while creating the post.',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        console.error(error);
+      }
   }
 
   const handleOpenModal = (e) => {

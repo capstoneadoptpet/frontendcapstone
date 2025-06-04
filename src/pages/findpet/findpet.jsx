@@ -88,102 +88,101 @@ const FindPetPage = () => {
   };
 
   return (
-
-    <div className="bg-gray-100 min-h-screen py-8">
-      <h2 className="text-3xl font-bold text-center mb-6">Category</h2>
-      <div className="flex justify-center gap-4 mb-8">
-        {categories.map(cat => (
-          
-          <button
-            key={cat.id}
-            className={`flex flex-col items-center px-6 py-3 rounded-lg border-2 ${category === String(cat.id) ? 'border-blue-500 bg-blue-100' : 'border-gray-300 bg-white'}`}
-            onClick={() => {
-              if (category === String(cat.id)) {
-                setCategory('');
-              } else {
-                setCategory(String(cat.id));
+      <div className="bg-gray-100 min-h-screen py-8 max-sm:w-full">
+        <h2 className="text-3xl font-bold text-center mb-6">Category</h2>
+        <div className="flex justify-center gap-4 mb-8">
+          {categories.map(cat => (
+            
+            <button
+              key={cat.id}
+              className={`flex flex-col items-center px-6 py-3 rounded-lg border-2 ${category === String(cat.id) ? 'border-blue-500 bg-blue-100' : 'border-gray-300 bg-white'}`}
+              onClick={() => {
+                if (category === String(cat.id)) {
+                  setCategory('');
+                } else {
+                  setCategory(String(cat.id));
+                }
+                setCurrentPage(1);
+              }}
+            >
+              {cat.icon
+                // ? <img src={getDriveImageUrl(cat.icon)} alt={cat.name} className="w-10 h-10 border-0 object-contain" />
+                ? <img src={`${apiURL}/${cat.icon}`} alt={cat.name} className="w-10 h-10 border-0 object-contain" />
+                // : <span className="text-3xl">🐾</span>
+                : <span className="text-3xl">🐾</span>
               }
-              setCurrentPage(1);
-            }}
-          >
-            {cat.icon
-              // ? <img src={getDriveImageUrl(cat.icon)} alt={cat.name} className="w-10 h-10 border-0 object-contain" />
-              ? <img src={`${apiURL}/${cat.icon}`} alt={cat.name} className="w-10 h-10 border-0 object-contain" />
-              // : <span className="text-3xl">🐾</span>
-              : <span className="text-3xl">🐾</span>
-            }
-            {cat.name}
-          </button>
-        ))}
-      </div>
-      <div className="flex gap-8 max-w-7xl mx-auto">
-        {/* Filter Sidebar */}
-        <div className="w-64 p-6 flex flex-col gap-4">
-          <label>
-            Breed
-            <select className="w-full mt-1 p-2 border rounded-lg" value={breed} onChange={e => { setBreed(e.target.value); setCurrentPage(1); }}>
-              <option value="">Any</option>
-              {breeds.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
-            </select>
-          </label>
-          <label>
-            Gender
-            <select className="w-full mt-1 p-2 border rounded-lg" value={gender} onChange={e => { setGender(e.target.value); setCurrentPage(1); }}>
-              <option value="">Any</option>
-              <option value="Jantan">Jantan</option>
-              <option value="Betina">Betina</option>
-            </select>
-          </label>
-          <label>
-            Age
-            <select className="w-full mt-1 p-2 border rounded-lg" value={age} onChange={e => { setAge(e.target.value); setCurrentPage(1); }}>
-              <option value="">Any</option>
-              {ages.map(a => <option key={a.id} value={a.id}>{a.category}</option>)}
-            </select>
-          </label>
-          <label>
-            Kota
-            <select className="w-full mt-1 p-2 border rounded-lg" value={kota} onChange={e => { setKota(e.target.value); setCurrentPage(1); }}>
-              {kotas.map(k => <option key={k}>{k}</option>)}
-            </select>
-          </label>
-        </div>
-        {/* Pet Cards Grid */}
-        <div className="flex-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {paginatedPets.map((pet, idx) => (
-              <CardItem key={pet.id || idx} pet={pet} apiURL={apiURL} favorites={favorites} />
-            ))}
-          </div>
-          {/* Pagination Controls */}
-          <div className="flex justify-center mt-8 gap-2">
-            <button
-              className="px-3 py-1 rounded border bg-white cursor-pointer hover:border-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:border"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              &lt; Previous
+              {cat.name}
             </button>
-            {[...Array(totalPages)].map((_, i) => (
+          ))}
+        </div>
+        <div className="flex gap-8 max-w-7xl mx-auto">
+          {/* Filter Sidebar */}
+          <div className="w-64 p-6 flex flex-col gap-4">
+            <label>
+              Breed
+              <select className="w-full mt-1 p-2 border rounded-lg" value={breed} onChange={e => { setBreed(e.target.value); setCurrentPage(1); }}>
+                <option value="">Any</option>
+                {breeds.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+              </select>
+            </label>
+            <label>
+              Gender
+              <select className="w-full mt-1 p-2 border rounded-lg" value={gender} onChange={e => { setGender(e.target.value); setCurrentPage(1); }}>
+                <option value="">Any</option>
+                <option value="Jantan">Jantan</option>
+                <option value="Betina">Betina</option>
+              </select>
+            </label>
+            <label>
+              Age
+              <select className="w-full mt-1 p-2 border rounded-lg" value={age} onChange={e => { setAge(e.target.value); setCurrentPage(1); }}>
+                <option value="">Any</option>
+                {ages.map(a => <option key={a.id} value={a.id}>{a.category}</option>)}
+              </select>
+            </label>
+            <label>
+              Kota
+              <select className="w-full mt-1 p-2 border rounded-lg" value={kota} onChange={e => { setKota(e.target.value); setCurrentPage(1); }}>
+                {kotas.map(k => <option key={k}>{k}</option>)}
+              </select>
+            </label>
+          </div>
+          {/* Pet Cards Grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {paginatedPets.map((pet, idx) => (
+                <CardItem key={pet.id || idx} pet={pet} apiURL={apiURL} favorites={favorites} />
+              ))}
+            </div>
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-8 gap-2">
               <button
-                key={i + 1}
-                className={`px-3 py-1 rounded border cursor-pointer hover:border-2 ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-white'}`}
-                onClick={() => handlePageChange(i + 1)}
+                className="px-3 py-1 rounded border bg-white cursor-pointer hover:border-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:border"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
               >
-                {i + 1}
+                &lt; Previous
               </button>
-            ))}
-            <button
-              className="px-3 py-1 rounded border bg-white cursor-pointer hover:border-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:border"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next &gt;
-            </button>
+              {[...Array(totalPages)].map((_, i) => (
+                <button
+                  key={i + 1}
+                  className={`px-3 py-1 rounded border cursor-pointer hover:border-2 ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-white'}`}
+                  onClick={() => handlePageChange(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                className="px-3 py-1 rounded border bg-white cursor-pointer hover:border-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:border"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next &gt;
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
