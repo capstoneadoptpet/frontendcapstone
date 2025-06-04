@@ -31,7 +31,7 @@ const PetDetail = () => {
                     }
                     console.log("Fetched pet details:", data);
                     setPetDetails(data);
-                    console.log(data.pictures)
+                    console.log(data.data.pictures)
 
                 } catch (err) {
                     setError(err.message);
@@ -217,7 +217,7 @@ const PetDetail = () => {
                         <div className="grid grid-cols-2 gap-2 my-[1rem]">
                             {petDetails.data.user?.picture && (
                                 <img
-                                    src={`${apiURL}/${petDetails.data.user.picture}`}
+                                    src={`${petDetails.data.user.picture}`}
                                     alt={petDetails.data.user.username}
                                     className="w-10 h-10 rounded-full mr-3 object-cover"
                                 />
