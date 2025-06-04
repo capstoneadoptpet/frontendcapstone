@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
-import getDriveImageUrl from "../getDriveImage";
 import {
   Drawer, DrawerItems,
   Sidebar as FlowSidebar, SidebarItems,
@@ -124,7 +123,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
   // --- USER DRAWER ---
   return (
-    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0">
+    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 h-full w-fit">
       <div className="bg-(--navy) text-(--white) p-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-12 w-12" />
@@ -139,7 +138,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
               <div className="text-2xl font-bold">{user.username}</div>
             </div>
             <img
-              src={getDriveImageUrl(user.picture)}
+              src={user.picture}
               alt={user.username}
               className="w-16 h-16 rounded-full border-4 border-white object-cover"
             />

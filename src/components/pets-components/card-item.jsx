@@ -18,7 +18,7 @@ const CardItem = ({ pet, apiURL, favorites, updateFavorites }) => {
     return (
         <div onClick={handleClick} className="relative bg-white rounded-xl border border-gray-400 shadow w-48 overflow-hidden flex flex-col items-center cursor-pointer hover:border-2 hover:border-[var(--black)]">
             <img
-                src={pet.pictures && pet.pictures.length > 0 ? getDriveImageUrl(pet.pictures[0]) : "/placeholder.png"}
+                src={pet.pictures && pet.pictures.length > 0 ? pet.pictures[0] : "/placeholder.png"}
                 alt={pet.pet_name || "Pet Image"}
                 className="w-full h-40 object-cover rounded-t-xl"
             />

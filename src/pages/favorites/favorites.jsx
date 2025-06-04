@@ -42,16 +42,16 @@ const Favorites = () => {
                     throw new Error(`Failed to fetch pets: ${petsResponse.status} ${text}`);
                 }
                 const petsData = await petsResponse.json();
-                console.log('Fetched all pets:', petsData);
+                // console.log('Fetched all pets:', petsData);
 
                 const favoriteIds = favData.favorites || [];
-                console.log('Favorite IDs:', favoriteIds);
+                // console.log('Favorite IDs:', favoriteIds);
                 const petsList = petsData.data || [];
-                console.log('Pets List:', petsList);
+                // console.log('Pets List:', petsList);
 
                 // Filter pets to only favorites
                 const favoritePets = petsList.filter(pet => favoriteIds.includes(pet.id));
-                console.log('Filtered Favorite Pets:', favoritePets);
+                // console.log('Filtered Favorite Pets:', favoritePets);
 
                 setFavorites(favoritePets);
             } catch (err) {

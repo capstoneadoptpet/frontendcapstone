@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardItem from '../../components/pets-components/card-item';
 import { Spinner } from "flowbite-react";
+import Swal from 'sweetalert2';
 
 const MyPosts = () => {
   const apiURL = import.meta.env.VITE_API_URL;
@@ -88,22 +89,47 @@ const MyPosts = () => {
   };
 
   const handleDelete = async (petId) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) {
+    const result = await Swal.fire({
+      title: 'Apa Anda yakin ingin menghapus postingan ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, hapus',
+      cancelButtonText: 'Tidak',
+    });
+
+    if (!result.isConfirmed) {
       return;
     }
+
     setIsDeleting(true);
     setDeleteError(null);
     try {
       const response = await fetch(`${apiURL}/pet/delete/${petId}`, {
-        method: 'DELETE',
+        method: 'POST',
       });
       if (!response.ok) {
         const text = await response.text();
         throw new Error(`Failed to delete post: ${response.status} ${text}`);
       }
       setPosts(prevPosts => prevPosts.filter(post => post.id !== petId));
+      Swal.fire({
+        icon: 'success',
+        title: 'Hapus!',
+        text: 'Postingan Anda berhasil di hapus.',
+        timer: 2000,
+        showConfirmButton: false,
+      });
     } catch (error) {
       setDeleteError(error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message,
+        timer: 3000,
+        showConfirmButton: true,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -115,6 +141,14 @@ const MyPosts = () => {
 
   if (error) {
     return console.error(error)
+  }
+
+  if (!posts.length) {
+      return (
+          <div className="flex justify-center items-center my-[2rem] h-[20rem]">
+              <h1 className="text-3xl font-bold mb-6">Tidak Ada Hewan Postingan Kamu</h1>
+          </div>
+      );
   }
 
   return (

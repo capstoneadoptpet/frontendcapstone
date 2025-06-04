@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeroSection from "../../components/profile-components/hero-section";
+import Swal from 'sweetalert2';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({});
@@ -55,12 +56,32 @@ const ProfilePage = () => {
             });
 
             if (response.ok) {
-                alert('Biodata updated successfully');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Biodata updated successfully',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 console.log('Successfully updated description');
             } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to update description',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 console.error('Failed to update description');
             }
         } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while updating the profile',
+                timer: 2000,
+                showConfirmButton: false,
+            });
             console.error('Error:', error);
         }
     };

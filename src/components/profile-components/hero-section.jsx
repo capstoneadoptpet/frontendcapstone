@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import ProfBG from '../../assets/img/ProfBG.png';
 import getDriveImageUrl from '../getDriveImage';
+import Swal from 'sweetalert2';
 
 const HeroSection = ({ user, isEditing, setUser }) => {
     const fileInputRef = useRef(null);
@@ -34,14 +35,32 @@ const HeroSection = ({ user, isEditing, setUser }) => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    alert('Profile picture updated successfully!');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Profile picture berhasil di update! 🥳',
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
                     setUser(data.user);
                 } else {
                     const errorData = await response.json();
-                    alert(errorData.message || 'Failed to update profile picture');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: errorData.message || 'Gagal mengupdate Profile Picture',
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
                 }
             } catch (error) {
-                alert('An error occurred while uploading the picture.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Terjadi kesalahan dalam menggunggah foto 🥲',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 console.error(error);
             }
         }
@@ -59,7 +78,7 @@ const HeroSection = ({ user, isEditing, setUser }) => {
                 {isEditing ? (
                     <>
                         <img
-                            src={getDriveImageUrl(user.picture)}
+                            src={user.picture}
                             alt="Profile"
                             className="w-36 h-36 rounded-full border-4 p-1 border-green-400 shadow-lg cursor-pointer object-cover"
                             onClick={handleImageClick}
@@ -74,7 +93,7 @@ const HeroSection = ({ user, isEditing, setUser }) => {
                     </>
                 ) : (
                     <img
-                        src={getDriveImageUrl(user.picture)}
+                        src={user.picture}
                         alt="Profile"
                         className="w-36 h-36 rounded-full p-2 shadow-lg object-cover"
                     />

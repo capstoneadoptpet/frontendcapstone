@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModalTermsPost } from '../../components/modal-TP';
+import Swal from 'sweetalert2';
 
 const EditPost = () => {
     const { pet_id } = useParams();
@@ -132,7 +133,13 @@ const EditPost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!agree) {
-            alert("Anda Belum Menchecklis Syarat & Ketentuan");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: "Anda Belum Menchecklis Syarat & Ketentuan",
+                timer: 2000,
+                showConfirmButton: false,
+            });
             return;
         }
         const formData = new FormData();
@@ -165,14 +172,32 @@ const EditPost = () => {
                 body: formData,
             });
             if (response.ok) {
-                alert('Post updated successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Post updated successfully!',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 navigate('/my-posts');
             } else {
                 const errorData = await response.json();
-                alert(errorData.message || 'Failed to update post');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorData.message || 'Failed to update post',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
         } catch (error) {
-            alert('An error occurred while updating the post.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while updating the post.',
+                timer: 2000,
+                showConfirmButton: false,
+            });
             console.error(error);
         }
     };

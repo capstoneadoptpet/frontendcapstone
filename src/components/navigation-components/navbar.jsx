@@ -4,7 +4,6 @@ import logo from '../../assets/img/logo.png';
 import Sidebar from './sidebar';
 import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars  } from 'react-icons/fa6';
-import getDriveImageUrl from '../getDriveImage';
 
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
@@ -65,13 +64,13 @@ const Navbar = () => {
   if (isMobile) {
     return (
       <>
-        <nav className="bg-(--navy)  text-(--white) ">
+        <nav className="bg-(--navy)  text-(--white) w-fit">
           {token ? (
-          <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
+          <ul className="flex justify-between items-center py-(--header-height) px-5 lg:flex-row">
             <div className="flex items-center">
               <Link to="/">
-                <span className='text-2xl font-extrabold'>
-                  <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
+                <span className='text-l font-extrabold'>
+                  <img src={logo} alt="Logo" className="h-16 w-16 inline-block mr-2" />
                   Adopt House
                 </span>
               </Link>
@@ -85,7 +84,7 @@ const Navbar = () => {
                   >
                     {user && user.picture && (
                       <img
-                        src={getDriveImageUrl(user.picture)}
+                        src={user.picture}
                         alt="Profile"
                         className="w-8 h-8 rounded-full mr-2 border object-cover"
                       />
@@ -180,7 +179,7 @@ const Navbar = () => {
                     >
                       {user && user.picture && (
                         <img
-                          src={getDriveImageUrl(user.picture)}
+                          src={user.picture}
                           alt="Profile"
                           className="w-8 h-8 rounded-full mr-2 border object-cover"
                         />

@@ -6,7 +6,6 @@ import {
   Sidebar as FlowSidebar, SidebarItems,
   SidebarItemGroup, SidebarItem,
 } from "flowbite-react";
-import getDriveImageUrl from "../getDriveImage";
 
 const Mobile_Sidebar = ({ user, onClose,isOpen }) => {
 
@@ -26,7 +25,7 @@ const Mobile_Sidebar = ({ user, onClose,isOpen }) => {
               <div className="text-2xl font-bold">{user.username}</div>
             </div>
             <img
-              src={getDriveImageUrl(user.picture)}
+              src={user.picture}
               alt={user.username}
               className="w-16 h-16 rounded-full border-4 border-white object-cover"
             />
