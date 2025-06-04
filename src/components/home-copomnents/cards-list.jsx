@@ -85,13 +85,12 @@ const CardList = ({ user }) => {
     }
 
     return (
-        <div className="card-list grid grid-rows-1 md:grid-rows-1 gap-2 w-full my-[10rem] py-[2rem] bg-[var(--white)] justify-items-center">
+        <div className="card-list_section grid grid-rows-1 md:grid-rows-1 gap-2 w-full my-[10rem] py-8 bg-[var(--white)] justify-items-center">
             <div>
-                <h1 className="text-xl md:text-3xl font-semibold text-center my-[2rem]" >Rekomendasi Hewan Untuk Anda</h1>
+                <h1 className="text-xl md:text-3xl font-semibold text-center my-8" >Rekomendasi Hewan Untuk Anda</h1>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-
-                {posts.map(post => (
+            <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 sm:px-8 justify-center justify-items-center">
+                {posts.length > 0 && posts.map(post => (
                     <CardItem key={post.id} post_id={post.id} pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
                 ))}
                 <div
@@ -102,7 +101,7 @@ const CardList = ({ user }) => {
                     onKeyDown={(e) => { if (e.key === 'Enter') handleNavigate(); }}
                 >
                     <div className="grid grid-rows-2 gap-0 justify-items-center p-2">
-                        <img src={Paw} alt="Paw" className="h-[5rem] w-[5rem]" />
+                        <img src={Paw} alt="Paw" className="h-20 w-20" />
                         <p className=" text-sm text-[var(--black)] text-center">Lihat Hewan lainnya yang memerlukan rumah</p>
                     </div>
                     <div

@@ -28,7 +28,7 @@ const CardItem = ({ pet, apiURL, favorites, updateFavorites }) => {
                     {pet.breed?.name || "Unknown"}
                 </span>
             </div>
-            <div className="absolute top-3 right-3 text-2xl select-none focus:outline-none cursor-pointer">
+            <div className="absolute top-3 right-3 p-1 bg-[var(--dark-grey)] rounded-4xl  select-none focus:outline-none cursor-pointer">
                 <MarkFav pet={pet} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
             </div>
         </div>

@@ -10,7 +10,7 @@ import {
 const Mobile_Sidebar = ({ user, onClose,isOpen }) => {
 
   return (
-    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 fixedz h-screen">
+    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 fixedz h-full">
       <div className="bg-(--navy) text-(--white) p-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-12 w-12" />

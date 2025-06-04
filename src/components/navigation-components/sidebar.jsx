@@ -123,7 +123,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
   // --- USER DRAWER ---
   return (
-    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0">
+    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 h-full w-fit">
       <div className="bg-(--navy) text-(--white) p-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-12 w-12" />

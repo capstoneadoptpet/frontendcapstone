@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -35,17 +36,29 @@ const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
                 },
                 body: JSON.stringify({ posts: [pet.id] }),
             });
-            if (response.ok) {
-                setIsFavorited(true);
-                const data = await response.json();
-                alert(data.message);
-                if (updateFavorites) {
-                    updateFavorites(pet.id, true);
-                }
+                if (response.ok) {
+                    setIsFavorited(true);
+                    const data = await response.json();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                    if (updateFavorites) {
+                        updateFavorites(pet.id, true);
+                    }
             }
         }
         catch (err) {
-            alert("Failed to add favorite");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to add favorite',
+                timer: 2000,
+                showConfirmButton: false,
+            });
             console.error("Error adding favorite:", err);
         }
         setIsLoading(false);
@@ -63,17 +76,29 @@ const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            if (response.ok) {
-                setIsFavorited(false);
-                const data = await response.json();
-                alert(data.message);
-                if (updateFavorites) {
-                    updateFavorites(pet.id, false);
+                if (response.ok) {
+                    setIsFavorited(false);
+                    const data = await response.json();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                    if (updateFavorites) {
+                        updateFavorites(pet.id, false);
+                    }
                 }
-            }
         }
         catch (err) {
-            alert("Failed to remove favorite");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to remove favorite',
+                timer: 2000,
+                showConfirmButton: false,
+            });
             console.error("Error removing favorite:", err);
         }
         setIsLoading(false);
@@ -84,11 +109,11 @@ const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
     }
 
     if (!pet) {
-        return null;
+        return <div>Error loading favorite toggle</div> ;
     }
 
     return (
-        <div>
+        <div className="flex items-center ">
             <button
                 type="button"
                 onClick={isFavorited ? handleUnfavorite : handleFavorite}
