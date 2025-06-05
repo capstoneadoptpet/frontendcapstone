@@ -42,9 +42,9 @@ const ProfileDetailPage = () => {
   return (
     <div>
       <HeroSection user={user} isEditing={isEditing} setUser={setUser} />
-      <div className="section-Profile bg-gray-100 h-screen mx-10 py-5">
-        <div className="profile-info bg-white rounded-md shadow-md p-10 my-10">
-          <p className="text-4xl font-bold">Tentang Saya</p>
+      <div className="section-Profile bg-gray-100 -h-screen mx-4 md:mx-10 py-5 my-5">
+        <div className="profile-info bg-white rounded-md shadow-md p-4 md:p-10 my-10">
+          <p className="text-2xl md:text-4xl font-bold">Tentang Saya</p>
           <div className="border-t-2 mb-4"></div>
           <p className="text-m p-2 ">{user.description}</p>
         </div>

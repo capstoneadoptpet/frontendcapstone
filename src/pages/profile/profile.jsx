@@ -89,9 +89,9 @@ const ProfilePage = () => {
     return (
         <div>
             <HeroSection user={user} isEditing={isEditing} setUser={setUser} />
-            <div className="section-Profile bg-gray-100 h-screen mx-10 py-5">
+            <div className="section-Profile bg-gray-100 -h-screen mx-10 py-5 my-5">
                 <div className="profile-info bg-white rounded-md shadow-md p-10 my-10">
-                    <p className="text-4xl font-bold">About Me</p>
+                    <p className="text-4xl font-bold">Tentang Anda</p>
                     <div className="border-t-2 mb-4"></div>
                     {isEditing ? (
                         <textarea
@@ -108,7 +108,7 @@ const ProfilePage = () => {
                         onClick={handleSaveClick}
                         className="px-10 py-2 border-3 border-sky-500 rounded-lg bg-green-500 text-white hover:bg-green-600 cursor-pointer"
                     >
-                        Save
+                        Simpan
                     </button>
                 ) : (
                     <button

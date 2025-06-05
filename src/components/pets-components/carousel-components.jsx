@@ -32,16 +32,18 @@ export const Carousel = ({ Slides }) => {
 
   return (
     <div className="relative w-full h-56 sm:h-64 xl:h-80 2xl:h-96 overflow-hidden rounded-lg">
-      {Slides && Slides.length > 0 && Slides.map((pic, index) => (
-        <img
-          key={pic}
-          src={pic}
-          alt={`Pet image ${index + 1}`}
-          className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out ${
-            index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
-        />
-      ))}
+        <div className="flex">
+          {Slides && Slides.length > 0 && Slides.map((pic, index) => (
+            <img
+              key={pic}
+              src={pic}
+              alt={`Pet image ${index + 1}`}
+              className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-700 ease-out ${
+                index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
+            />
+          ))}
+        </div>
       {/* Prev Button */}
       <button
         onClick={goToPrev}
@@ -58,6 +60,28 @@ export const Carousel = ({ Slides }) => {
       >
         <FaChevronRight className="text-gray-700" />
       </button>
+
+      <div className="absolute z-10 bottom-0 flex justify-center gap-3 w-full pb-2">
+        {Slides && Slides.length > 0 && Slides.map((pic, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`rounded-full w-3 h-3 cursor-pointer transition-colors duration-300 ${
+                index === currentIndex ? "bg-gray-600 border-1 border-[var(--dark-gre)]" : "bg-white border-2 border-black"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setCurrentIndex(index);
+                }
+              }}
+            ></div>
+          );
+        })}
+      </div>
     </div>
   );
 };

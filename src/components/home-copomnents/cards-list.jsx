@@ -85,7 +85,7 @@ const CardList = ({ user }) => {
     }
 
     return (
-        <div className="card-list_section grid grid-rows-1 md:grid-rows-1 gap-2 w-full my-[10rem] py-8 bg-[var(--white)] justify-items-center">
+        <div className="card-list_section grid grid-rows-1 md:grid-rows-1 gap-2 w-full my-[16rem] md:my-5 lg:my-[12rem] py-8 bg-[var(--white)] justify-items-center">
             <div>
                 <h1 className="text-xl md:text-3xl font-semibold text-center my-8" >Rekomendasi Hewan Untuk Anda</h1>
             </div>
