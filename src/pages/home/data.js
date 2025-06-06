@@ -1,4 +1,4 @@
-import HeroBG from "../../assets/img/HeroBG.png";
+import HeroBG from "../../assets/img/reason.png";
 
 export const content1 = {
   lightBg: true,

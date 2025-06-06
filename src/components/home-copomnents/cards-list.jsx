@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const CardList = ({ user }) => {
     const apiURL = import.meta.env.VITE_API_URL;
-    console.log("api : ", apiURL);
+    // console.log("api : ", apiURL);
     const [posts, setPosts] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +89,7 @@ const CardList = ({ user }) => {
             <div>
                 <h1 className="text-xl md:text-3xl font-semibold text-center my-8" >Rekomendasi Hewan Untuk Anda</h1>
             </div>
-            <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 sm:px-8 justify-center justify-items-center">
+            <div className="card-list grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 sm:px-8 justify-center justify-items-center">
                 {posts.length > 0 && posts.map(post => (
                     <CardItem key={post.id} post_id={post.id} pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
                 ))}

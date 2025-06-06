@@ -4,6 +4,7 @@ import logo from '../../assets/img/logo.png';
 import Sidebar from './sidebar';
 import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars  } from 'react-icons/fa6';
+import { motion } from "motion/react"
 
 const Navbar = () => {
   const token = localStorage.getItem('auth_token');
@@ -40,14 +41,14 @@ const Navbar = () => {
       <>      
       <nav className="bg-(--navy)  text-(--white) ml-20">
         <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
-          <div className="flex items-center">
+          <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex items-center">
             <Link to="/admin/dashboard">
               <span className='text-2xl font-extrabold'>
                 <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
                 Adopt House
               </span>
             </Link>
-          </div>
+          </motion.div>
             <div className="flex space-x-4">
               <span className="text-2xl">Hi, Adopt House Admin!</span>
             </div>
@@ -64,147 +65,271 @@ const Navbar = () => {
   if (isMobile) {
     return (
       <>
-        <nav className="bg-(--navy)  text-(--white) w-fit">
+        <nav className="bg-(--navy)  text-(--white) w-full">
           {token ? (
-          <ul className="flex justify-between items-center py-(--header-height) px-5 lg:flex-row">
-            <div className="flex items-center">
-              <Link to="/">
-                <span className='text-l font-extrabold'>
-                  <img src={logo} alt="Logo" className="h-16 w-16 inline-block mr-2" />
-                  Adopt House
-                </span>
-              </Link>
-            </div>
-              <div className="flex space-x-12">
-                <li>
+            <ul className="flex justify-between items-center py-(--header-height) px-5 lg:flex-row">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", stiffness: 100, damping: 25, delay: 0.3, duration: 1.2 }}
+                className="flex items-center"
+              >
+                <Link to="/">
+                  <span className="text-l font-extrabold">
+                    <img src={logo} alt="Logo" className="h-16 w-16 inline-block mr-2" />
+                    Adopt House
+                  </span>
+                </Link>
+              </motion.div>
+              <motion.ul
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.2,
+                    },
+                  },
+                }}
+                className="flex space-x-12 list-none p-0 m-0"
+              >
+                <motion.li
+                  variants={{
+                    hidden: { opacity: 0, y: -20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="flex items-center"
+                >
                   <button
                     type="button"
                     className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${location.pathname === '/profile' ? 'underline' : ''}`}
-                    onClick={() => setShowSidebar(true)}
+                    onClick={() => {
+                      setShowSidebar(true);
+                    }}
                   >
                     {user && user.picture && (
-                      <img
+                      <motion.img
                         src={user.picture}
                         alt="Profile"
                         className="w-8 h-8 rounded-full mr-2 border object-cover"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
                       />
                     )}
                     Profile
                   </button>
-                </li>
-                <li className="flex items-center">
+                </motion.li>
+                <motion.li
+                  variants={{
+                    hidden: { opacity: 0, y: -20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="flex items-center"
+                >
                   <button
                     type="button"
-                    className='flex items-center'
+                    className="flex items-center"
                     onClick={() => setShowMobileSidebar(true)}
                   >
-                      <FaBars className="text-3xl"/>
-                    </button>
-                  </li>
-                </div>
+                    <FaBars className="text-3xl" />
+                  </button>
+                </motion.li>
+              </motion.ul>
+            </ul>
+          ) : (
+            <>
+              <ul className="flex justify-between items-center p-(--header-height) px-5 lg:flex-row">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ type: "spring", stiffness: 100, damping: 25, delay: 0.3, duration: 1.2 }}
+                  className="flex items-center"
+                >
+                  <Link>
+                    <span className="text-l font-extrabold">
+                      <img src={logo} alt="Logo" className="h-16 w-16 inline-block mr-2" />
+                      Adopt House
+                    </span>
+                  </Link>
+                </motion.div>
               </ul>
-            ) : (
-              <>
-                <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
-                  <div className="flex items-center">
-                    <Link>
-                      <span className='text-2xl font-extrabold'>
-                        <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
-                        Adopt House
-                      </span>
-                    </Link>
-                  </div>
-                  <div className="flex space-x-4">
-                    <li>
-                      <Link
-                        to="/register"
-                        className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
-                        Daftar
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/login"
-                        className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
-                        Masuk
-                      </Link>
-                    </li>
-                  </div>
-                </ul>
-              </>
-            )}
-          </nav>
-          {user && showSidebar && (
-            <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
+              <motion.ul
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.2,
+                    },
+                  },
+                }}
+                className="flex space-x-4 list-none p-0 m-0"
+              >
+                <motion.li
+                  variants={{
+                    hidden: { opacity: 0, y: -20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                >
+                  <Link
+                    to="/register"
+                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}
+                  >
+                    Daftar
+                  </Link>
+                </motion.li>
+                <motion.li
+                  variants={{
+                    hidden: { opacity: 0, y: -20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                >
+                  <Link
+                    to="/login"
+                    className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}
+                  >
+                    Masuk
+                  </Link>
+                </motion.li>
+              </motion.ul>
+            </>
           )}
-          {user && showMobileSidebar && (
-            <Mobile_Sidebar user={user} onClose={() => setShowMobileSidebar(false)} isOpen={showMobileSidebar} />      
-          )}
-        </>
-      )
-    } else {
+        </nav>
+        {user && showSidebar && (
+          <Sidebar user={user} onClose={() => setShowSidebar(false)} isOpen={true} />
+        )}
+        {user && showMobileSidebar && (
+          <Mobile_Sidebar user={user} onClose={() => setShowMobileSidebar(false)} isOpen={showMobileSidebar} />
+        )}
+      </>
+    )
+  } else {
       return (
         <>
           <nav className="bg-(--navy)  text-(--white)">
             <ul className="flex justify-between items-center p-(--header-height) lg:flex-row">
-              <div className="flex items-center">
+              <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex items-center">
                 <Link to="/">
                   <span className='text-2xl font-extrabold'>
                     <img src={logo} alt="Logo" className="h-24 w-24 inline-block mr-2" />
                     Adopt House
                   </span>
                 </Link>
-              </div>
+              </motion.div>
               {token ? (
-                <div className="flex space-x-4">
-                  <li>
-                    <Link
-                      to="/"
-                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/' ? 'underline' : ''}`}>
-                      Beranda
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/findpet"
-                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/findpet' ? 'underline' : ''}`}>
-                      Temukan Hewan
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${location.pathname === '/profile' ? 'underline' : ''}`}
-                      onClick={() => setShowSidebar(true)}
+                <motion.ul
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.2,
+                      },
+                    },
+                  }}
+                  className="flex space-x-4 list-none p-0 m-0"
+                >
+                  {[
+                    {
+                      to: "/",
+                      label: "Beranda",
+                      isButton: false,
+                    },
+                    {
+                      to: "/findpet",
+                      label: "Temukan Hewan",
+                      isButton: false,
+                    },
+                    {
+                      to: "/profile",
+                      label: "Profile",
+                      isButton: true,
+                      imgSrc: user?.picture,
+                    },
+                  ].map((item, index) => (
+                    <motion.li
+                      key={item.to}
+                      variants={{
+                        hidden: { opacity: 0, y: -20 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      className="list-none"
                     >
-                      {user && user.picture && (
-                        <img
-                          src={user.picture}
-                          alt="Profile"
-                          className="w-8 h-8 rounded-full mr-2 border object-cover"
-                        />
+                      {item.isButton ? (
+                        <button
+                          type="button"
+                          className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${
+                            location.pathname === item.to ? "underline" : ""
+                          }`}
+                          onClick={() => setShowSidebar(true)}
+                        >
+                          {item.imgSrc && (
+                            <img
+                              src={item.imgSrc}
+                              alt="Profile"
+                              className="w-8 h-8 rounded-full mr-2 border object-cover"
+                            />
+                          )}
+                          {item.label}
+                        </button>
+                      ) : (
+                        <Link
+                          to={item.to}
+                          className={`text-2xl hover:underline underline-offset-10 ${
+                            location.pathname === item.to ? "underline" : ""
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
                       )}
-                      Profile
-                    </button>
-                  </li>
-                </div>
+                    </motion.li>
+                  ))}
+                </motion.ul>
               ) : (
-                <div className="flex space-x-4">
-                  <li>
+                <motion.ul
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.2,
+                      },
+                    },
+                  }}
+                  className="flex space-x-4 list-none p-0 m-0"
+                >
+                  <motion.li
+                    variants={{
+                      hidden: { opacity: 0, y: -20 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                  >
                     <Link
                       to="/register"
-                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}>
+                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/register' ? 'underline' : ''}`}
+                    >
                       Daftar
                     </Link>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li
+                    variants={{
+                      hidden: { opacity: 0, y: -20 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                  >
                     <Link
                       to="/login"
-                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}>
+                      className={`text-2xl hover:underline underline-offset-10 ${location.pathname === '/login' ? 'underline' : ''}`}
+                    >
                       Masuk
                     </Link>
-                  </li>
-                </div>
+                  </motion.li>
+                </motion.ul>
               )}
             </ul>
           </nav>

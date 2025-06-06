@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from "motion/react"
+import Swal from "sweetalert2";
 
 const ReferencePage = () => {
     const location = useLocation();
@@ -49,6 +51,8 @@ const ReferencePage = () => {
 
     const navigate = useNavigate();
 
+
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -91,6 +95,13 @@ const ReferencePage = () => {
                         if (recoms.ok) {
                             const recommendations = await recoms.json();
                             console.log('Recommendations:', recommendations);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Registration Successful',
+                                text: 'You have been registered successfully!',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
                             navigate('/login');
                         } else {
                             console.error('Failed to fetch recommendations');
@@ -105,12 +116,18 @@ const ReferencePage = () => {
                 else {
                     const errorData = await response.json();
                     console.error('Registration failed:', errorData.message);
-                    alert(errorData.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Registration Failed',
+                        text: errorData.message,
+                        timer: 3000,
+                        showConfirmButton: true,
+                    });
                 }
         }catch (err) {
                     console.error('Error fetching recommendations:', err);
             }
-            navigate('/login');
+            // Removed misplaced navigate('/login') from here
 
     }
 
@@ -118,9 +135,9 @@ const ReferencePage = () => {
         <div className="register-page flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-10 my-20">
                 <h2 className="text-2xl font-semibold text-center mb-8">Register Hewan</h2>
-                <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="grid sm:grid-cols gap-6">
                     <div>
-                        <label className="block mb-1">Kategori Hewan</label>
+                        <label className="block mb-1 font-semibold">Hewan apa yang ingin anda pelihara?</label>
                         <select
                             value={animal_type}
                             onChange={(e) => setTipeHewan(e.target.value)}
@@ -136,7 +153,7 @@ const ReferencePage = () => {
                         </select>
                     </div>
                     <div>
-                        <label className="block mb-1">Jenis Hewan</label>
+                        <label className="block mb-1 font-semibold">Apa ras atau jenis dari hewan tersebut yang Anda inginkan?</label>
                         <select
                             value={breed}
                             onChange={(e) => setJenisHewan(e.target.value)}
@@ -155,7 +172,7 @@ const ReferencePage = () => {
                         </select>
                     </div>
                     <div>
-                        <label className="block mb-1">Kelamin Hewan</label>
+                        <label className="block mb-1 font-semibold">Jenis kelamin apa yang Anda inginkan untuk hewan peliharaan Anda?</label>
                         <select
                             value={animal_gender}
                             onChange={(e) => setGenderHewan(e.target.value)}
@@ -168,12 +185,12 @@ const ReferencePage = () => {
                                     ? 'Select Gender Hewan'
                                     : 'Select Jenis Hewan First'}
                             </option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="Jantan">Jantan</option>
+                            <option value="Betina">Betina</option>
                         </select>
                     </div>
                     <div>
-                        <label className="block mb-1">Kelompok Usia</label>
+                        <label className="block mb-1 font-semibold">Kelompok usia berapa yang Anda inginkan untuk hewan peliharaan Anda?</label>
                         <select
                             value={age_group}
                             onChange={(e) => setKelompokUsia(e.target.value)}
@@ -187,12 +204,12 @@ const ReferencePage = () => {
                                     : 'Select Gender Hewan First'}
                             </option>
                             {ages.map(age => (
-                                <option key={age.id} value={age.id}>{age.category}</option>
+                                <option key={age.id} value={age.id}>{age.category} {age.description}</option>
                             ))}
                         </select>
                     </div>
                     <div>
-                        <label className="block mb-1">Jumlah Warna</label>
+                        <label className="block mb-1 font-semibold">Berapa banyak warna yang Anda inginkan pada hewan peliharaan Anda?</label>
                         <select
                             value={color_count}
                             onChange={(e) => setJumlahWarna(e.target.value)}
@@ -212,12 +229,14 @@ const ReferencePage = () => {
                         </select>
                     </div>
                     <div className="flex justify-center mt-8">
-                        <button
+                        <motion.button
+                            whileHover={{ scale: 1.07}} 
+                            whileTap={{scale: 0.97}}
                             type="submit"
                             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                         >
-                            Register
-                        </button>
+                            Daftar
+                        </motion.button>
                     </div>
                 </form>
             </div>

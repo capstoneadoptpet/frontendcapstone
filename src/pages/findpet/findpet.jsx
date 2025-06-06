@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CardItem from '../../components/pets-components/card-item'
-// import getDriveImageUrl from '../../components/getDriveImage';
 
 const FindPetPage = () => {
   const apiURL = import.meta.env.VITE_API_URL;
@@ -89,13 +88,18 @@ const FindPetPage = () => {
 
   return (
       <div className="bg-gray-100 min-h-screen py-8 max-sm:w-full">
-        <h2 className="text-3xl font-bold text-center mb-6">Category</h2>
-        <div className="flex justify-center gap-4 mb-8">
+        <div className='mx-6 my-5'>
+          <h1 className="text-3xl font-semibold text-center my-2">Temukan Hewan</h1>
+          <hr />
+        </div>
+        {/* Kategori */}
+        <h2 className="text-3xl font-bold text-center my-6 ">Kategori</h2>
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           {categories.map(cat => (
             
             <button
               key={cat.id}
-              className={`flex flex-col items-center px-6 py-3 rounded-lg border-2 ${category === String(cat.id) ? 'border-blue-500 bg-blue-100' : 'border-gray-300 bg-white'}`}
+              className={`flex flex-col items-center px-4 py-3 rounded-lg border-2 min-w-[80px] max-w-[100px] ${category === String(cat.id) ? 'border-blue-500 bg-blue-100' : 'border-gray-300 bg-white'}`}
               onClick={() => {
                 if (category === String(cat.id)) {
                   setCategory('');
@@ -115,18 +119,18 @@ const FindPetPage = () => {
             </button>
           ))}
         </div>
-        <div className="flex gap-8 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 max-w-7xl mx-auto">
           {/* Filter Sidebar */}
-          <div className="w-64 p-6 flex flex-col gap-4">
+          <div className="w-full md:w-64 p-6 flex flex-col gap-4">
             <label>
-              Breed
+              Jenis
               <select className="w-full mt-1 p-2 border rounded-lg" value={breed} onChange={e => { setBreed(e.target.value); setCurrentPage(1); }}>
                 <option value="">Any</option>
                 {breeds.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
               </select>
             </label>
             <label>
-              Gender
+              Kelamin
               <select className="w-full mt-1 p-2 border rounded-lg" value={gender} onChange={e => { setGender(e.target.value); setCurrentPage(1); }}>
                 <option value="">Any</option>
                 <option value="Jantan">Jantan</option>
@@ -134,7 +138,7 @@ const FindPetPage = () => {
               </select>
             </label>
             <label>
-              Age
+              Usia
               <select className="w-full mt-1 p-2 border rounded-lg" value={age} onChange={e => { setAge(e.target.value); setCurrentPage(1); }}>
                 <option value="">Any</option>
                 {ages.map(a => <option key={a.id} value={a.id}>{a.category}</option>)}
@@ -149,7 +153,7 @@ const FindPetPage = () => {
           </div>
           {/* Pet Cards Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center mx-auto">
               {paginatedPets.map((pet, idx) => (
                 <CardItem key={pet.id || idx} pet={pet} apiURL={apiURL} favorites={favorites} />
               ))}

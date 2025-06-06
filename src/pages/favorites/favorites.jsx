@@ -32,7 +32,7 @@ const Favorites = () => {
                     throw new Error(`Failed to fetch favorites: ${favResponse.status} ${text}`);
                 }
                 const favData = await favResponse.json();
-                console.log('Fetched favorites IDs:', favData);
+                // console.log('Fetched favorites IDs:', favData);
 
                 // Fetch all pets
                 const petsResponse = await fetch(`${apiURL}/pets`);
@@ -101,7 +101,7 @@ const Favorites = () => {
     if (!favorites.length) {
         return (
             <div className="flex justify-center items-center my-[2rem] h-[20rem]">
-                <h1 className="text-3xl font-bold mb-6">Tidak Ada Hewan Favorite Kamu</h1>
+                <h1 className="text-3xl font-bold mb-6 text-center">Tidak Ada Hewan Favorite Kamu</h1>
             </div>
         );
     }

@@ -146,7 +146,7 @@ const MyPosts = () => {
   if (!posts.length) {
       return (
           <div className="flex justify-center items-center my-[2rem] h-[20rem]">
-              <h1 className="text-3xl font-bold mb-6">Tidak Ada Hewan Postingan Kamu</h1>
+              <h1 className="text-3xl font-bold mb-6 text-center">Tidak Ada Hewan Postingan Kamu</h1>
           </div>
       );
   }

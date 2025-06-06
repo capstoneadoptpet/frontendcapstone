@@ -6,18 +6,18 @@ import {
   Sidebar as FlowSidebar, SidebarItems,
   SidebarItemGroup, SidebarItem,
 } from "flowbite-react";
-import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket  } from "react-icons/fa6";
+import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket, FaAngleRight  } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { motion, AnimatePresence } from "motion/react";
 
 const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   const admin = user.is_admin;
-  console.log(isOpen);
 
   const customTheme = {
     root: {
       "inner": "px-0 ",
     }
-}
+  }
 
   const handleLogout = () => {
     Swal.fire({
@@ -130,79 +130,80 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   );
 }
 
+
   // --- USER DRAWER ---
   return (
-    <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 h-full w-fit">
-      <div className="bg-(--navy) text-(--white) p-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <img src={logo} alt="Logo" className="h-12 w-12" />
-          <span className="text-white text-xl font-bold">Adopt House</span>
-        </div>
-        <button onClick={onClose} className="text-white hover:text-gray-700 text-3xl font-bold cursor-pointer">&times;</button>
-      </div>
-      <DrawerItems className="p-0 bg-white">
-        <FlowSidebar className="h-full w-80 bg-white rounded-none">
-          <div className="bg-yellow-100 rounded-lg mx-4 mt-4 p-4 flex items-center justify-between">
-            <div>
-              <div className="text-2xl font-bold">{user.username}</div>
+          <Drawer open={isOpen} onClose={onClose} position="right" className="p-0 m-0 h-full w-full sm:w-fit">
+            <div className="bg-(--navy) text-(--white) p-4 flex items-center justify-between">
+              <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex items-center gap-2">
+                <img src={logo} alt="Logo" className="h-12 w-12" />
+                <span className="text-white text-xl font-bold">Adopt House</span>
+              </motion.div>
+              <button onClick={onClose} className="text-white hover:text-gray-700 text-3xl font-bold cursor-pointer">&times;</button>
             </div>
-            <img
-              src={user.picture}
-              alt={user.username}
-              className="w-16 h-16 rounded-full border-4 border-white object-cover"
-            />
-          </div>
-          <SidebarItems className="mt-6 px-4 flex flex-col gap-4">
-            <SidebarItemGroup>
-              <SidebarItem as={Link} to="/profile" onClick={onClose} className="bg-blue-400 hover:bg-blue-400 hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
-                <div className="flex justify-between items-center">
+            <DrawerItems className="p-0 bg-white justify-items-center">
+              <FlowSidebar className="h-full w-80 bg-white rounded-none">
+                <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="bg-yellow-100 rounded-lg mx-4 mt-4 p-4 flex items-center justify-between">
                   <div>
-                    Profil Saya
-                    <div className="text-xs font-normal">Lihat Profil Anda</div>
+                    <div className="text-2xl font-bold">{user.username}</div>
                   </div>
-                  <span className="text-2xl">&gt;</span>
-                </div>
-              </SidebarItem>
-              <SidebarItem as={Link} to="/favorites" onClick={onClose} className="bg-blue-400 hover:bg-blue-400 hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
-                <div className="flex justify-between items-center">
-                  <div>
-                    Favorit Saya
-                    <div className="text-xs font-normal">Lihat Hewan Yang Anda Sukai</div>
-                  </div>
-                  <span className="text-2xl">&gt;</span>
-                </div>
-              </SidebarItem>
-              <SidebarItem as={Link} to="/post" onClick={onClose} className="bg-white hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
-                <div className="flex justify-between items-center">
-                  <div className="text-black">
-                    Buat Postingan Baru
-                    <div className="text-xs font-normal text-gray-500">Postingan Hewan Anda</div>
-                  </div>
-                  <span className="text-2xl">&gt;</span>
-                </div>
-              </SidebarItem>
-              <SidebarItem as={Link} to="/my-posts" onClick={onClose} className="bg-white hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
-                <div className="flex justify-between items-center">
-                  <div className="text-black">
-                    Postingan Saya
-                    <div className="text-xs font-normal text-gray-500">Lihat Semua Postingan Anda</div>
-                  </div>
-                  <span className="text-2xl">&gt;</span>
-                </div>
-              </SidebarItem>
-            </SidebarItemGroup>
-          </SidebarItems>
-          <div className="px-4 pb-6 mt-auto">
-            <button
-              onClick={handleLogout}
-              className="w-full bg-red-500 hover:border-2 font-semibold rounded-lg py-3 shadow cursor-pointer"
-            >
-              Logout
-            </button>
-          </div>
-        </FlowSidebar>
-      </DrawerItems>
-    </Drawer>
+                  <img
+                    src={user.picture}
+                    alt={user.username}
+                    className="w-16 h-16 rounded-full border-4 border-white object-cover"
+                  />
+                </motion.div>
+                <SidebarItems className="mt-6 px-4 flex flex-col gap-4">
+                  <SidebarItemGroup>
+                    <SidebarItem as={Link} to="/profile" onClick={onClose} className="bg-blue-400 hover:bg-blue-400 hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
+                      <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex justify-between items-center">
+                        <div>
+                          Profil Saya
+                          <div className="text-xs font-normal">Lihat Profil Anda</div>
+                        </div>
+                        <span className="text-2xl"><FaAngleRight /></span>
+                      </motion.div>
+                    </SidebarItem>
+                    <SidebarItem as={Link} to="/favorites" onClick={onClose} className="bg-blue-400 hover:bg-blue-400 hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
+                      <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex justify-between items-center">
+                        <div>
+                          Favorit Saya
+                          <div className="text-xs font-normal">Lihat Hewan Yang Anda Sukai</div>
+                        </div>
+                        <span className="text-2xl"><FaAngleRight /></span>
+                      </motion.div>
+                    </SidebarItem>
+                    <SidebarItem as={Link} to="/post" onClick={onClose} className="bg-white hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
+                      <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex justify-between items-center">
+                        <div className="text-black">
+                          Buat Postingan Baru
+                          <div className="text-xs font-normal text-gray-500">Postingan Hewan Anda</div>
+                        </div>
+                        <span className="text-2xl"><FaAngleRight /></span>
+                      </motion.div>
+                    </SidebarItem>
+                    <SidebarItem as={Link} to="/my-posts" onClick={onClose} className="bg-white hover:border-2 rounded-lg p-4 mb-2 flex justify-between items-center font-semibold shadow">
+                      <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="flex justify-between items-center">
+                        <div className="text-black">
+                          Postingan Saya
+                          <div className="text-xs font-normal text-gray-500">Lihat Semua Postingan Anda</div>
+                        </div>
+                        <span className="text-2xl"><FaAngleRight /></span>
+                      </motion.div>
+                    </SidebarItem>
+                  </SidebarItemGroup>
+                </SidebarItems>
+                <motion.div initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} className="px-4 pb-6 mt-auto">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full bg-red-500 hover:border-2 font-semibold rounded-lg py-3 shadow cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </motion.div>
+              </FlowSidebar>
+            </DrawerItems>
+          </Drawer>
   );
 };
 

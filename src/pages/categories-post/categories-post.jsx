@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { ModalCreateCategories, ModalCreateBreeds } from "../../components/categories-component/modal-create";
 import { ModalEditCategories, ModalEditBreeds } from "../../components/categories-component/modal-edit";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import { motion } from "motion/react"
+import Swal from "sweetalert2";
 
 const CategoriesPost = () => {
     const [openCategoriesModal, setOpenCategoriesModal] = useState(false);
@@ -47,8 +49,17 @@ const CategoriesPost = () => {
     }, []);
 
     const deleteCategory = async (id) => {
-        const confirmed = window.confirm("Are you sure you want to delete this category?");
-        if (!confirmed) return;
+        const result = await Swal.fire({
+            title: 'Apa Anda yakin?',
+            text: "Anda tidak akan bisa mengembalikan kategori ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus'
+        });
+
+        if (!result.isConfirmed) return;
 
         try {
             const response = await fetch(`${apiURL}/pet-categories/${id}`, {
@@ -58,15 +69,33 @@ const CategoriesPost = () => {
                 throw new Error("Failed to delete category");
             }
             getCategories();
+            Swal.fire(
+                'Dihapus!',
+                'Kategori berhasil dihapus.',
+                'success'
+            );
         } catch (error) {
             console.error(error);
-            alert("Failed to delete category");
+            Swal.fire(
+                'Gagal!',
+                'Kategori gagal dihapus.',
+                'error'
+            );
         }
     };
 
     const deleteBreed = async (id) => {
-        const confirmed = window.confirm("Are you sure you want to delete this breed?");
-        if (!confirmed) return;
+        const result = await Swal.fire({
+            title: 'Apa Anda yakin?',
+            text: "Anda tidak bisa mengembalikan jenis ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        });
+
+        if (!result.isConfirmed) return;
 
         try {
             const response = await fetch(`${apiURL}/breeds/${id}`, {
@@ -76,9 +105,18 @@ const CategoriesPost = () => {
                 throw new Error("Failed to delete breed");
             }
             getBreeds();
+            Swal.fire(
+                'Dihapus!',
+                'Jenis berhasil dihapus.',
+                'success'
+            );
         } catch (error) {
             console.error(error);
-            alert("Failed to delete breed");
+            Swal.fire(
+                'Gagal!',
+                'Jenis gagal dihapus.',
+                'error'
+            );
         }
     };
 
@@ -113,14 +151,16 @@ const CategoriesPost = () => {
     }, {});
 
     return (
-        <div className="ml-20 h-auto">
+        <div className="ml-20">
             <div className="mx-auto md:mx-[3rem] grid grid-rows-2 gap-2 p-4">
                 <div className="categories">
                     <div className="justify-items-center border-b-2 my-[2rem]">
                         <h1 className="text-3xl font-semibold mb-6">Kategori Management</h1>
                     </div>
                     <div>
-                        <Button className="categories my-5" onClick={() => setOpenCategoriesModal(true)}>Buat Baru +</Button>
+                        <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} className="w-fit">
+                            <Button className="categories my-5" onClick={() => setOpenCategoriesModal(true)}>Buat Baru +</Button>
+                        </motion.div>
                         <div className="overflow-x-auto">
                             <Table>
                                 <TableHead>
@@ -146,19 +186,23 @@ const CategoriesPost = () => {
                                                 )}
                                             </TableCell>
                                             <TableCell >
-                                                <div className="flex items-center gap-x-3">
-                                                    <button onClick={(e) => { e.preventDefault(); handleEditCategoryClick(category); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
-                                                        <span className="flex items-center rounded-md text-sm px-3 py-2">
-                                                            <FaRegEdit className="mr-2 text-lg" />
-                                                            Edit
-                                                        </span>
-                                                    </button>
-                                                    <button onClick={(e) => {e.preventDefault(); deleteCategory(category.id);}} className="text-white bg-red-700 border border-transparent hover:bg-red-800 focus:ring-4 focus:ring-red-300 disabled:hover:bg-red-800 p-0 font-medium rounded-lg">
-                                                        <span className="flex items-center rounded-md text-sm px-3 py-2">
-                                                            <FaTrashAlt className="mr-2 text-lg" />
-                                                            Hapus
-                                                        </span>
-                                                    </button>
+                                                <div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} className="flex items-center gap-x-3">
+                                                    <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} >
+                                                        <button onClick={(e) => { e.preventDefault(); handleEditCategoryClick(category); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
+                                                            <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                                <FaRegEdit className="mr-2 text-lg" />
+                                                                Edit
+                                                            </span>
+                                                        </button>
+                                                    </motion.div>
+                                                    <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} >
+                                                        <button onClick={(e) => {e.preventDefault(); deleteCategory(category.id);}} className="text-white bg-red-700 border border-transparent hover:bg-red-800 focus:ring-4 focus:ring-red-300 disabled:hover:bg-red-800 p-0 font-medium rounded-lg">
+                                                            <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                                <FaTrashAlt className="mr-2 text-lg" />
+                                                                Hapus
+                                                            </span>
+                                                        </button>
+                                                    </motion.div>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -174,7 +218,9 @@ const CategoriesPost = () => {
                         <h1 className="text-3xl font-semibold mb-6">Jenis Management</h1>
                     </div>
                     <div>
-                        <Button className="breeds my-5" onClick={() => setOpenBreedsModal(true)}>Buat Baru +</Button>
+                        <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} className="w-fit">
+                            <Button className="breeds my-5" onClick={() => setOpenBreedsModal(true)}>Buat Baru +</Button>
+                        </motion.div>
                         <div className="grid grid-cols-3 gap-4">
                             {categories.map((category) => (
                                 <div key={category.id} className="container grid flex-rows-2 gap-0 ">
@@ -201,18 +247,22 @@ const CategoriesPost = () => {
                                                         <TableCell className="whitespace-nowrap font-medium text-white">{breed.name}</TableCell>
                                                         <TableCell>
                                                             <div className="flex items-center gap-x-3">
-                                                                <button onClick={(e) => { e.preventDefault(); setSelectedBreed(breed); setOpenEditBreedModal(true); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
-                                                                    <span className="flex items-center rounded-md text-sm px-3 py-2">
-                                                                        <FaRegEdit className="mr-2 text-lg" />
-                                                                        Edit
-                                                                    </span>
-                                                                </button>
-                                                                <button onClick={(e) => {e.preventDefault(); deleteBreed(breed.id);}} className="text-white bg-red-700 border border-transparent hover:bg-red-800 focus:ring-4 focus:ring-red-300 disabled:hover:bg-red-800 p-0 font-medium rounded-lg">
-                                                                    <span className="flex items-center rounded-md text-sm px-3 py-2">
-                                                                        <FaTrashAlt className="mr-2 text-lg" />
-                                                                        Hapus
-                                                                    </span>
-                                                                </button>
+                                                                <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} >
+                                                                    <button onClick={(e) => { e.preventDefault(); setSelectedBreed(breed); setOpenEditBreedModal(true); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
+                                                                        <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                                            <FaRegEdit className="mr-2 text-lg" />
+                                                                            Edit
+                                                                        </span>
+                                                                    </button>
+                                                                </motion.div>
+                                                                <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} >
+                                                                    <button onClick={(e) => {e.preventDefault(); deleteBreed(breed.id);}} className="text-white bg-red-700 border border-transparent hover:bg-red-800 focus:ring-4 focus:ring-red-300 disabled:hover:bg-red-800 p-0 font-medium rounded-lg">
+                                                                        <span className="flex items-center rounded-md text-sm px-3 py-2">
+                                                                            <FaTrashAlt className="mr-2 text-lg" />
+                                                                            Hapus
+                                                                        </span>
+                                                                    </button>
+                                                                </motion.div>
                                                             </div>
                                                         </TableCell>
                                                     </TableRow>
