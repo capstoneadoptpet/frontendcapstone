@@ -1,12 +1,70 @@
-# React + Vite
+# Adopt House Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React + Vite based web application for finding and adopting pets. The project provides features such as browsing pet categories, filtering by breed, age, gender, and location, and managing user favorites and posts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Browse and filter pets by category, breed, age, gender, and city.
+- User authentication and profile management.
+- Favorite pets and manage posts.
+- Responsive design for desktop and mobile.
+- Smooth animations using Framer Motion.
+- Admin dashboard for managing categories and posts.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd frontendcapstone
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+4. Open your browser and navigate to `http://localhost:3000` (or the port shown in the terminal).
+
+## Project Structure
+
+- `src/pages` - Main pages of the application.
+- `src/components` - Reusable React components.
+- `src/assets` - Images and static assets.
+- `src/styles` - CSS and styling files.
+
+## Technologies Used
+
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+- React Router
+- Flowbite React
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License.
