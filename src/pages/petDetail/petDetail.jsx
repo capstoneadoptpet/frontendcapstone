@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Carousel } from "../../components/pets-components/carousel-components";
 import { FaShare } from "react-icons/fa6";
 import MarkFav from "../../components/pets-components/MarkFav";
+import { motion } from "motion/react"
 
 const PetDetail = () => {
   const { id } = useParams();
@@ -102,47 +103,64 @@ const PetDetail = () => {
     return <div>No pet details available</div>;
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.3,
+            duration: 1.2
+        },
+    },
+  };
+
+  const itemVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="max-w-full grid grid-rows-1 gap-2 overflow-x-hidden">
-      <div className="flex bg-[#222831] h-56 sm:h-64 xl:h-80 2xl:h-96 max-sm:w-full max-sm:flex max-sm:flex-col">
+      <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="flex bg-[#222831] h-56 sm:h-64 xl:h-80 2xl:h-96 max-sm:w-full max-sm:flex max-sm:flex-col">
         <Carousel Slides={petDetails.data.pictures} />
-      </div>
+      </motion.div>
       <div className="grid lg:grid-flow-col-2 lg:grid-rows-2 gap-4 py-8 px-4 max-sm:grid max-sm:grid-cols-1 max-sm:gap-4">
-        <div className="md:col-span-2 sm:col-span-1 row-start-1 row-end-3 bg-(--white) rounded-2xl mt-4 p-8 max-sm:w-full md:max-w-full">
-          <h1 className="text-3xl font-bold mb-2">
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="md:col-span-2 sm:col-span-1 row-start-1 row-end-3 bg-(--white) rounded-2xl mt-4 p-8 max-sm:w-full md:max-w-full">
+          <motion.h1 variants={itemVariants} className="text-3xl font-bold mb-2">
             <strong>{petDetails.data.pet_name}</strong>
-          </h1>
-          <p className=" text-xl mb-1">
+          </motion.h1>
+          <motion.p variants={itemVariants} className=" text-xl mb-1">
             <strong>{petDetails.data.category?.name} Jenis :</strong>{" "}
             {petDetails.data.breed?.name}
-          </p>
-          <hr />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 my-4">
-            <p className="mb-1">
-              <strong>Kelamin :</strong> {petDetails.data.gender}
-            </p>
-            <p className="mb-1" title={petDetails.data.age?.description}>
-              <strong>Umur :</strong> {petDetails.data.age?.category}
-            </p>
-            <p className="mb-1">
-              <strong>Berat :</strong> {petDetails.data.weight} Kg
-            </p>
-            <p className="mb-1">
-              <strong>Jumlah Warna :</strong> {petDetails.data.color_count}
-            </p>
-          </div>
-          <hr />
-          <p className="my-4">
+          </motion.p>
+          <motion.hr variants={itemVariants}/>
+            <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-2 my-4">
+              <motion.p variants={itemVariants} className="mb-1">
+                <strong>Kelamin :</strong> {petDetails.data.gender}
+              </motion.p>
+              <motion.p className="mb-1" title={petDetails.data.age?.description}>
+                <strong>Umur :</strong> {petDetails.data.age?.category}
+              </motion.p>
+              <motion.p className="mb-1">
+                <strong>Berat :</strong> {petDetails.data.weight} Kg
+              </motion.p>
+              <motion.p className="mb-1">
+                <strong>Jumlah Warna :</strong> {petDetails.data.color_count}
+              </motion.p>
+            </motion.div>
+          <motion.hr variants={itemVariants}/>
+          <motion.p variants={itemVariants} className="my-4">
             <strong>
               Tentang {petDetails.data.pet_name} <br />
             </strong>{" "}
             {petDetails.data.about_pet}
-          </p>
-        </div>
-        <div className="md:row-start-1 mt-4 p-8 bg-(--white) rounded-2xl max-sm:w-full">
-          <h3 className="text-xl font-semibold mb-2">Informasi Owner</h3>
-          <hr />
-          <div>
+          </motion.p>
+        </motion.div>
+
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="md:row-start-1 mt-4 p-8 bg-(--white) rounded-2xl max-sm:w-full">
+          <motion.h3 variants={itemVariants} className="text-xl font-semibold mb-2">Informasi Owner</motion.h3>
+          <motion.hr variants={itemVariants}/>
+          <motion.div variants={itemVariants}>
             <p className="my-4">
               <strong>Alamat :</strong> <br /> <hr /> <br />
               {petDetails.data.user?.alamat}, <br />
@@ -157,8 +175,8 @@ const PetDetail = () => {
               <strong>No Telephone :</strong> <br /> <hr /> <br />
               {petDetails.data.user?.phone}
             </p>
-          </div>
-          <div className="max-sm:grid max-sm:grid-rows-2 sm:flex sm:justify-between mb-2">
+          </motion.div>
+          <motion.div variants={itemVariants} className="max-sm:grid max-sm:grid-rows-2 sm:flex sm:justify-between mb-2">
             <div
               className="user-profile flex gap-2 my-4 cursor-pointer"
               onClick={handleProfileClick}
@@ -178,14 +196,16 @@ const PetDetail = () => {
               <p>{petDetails.data.user?.username}</p>
             </div>
             <div className="grid grid-cols-2 gap-2 my-4">
-              <div className="favorite bg-(--blue-sky) justify-items-center h-10 w-10 rounded-4xl cursor-pointer flex items-center justify-center text-xl ">
+              <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} className="favorite bg-(--blue-sky) justify-items-center h-10 w-10 rounded-4xl cursor-pointer flex items-center justify-center text-xl ">
                 <MarkFav
                   pet={petDetails.data}
                   apiURL={apiURL}
                   favorites={favorites}
                 />
-              </div>
-              <div
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.07}} 
+                whileTap={{scale: 0.97}}
                 className="share bg-(--blue-sky) justify-items-center h-10 w-10 rounded-4xl flex items-center justify-center cursor-pointer"
                 onClick={handleShareClick}
                 aria-label="Share link"
@@ -196,10 +216,10 @@ const PetDetail = () => {
                 }}
               >
                 <FaShare />
-              </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

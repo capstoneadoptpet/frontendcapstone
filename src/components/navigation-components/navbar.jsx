@@ -103,7 +103,7 @@ const Navbar = () => {
                 >
                   <button
                     type="button"
-                    className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${location.pathname === '/profile' ? 'underline' : ''}`}
+                          className="flex items-center text-2xl cursor-pointer underline-offset-10"
                     onClick={() => {
                       setShowSidebar(true);
                     }}
@@ -262,9 +262,7 @@ const Navbar = () => {
                       {item.isButton ? (
                         <button
                           type="button"
-                          className={`flex items-center text-2xl cursor-pointer underline-offset-10 ${
-                            location.pathname === item.to ? "underline" : ""
-                          }`}
+                          className="flex items-center text-2xl cursor-pointer underline-offset-10"
                           onClick={() => setShowSidebar(true)}
                         >
                           {item.imgSrc && (

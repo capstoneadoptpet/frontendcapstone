@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import HeroSection from "../../components/profile-components/hero-section";
+import { motion } from 'framer-motion';
 
 const ProfileDetailPage = () => {
   const { id } = useParams();
@@ -43,11 +44,11 @@ const ProfileDetailPage = () => {
     <div>
       <HeroSection user={user} isEditing={isEditing} setUser={setUser} />
       <div className="section-Profile bg-gray-100 -h-screen mx-4 md:mx-10 py-5 my-5">
-        <div className="profile-info bg-white rounded-md shadow-md p-4 md:p-10 my-10">
+        <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.5 }} className="profile-info bg-white rounded-md shadow-md p-4 md:p-10 my-10">
           <p className="text-2xl md:text-4xl font-bold">Tentang Saya</p>
           <div className="border-t-2 mb-4"></div>
           <p className="text-m p-2 ">{user.description}</p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

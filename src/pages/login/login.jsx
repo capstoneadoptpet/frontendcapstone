@@ -62,11 +62,27 @@ const LoginPage = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.3,
+            duration: 1.2
+        },
+    },
+  };
+
+  const itemVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="login-page flex justify-center items-center min-h-screen bg-gray-100 ">
-      <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl bg-white rounded-lg shadow-md p-6 sm:p-8 md:p-10 m-6 sm:m-8 md:m-10">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 sm:mb-8">Masuk</h2>
-        <form onSubmit={handleSubmit} className="grid grid-rows-3 gap-3 sm:gap-4 md:gap-6">
+    <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="login-page flex justify-center items-center min-h-screen bg-gray-100 ">
+      <motion.div variants={containerVariants} className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl bg-white rounded-lg shadow-md p-6 sm:p-8 md:p-10 m-6 sm:m-8 md:m-10">
+        <motion.h1 variants={itemVariants} className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 sm:mb-8">Masuk</motion.h1>
+        <motion.form variants={itemVariants} onSubmit={handleSubmit} className="grid grid-rows-3 gap-3 sm:gap-4 md:gap-6">
           <div>
             <label htmlFor="email" className="block mb-1 text-sm sm:text-base font-medium text-gray-700">Email</label>
             <input
@@ -113,9 +129,9 @@ const LoginPage = () => {
           >
             Masuk
           </motion.button>
-        </form>
-      </div>
-    </div>
+        </motion.form>
+      </motion.div>
+    </motion.div>
   );
 };
 

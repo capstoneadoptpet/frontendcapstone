@@ -186,7 +186,7 @@ const CategoriesPost = () => {
                                                 )}
                                             </TableCell>
                                             <TableCell >
-                                                <div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} className="flex items-center gap-x-3">
+                                                <div className="flex items-center gap-x-3">
                                                     <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} >
                                                         <button onClick={(e) => { e.preventDefault(); handleEditCategoryClick(category); }} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 focus:!ring-2 p-0 font-medium rounded-lg">
                                                             <span className="flex items-center rounded-md text-sm px-3 py-2">

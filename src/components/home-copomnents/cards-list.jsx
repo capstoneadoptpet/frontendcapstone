@@ -2,6 +2,7 @@ import CardItem from "../pets-components/card-item";
 import { useState, useEffect } from "react";
 import Paw from '../../assets/img/PawBlack.png';
 import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 const CardList = ({ user }) => {
     const apiURL = import.meta.env.VITE_API_URL;
@@ -85,15 +86,20 @@ const CardList = ({ user }) => {
     }
 
     return (
-        <div className="card-list_section grid grid-rows-1 md:grid-rows-1 gap-2 w-full my-[16rem] md:my-5 lg:my-[12rem] py-8 bg-[var(--white)] justify-items-center">
+        <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.7 + posts.length * 0.2 }} className="card-list_section grid grid-rows-1 md:grid-rows-1 gap-2 w-full my-[16rem] md:my-5 lg:my-[12rem] py-8 bg-[var(--white)] justify-items-center">
             <div>
                 <h1 className="text-xl md:text-3xl font-semibold text-center my-8" >Rekomendasi Hewan Untuk Anda</h1>
             </div>
             <div className="card-list grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 sm:px-8 justify-center justify-items-center">
-                {posts.length > 0 && posts.map(post => (
-                    <CardItem key={post.id} post_id={post.id} pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
-                ))}
-                <div
+                <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.7 + posts.length * 0.2 }}>
+                    {posts.length > 0 && posts.map(post => (
+                        <CardItem key={post.id} post_id={post.id} pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
+                    ))}
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, y: -20}}
+                    animate={{ opacity: 1, y: 0}}
+                    transition={{type: "spring", stiffness: 100, damping: 20, delay:0.7 + (posts.length + 1) * 0.2}}
                     className="Card_Routes group relative flex flex-col items-center w-48 bg-[var(--blue-sky)] rounded-xl cursor-pointer hover:border-2 border-[var(--navy)]"
                     onClick={handleNavigate}
                     role="button"
@@ -112,9 +118,9 @@ const CardList = ({ user }) => {
                         </p>
                     </div>
 
-                </div>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

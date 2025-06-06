@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Accordion, AccordionContent, AccordionPanel, AccordionTitle } from "flowbite-react";
+import { motion } from 'framer-motion';
 
 const Accordition = ({
     title,
@@ -10,24 +11,24 @@ const Accordition = ({
     const [accorditionOpen, setAccortditionOpen] = useState(false);
 
     return (
-        <div className="py-2">
-
-            <Accordion className="bg-[var(--white)] border-[var(--black)]">
-                <AccordionPanel>
-                    <AccordionTitle className="text-(--black)"><strong>{title}</strong></AccordionTitle>
-                    <AccordionContent>
-                        <p className="mb-2 text-(--black) ">
-                            {description1}
-                        </p>
-                        <p className="mb-2 text-(--black) ">
-                            {description2}
-                        </p>
-                        <p className="text-(--black)">
-                            {description3}
-                        </p>
-                    </AccordionContent>
-                </AccordionPanel>
-            </Accordion>
+        <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.7 }} className="py-2">
+                <Accordion collapseAll className="bg-[var(--white)] border-[var(--black)]">
+                    <AccordionPanel>
+                        <AccordionTitle className="text-(--black)"><strong>{title}</strong></AccordionTitle>
+                        <AccordionContent>
+                            <p className="mb-2 text-(--black) ">
+                                {description1}
+                            </p>
+                            <p className="mb-2 text-(--black) ">
+                                {description2}
+                            </p>
+                            <p className="text-(--black)">
+                                {description3}
+                            </p>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
+        
 
             {/* <button onClick={() => setAccortditionOpen(!accorditionOpen)} className="flex justify-between w-full">
                 <span>{title}</span>
@@ -41,7 +42,7 @@ const Accordition = ({
                     {description}
                 </div>
             </div> */}
-        </div>
+        </motion.div>
     )
 }
 

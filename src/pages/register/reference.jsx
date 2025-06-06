@@ -130,12 +130,28 @@ const ReferencePage = () => {
             // Removed misplaced navigate('/login') from here
 
     }
+    
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                duration: 1.2
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
 
     return (
-        <div className="register-page flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-10 my-20">
-                <h2 className="text-2xl font-semibold text-center mb-8">Register Hewan</h2>
-                <form onSubmit={handleSubmit} className="grid sm:grid-cols gap-6">
+        <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="register-page flex justify-center items-center min-h-screen bg-gray-100">
+            <motion.div variants={containerVariants} className="w-full max-w-4xl bg-white rounded-lg shadow-md p-10 my-20">
+                <motion.h1 variants={itemVariants} className="text-2xl font-semibold text-center mb-8">Register Hewan</motion.h1>
+                <motion.form variants={itemVariants} onSubmit={handleSubmit} className="grid sm:grid-cols gap-6">
                     <div>
                         <label className="block mb-1 font-semibold">Hewan apa yang ingin anda pelihara?</label>
                         <select
@@ -238,9 +254,9 @@ const ReferencePage = () => {
                             Daftar
                         </motion.button>
                     </div>
-                </form>
-            </div>
-        </div>
+                </motion.form>
+            </motion.div>
+        </motion.div>
     )
 }
 

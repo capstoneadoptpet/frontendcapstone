@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaChevronRight } from "react-icons/fa6";
+import { motion } from "motion/react"
 
 export const Carousel = ({ Slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,7 +12,7 @@ export const Carousel = ({ Slides }) => {
       setCurrentIndex((prevIndex) =>
         prevIndex === Slides.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [Slides]);
@@ -31,7 +32,7 @@ export const Carousel = ({ Slides }) => {
   };
 
   return (
-    <div className="relative w-full h-56 sm:h-64 xl:h-80 2xl:h-96 overflow-hidden rounded-lg">
+    <div  className="relative w-full h-56 sm:h-64 xl:h-80 2xl:h-96 overflow-hidden rounded-lg">
         <div className="flex">
           {Slides && Slides.length > 0 && Slides.map((pic, index) => (
             <img
@@ -45,21 +46,25 @@ export const Carousel = ({ Slides }) => {
           ))}
         </div>
       {/* Prev Button */}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.2}} 
+        whileTap={{scale: 0.97}}
         onClick={goToPrev}
         className="absolute z-10 top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-md"
         aria-label="Previous Slide"
       >
         <FaChevronRight className="rotate-180 text-gray-700" />
-      </button>
+      </motion.button>
       {/* Next Button */}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.2}} 
+        whileTap={{scale: 0.97}}
         onClick={goToNext}
         className="absolute z-10 top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 shadow-md"
         aria-label="Next Slide"
       >
         <FaChevronRight className="text-gray-700" />
-      </button>
+      </motion.button>
 
       <div className="absolute z-10 bottom-0 flex justify-center gap-3 w-full pb-2">
         {Slides && Slides.length > 0 && Slides.map((pic, index) => {

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CardItem from '../../components/pets-components/card-item';
 import { Spinner } from "flowbite-react";
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 const MyPosts = () => {
   const apiURL = import.meta.env.VITE_API_URL;
@@ -152,34 +153,38 @@ const MyPosts = () => {
   }
 
   return (
-    <div className="min-h-screen mx-auto md:mx-[3rem] py-8">
+    <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="min-h-screen mx-auto md:mx-[3rem] py-8">
       <h2 className="text-4xl font-bold text-center mb-2 font-poppins">Your Post Pet</h2>
       <hr className="border-black w-11/12 mx-auto mb-8" />
       {deleteError && <div className="text-red-600 text-center mb-4">{deleteError}</div>}
-      <div className="flex flex-wrap justify-center gap-6">
-        {posts.map((post) => (
-          <div key={post.id} className="flex flex-col items-center">
-            <CardItem pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
-            <div className="flex gap-2 mt-3">
-              <button
-                className="bg-yellow-300 hover:bg-yellow-500 text-black font-bold py-1 px-6 rounded-lg font-poppins"
-                onClick={() => handleEdit(post.id)}
-                disabled={isDeleting}
-              >
-                Edit
-              </button>
-              <button
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6 rounded-lg font-poppins"
-                onClick={() => handleDelete(post.id)}
-                disabled={isDeleting}
-              >
-                {isDeleting ? 'Menghapus...' : 'Hapus'}
-              </button>
+      <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="flex flex-wrap justify-center gap-6">
+          {posts.map((post) => (
+            <div key={post.id} className="flex flex-col items-center">
+              <CardItem pet={post} apiURL={apiURL} favorites={favorites} updateFavorites={updateFavorites} />
+              <div className="flex gap-2 mt-3">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="bg-yellow-300 hover:bg-yellow-500 text-black font-bold py-1 px-6 rounded-lg font-poppins"
+                  onClick={() => handleEdit(post.id)}
+                  disabled={isDeleting}
+                >
+                  Edit
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6 rounded-lg font-poppins"
+                  onClick={() => handleDelete(post.id)}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? 'Menghapus...' : 'Hapus'}
+                </motion.button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+      </motion.div>
+    </motion.div>
   );
 };
 

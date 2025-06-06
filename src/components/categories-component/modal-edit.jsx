@@ -10,11 +10,12 @@ export const ModalEditCategories = ({ show, onClose, categoryId, initialData }) 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const apiURL = import.meta.env.VITE_API_URL;
+    console.log("api ", apiURL);
 
     useEffect(() => {
         if (show && initialData) {
             setName(initialData.name || "");
-            setIcon(null); // Reset icon on open, user can upload new one
+            setIcon(initialData.icon || null); // Reset icon on open, user can upload new one
         }
     }, [show, initialData]);
 

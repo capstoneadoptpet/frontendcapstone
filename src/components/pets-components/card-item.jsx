@@ -15,7 +15,7 @@ const CardItem = ({ pet, apiURL, favorites, updateFavorites }) => {
     }
 
     return (
-        <div onClick={handleClick} className="relative bg-white rounded-xl border border-gray-400 shadow max-w-xs w-full overflow-hidden flex flex-col items-center cursor-pointer hover:border-2 hover:border-[var(--black)]">
+        <div onClick={handleClick} className="relative bg-white rounded-xl border border-gray-400 shadow max-w-xs w-48 overflow-hidden flex flex-col items-center cursor-pointer hover:border-2 hover:border-[var(--black)]">
             <img
                 src={pet.pictures && pet.pictures.length > 0 ? pet.pictures[0] : "/placeholder.png"}
                 alt={pet.pet_name || "Pet Image"}
