@@ -154,7 +154,6 @@ const Navbar = () => {
                     </span>
                   </Link>
                 </motion.div>
-              </ul>
               <motion.ul
                 initial="hidden"
                 animate="visible"
@@ -195,6 +194,7 @@ const Navbar = () => {
                   </Link>
                 </motion.li>
               </motion.ul>
+              </ul>
             </>
           )}
         </nav>
