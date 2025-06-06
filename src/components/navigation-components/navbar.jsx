@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/img/logo.png';
+import logo from '../../assets/img/logo.webp';
 import Sidebar from './sidebar';
 import Mobile_Sidebar from './mobile_sidebar';
 import { FaBars  } from 'react-icons/fa6';

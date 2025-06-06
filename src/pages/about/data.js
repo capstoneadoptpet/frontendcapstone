@@ -1,6 +1,6 @@
-import BG from "../../assets/img/BG.jpg";
-import story from "../../assets/img/kisah.jpg";
-import team from "../../assets/img/Team.JPG";
+import BG from "../../assets/img/BG.webp";
+import story from "../../assets/img/kisah.webp";
+import team from "../../assets/img/Team.webp";
 
 export const content1 = {
   lightBg: false,

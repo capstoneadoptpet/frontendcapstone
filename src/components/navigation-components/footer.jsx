@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import logo from '../../assets/img/logo.png';
+import logo from '../../assets/img/logo.webp';
 import { FaXTwitter, FaInstagram, FaYoutube, FaLinkedin  } from "react-icons/fa6";
 import { motion } from "motion/react"
 

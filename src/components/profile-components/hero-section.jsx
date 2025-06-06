@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import ProfBG from '../../assets/img/ProfBG.png';
+import ProfBG from '../../assets/img/HeroBG.webp';
 import Swal from 'sweetalert2';
 
 

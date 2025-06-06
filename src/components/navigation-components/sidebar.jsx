@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/logo.webp";
 import {
   Drawer, DrawerItems,
   Sidebar as FlowSidebar, SidebarItems,
@@ -8,7 +8,7 @@ import {
 } from "flowbite-react";
 import { FaRegClipboard, FaGrip, FaLinesLeaning , FaArrowRightFromBracket, FaAngleRight  } from "react-icons/fa6";
 import Swal from "sweetalert2";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 
 const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   const admin = user.is_admin;
