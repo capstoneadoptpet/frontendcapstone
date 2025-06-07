@@ -2,16 +2,18 @@
 
 ![Background Image](src/assets/img/BG.webp)
 
-This is a React + Vite based web application for finding and adopting pets. The project provides features such as browsing pet categories, filtering by breed, age, gender, and location, and managing user favorites and posts.
+Ini adalah aplikasi web berbasis React + Vite untuk mencari dan mengadopsi hewan peliharaan. Proyek ini menyediakan fitur-fitur seperti menelusuri kategori hewan peliharaan, memfilter berdasarkan ras, usia, jenis kelamin, dan lokasi, serta mengelola favorit dan kiriman pengguna.
 
 ## Features
 
-- Browse and filter pets by category, breed, age, gender, and city.
-- User authentication and profile management.
-- Favorite pets and manage posts.
-- Responsive design for desktop and mobile.
-- Smooth animations using Framer Motion.
-- Admin dashboard for managing categories and posts.
+- Penelusuran dan filtering hewan peliharaan berdasarkan kategori, ras, usia, jenis kelamin, dan kota.
+- Otentikasi pengguna dan manajemen profil.
+- Hewan peliharaan favorit dan kelola postingan.
+- Image Clasification untuk postingan hewan
+- Desain responsif untuk desktop dan seluler.
+- Animasi halus menggunakan Framer Motion.
+- Dashboard admin untuk mengelola kategori dan postingan.
+- Rekomendasi hewan peliharaan
 
 ## Getting Started
 
@@ -62,10 +64,6 @@ yarn dev
 - Framer Motion
 - React Router
 - Flowbite React
-
-## Contributing
-
-Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
 
 ## License
 
