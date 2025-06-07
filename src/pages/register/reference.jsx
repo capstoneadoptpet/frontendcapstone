@@ -51,10 +51,7 @@ const ReferencePage = () => {
 
     const navigate = useNavigate();
 
-
-
     const handleSubmit = async (e) => {
-
         e.preventDefault();
         try {
             const response = await fetch(`${apiURL}/users/register`, {
