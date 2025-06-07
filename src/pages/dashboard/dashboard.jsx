@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const Dashboard = () => {
     const [totalPosts, setTotalPosts] = useState(0);
+    const [totalUsers, setTotalUsers] = useState(0);
     const apiURL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -13,6 +14,24 @@ const Dashboard = () => {
                 }
                 const datas = await response.json();
                 setTotalPosts(datas.data.length);
+                
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchPets();
+    }, [apiURL]);
+
+    useEffect(() => {
+        const fetchPets = async () => {
+            try {
+                const response = await fetch(`${apiURL}/users`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch pets");
+                }
+                const datas = await response.json();
+                setTotalUsers(datas.length);
                 
             } catch (error) {
                 console.error(error);
@@ -35,7 +54,7 @@ const Dashboard = () => {
                     </div>
                     <div className="w-[18rem] h-[9rem] grid grid-rows-2 justify-items-center-safe rounded-2xl border-2 border-[var(--black)] bg-[var(--white)] ">
                         <h1 className="text-xl font-semibold p-2 m2">User</h1>
-                        <p className="text-2xl font-semibold text-[var(--blue-sky)]">12</p>
+                        <p className="text-2xl font-semibold text-[var(--blue-sky)]">{totalUsers}</p>
                     </div>
                 </div>
             </div>

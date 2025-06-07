@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ModalTermsPolicy } from '../../components/modal-TP';
 import Swal from 'sweetalert2';
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { motion } from "motion/react"
+
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
@@ -17,6 +20,7 @@ const RegisterPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const apiURL = import.meta.env.VITE_API_URL;
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const checkUsername = async (e,username) => {
@@ -111,11 +115,27 @@ const RegisterPage = () => {
         setLoading(false);
     };
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                duration: 1.2
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
-        <div className="register-page flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-10 my-20">
-                <h2 className="text-2xl font-semibold text-center mb-8">Sign Up</h2>
-                <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
+        <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="register-page flex justify-center items-center min-h-screen bg-gray-100">
+            <motion.div variants={containerVariants} className="w-full max-w-4xl bg-white rounded-lg shadow-md p-10 my-20">
+                <motion.h1 variants={itemVariants} className="text-2xl font-semibold text-center mb-8">Daftar</motion.h1>
+                <motion.form variants={itemVariants} onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-6">
                     <div>
                         <label className="block mb-1">Username</label>
                         <input
@@ -142,14 +162,25 @@ const RegisterPage = () => {
                     </div>
                     <div>
                         <label className="block mb-1">Password</label>
-                        <input
-                            type="password"
-                            placeholder="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full p-2 bg-gray-200 rounded"
-                            required
-                        />
+                        <div className='relative'>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                placeholder="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full p-2 bg-gray-200 rounded"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-2 top-3 text-gray-600 hover:text-gray-900 text-xs sm:text-sm"
+                                aria-label={showPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
+
+                        </div>
                     </div>
                     <div>
                         <label className="block mb-1">Handphone Number</label>
@@ -217,7 +248,7 @@ const RegisterPage = () => {
                             required
                         />
                     </div>
-                </form>
+                </motion.form>
                 <div className="mt-6 flex flex-col items-center">
                     <label className="flex items-center gap-2">
                         <input
@@ -230,13 +261,15 @@ const RegisterPage = () => {
                         <span>I accept the <button onClick={handleOpenModal} className="text-black-500 underline cursor-pointer">Terms & Policy</button></span>
                     </label>
 
-                    <button
+                    <motion.button
+                        whileHover={{ scale: 1.07}} 
+                        whileTap={{scale: 0.97}}
                         type="submit"
                         onClick={handleSubmit}
-                        className="mt-4 w-1/2 bg-sky-500 text-white py-2 rounded hover:bg-blue-500 transition mx-auto"
+                        className="mt-4 w-1/2 sm:w-1/3 bg-sky-500 text-white py-2 rounded hover:bg-blue-500 transition mx-auto"
                     >
-                        Continue
-                    </button>
+                        Lanjut
+                    </motion.button>
                 </div>
                 <ModalTermsPolicy
                     show={showModal}
@@ -244,8 +277,8 @@ const RegisterPage = () => {
                     handleSubmit={handleAgree}
                     loading={loading}
                 />
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 

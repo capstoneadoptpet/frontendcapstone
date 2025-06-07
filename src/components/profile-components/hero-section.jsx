@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import ProfBG from '../../assets/img/ProfBG.png';
+import ProfBG from '../../assets/img/HeroBG.webp';
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 
 const HeroSection = ({ user, isEditing, setUser }) => {
@@ -67,20 +68,24 @@ const HeroSection = ({ user, isEditing, setUser }) => {
     };
 
     return (
-        <div className="section-Hero bg-(--grey) h-screen mx-10 py-5 relative">
+        <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="section-Hero bg-(--grey) h-screen mx-4 md:mx-10 py-5 relative">
             <img
                 src={ProfBG}
                 alt="Hero Background"
-                className="object-cover filter opacity-80 rounded-md relative top-0 left-0 w-full h-full "
+                className="object-cover filter opacity-80 rounded-md relative top-0 left-0 w-full h-full"
             />
 
-            <div className="absolute bottom-32 left-12 flex items-center gap-x-4 z-10">
+            <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", stiffness: 100, damping: 25, delay: 0.3, duration: 1.2 }}
+                className="absolute bottom-20 md:bottom-32 left-4 md:left-12 flex items-center gap-x-4 z-10">
                 {isEditing ? (
                     <>
                         <img
                             src={user.picture}
                             alt="Profile"
-                            className="w-36 h-36 rounded-full border-4 p-1 border-green-400 shadow-lg cursor-pointer object-cover"
+                            className="w-24 md:w-36 h-24 md:h-36 rounded-full border-4 p-1 border-green-400 shadow-lg cursor-pointer object-cover"
                             onClick={handleImageClick}
                         />
                         <input
@@ -95,12 +100,12 @@ const HeroSection = ({ user, isEditing, setUser }) => {
                     <img
                         src={user.picture}
                         alt="Profile"
-                        className="w-36 h-36 rounded-full p-2 shadow-lg object-cover"
+                        className="w-24 md:w-36 h-24 md:h-36 rounded-full p-2 shadow-lg object-cover"
                     />
                 )}
-                <h1 className="text-4xl font-bold px-4 py-2 rounded">{user.username}</h1>
-            </div>
-        </div>
+                <h1 className="text-2xl md:text-4xl font-bold px-4 py-2 rounded">{user.username}</h1>
+            </motion.div>
+        </motion.div>
     );
 };
 

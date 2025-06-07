@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { motion } from "motion/react"
 
 const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -114,14 +115,16 @@ const MarkFav = ({ pet, apiURL, favorites = [], updateFavorites }) => {
 
     return (
         <div className="flex items-center ">
-            <button
+            <motion.button
+                whileHover={{ scale: 1.07}} 
+                whileTap={{scale: 0.97}}
                 type="button"
                 onClick={isFavorited ? handleUnfavorite : handleFavorite}
                 disabled={isLoading}
                 title={isFavorited ? "Remove from favorites" : "Add to favorites"}
             >
                 {isFavorited ? <FaHeart color="#ff0000" /> : <FaRegHeart color="#ff0000" />}
-            </button>
+            </motion.button>
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ModalTermsPost } from '../../components/modal-TP';
 import Swal from 'sweetalert2';
+import { motion } from "motion/react"
 
 const PostPage = () => {
   const [user, setUser] = useState({});
@@ -103,7 +104,13 @@ const handlePictureChange = async (idx, file) => {
           setPictures(newPics);
         }
         else{
-          alert('The image does not match the selected animal type.');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Gambar tidak selaras dengan jenis hewan yang dipilih.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
           console.log('Classification Failed: The image does not match the selected animal type.');
         }
         // Optionally, set state for classification result here
@@ -174,7 +181,7 @@ const handlePictureChange = async (idx, file) => {
           Swal.fire({
             icon: 'success',
             title: 'Success',
-            text: 'Post created successfully!',
+            text: 'Postingan berhasil dibuat',
             timer: 2000,
             showConfirmButton: false,
           });
@@ -184,7 +191,7 @@ const handlePictureChange = async (idx, file) => {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: errorData.message || 'Failed to create post',
+            text: errorData.message || 'Gagal membuat postingan',
             timer: 2000,
             showConfirmButton: false,
           });
@@ -194,7 +201,7 @@ const handlePictureChange = async (idx, file) => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'An error occurred while creating the post.',
+          text: 'Terjadi kealahan dalam membuat postingan.',
           timer: 2000,
           showConfirmButton: false,
         });
@@ -218,12 +225,28 @@ const handlePictureChange = async (idx, file) => {
     setLoading(false);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.3,
+            duration: 1.2
+        },
+    },
+  };
+
+  const itemVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
-        <h1 className="text-4xl font-bold text-center mb-2">Create Your Pet Post</h1>
-        <div className="border-t-2 mb-8"></div>
-        <form onSubmit={handleSubmit}>
+    <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="min-h-screen bg-gray-100 py-8">
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
+        <motion.h1 variants={itemVariants} className="text-4xl font-bold text-center mb-2">Buat Postingan Hewan Anda</motion.h1>
+        <motion.div variants={itemVariants} className="border-t-2 mb-8"></motion.div>
+        <motion.form variants={itemVariants} onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div>
               <label className="block font-semibold mb-1">Nama Hewan</label>
@@ -500,22 +523,24 @@ const handlePictureChange = async (idx, file) => {
             </label>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.07}} 
+            whileTap={{scale: 0.97}}
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded"
             disabled={!agree}
           >
             Submit
-          </button>
-        </form>
-      </div>
+          </motion.button>
+        </motion.form>
+      </motion.div>
       <ModalTermsPost
         show={showModal}
         onClose={handleCloseModal}
         handleSubmit={handleAgree}
         loading={loading}
       />
-    </div>
+    </motion.div>
   );
 
 }

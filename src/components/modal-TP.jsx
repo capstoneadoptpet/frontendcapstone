@@ -1,5 +1,6 @@
 import { Button, Modal } from "flowbite-react";
 import { IoCloseSharp } from 'react-icons/io5';
+import { motion } from "motion/react"
 
 export const ModalTermsPolicy = ({ show, onClose, handleSubmit, loading }) => {
     return (
@@ -74,13 +75,17 @@ export const ModalTermsPolicy = ({ show, onClose, handleSubmit, loading }) => {
                             </p>
                         </div>
                     </div>
-                    <div className="flex bg-white items-center space-x-2 rounded-b-lg border-gray-200 p-6 dark:border-gray-600 border-t">
-                        <Button type="submit" onClick={handleSubmit} disabled={loading}>
-                            {loading ? "Menyetujui..." : "Saya Setuju"}
-                        </Button>
-                        <Button color="red" onClick={onClose} disabled={loading}>
-                            Tidak Setuju
-                        </Button>
+                    <div  className="flex bg-white items-center space-x-2 rounded-b-lg border-gray-200 p-6 dark:border-gray-600 border-t">
+                        <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                            <Button type="submit" onClick={handleSubmit} disabled={loading}>
+                                {loading ? "Menyetujui..." : "Saya Setuju"}
+                            </Button>
+                        </motion.div>
+                        <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                            <Button color="red" onClick={onClose} disabled={loading}>
+                                Tidak Setuju
+                            </Button>
+                        </motion.div>
                     </div>
                 </Modal>
     )
@@ -136,12 +141,16 @@ export const ModalTermsPost = ({ show, onClose, handleSubmit, loading }) => {
                         </div>
                     </div>
                     <div className="flex bg-white items-center space-x-2 rounded-b-lg border-gray-200 p-6 dark:border-gray-600 border-t">
-                        <Button type="submit" onClick={handleSubmit} disabled={loading}>
-                            {loading ? "Menyetujui..." : "Saya Setuju"}
-                        </Button>
-                        <Button color="red" onClick={onClose} disabled={loading}>
-                            Tidak Setuju
-                        </Button>
+                        <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                            <Button type="submit" onClick={handleSubmit} disabled={loading}>
+                                {loading ? "Menyetujui..." : "Saya Setuju"}
+                            </Button>
+                        </motion.div>
+                        <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                            <Button color="red" onClick={onClose} disabled={loading}>
+                                Tidak Setuju
+                            </Button>
+                        </motion.div>
                     </div>
                 </Modal>
     )

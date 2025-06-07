@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, FileInput, HelperText } from "flowbite-react";
 import { IoCloseSharp } from "react-icons/io5";
+import Swal from 'sweetalert2';
+import { motion } from "motion/react"
 
 export const ModalCreateCategories = ({ show, onClose }) => {
     const [name, setName] = useState("");
@@ -29,11 +31,24 @@ export const ModalCreateCategories = ({ show, onClose }) => {
             });
 
             if (response.ok) {
-                alert('Category created successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Kategori baru berhasil ditambahkan',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 // Refresh or update categories list if needed
             } else {
                 const errorData = await response.json();
                 alert(errorData.message || 'Failed to create category');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorData.message || 'Gagal menambahkan kategori',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
 
             setName("");
@@ -52,9 +67,9 @@ export const ModalCreateCategories = ({ show, onClose }) => {
             <div className="p-relative flex max-h-[90dvh] flex-col rounded-t-lg bg-white shadow-sm">
                 <div className="flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600 text-xl font-medium text-[var(--black)]">
                     <h3>Membuat Kategori</h3>
-                    <div type="button" onClick={onClose} className="ml-auto inline-flex cursor-pointer items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}} type="button" onClick={onClose} className="ml-auto inline-flex cursor-pointer items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
                         <IoCloseSharp className="h-5 w-5"/>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
             <div className="flex-1 overflow-auto p-6 bg-white">
@@ -83,12 +98,17 @@ export const ModalCreateCategories = ({ show, onClose }) => {
                 </form>
             </div>
             <div className="flex bg-white items-center space-x-2 rounded-b-lg border-gray-200 p-6 dark:border-gray-600 border-t">
-                <Button type="submit" onClick={handleSubmit} disabled={loading}>
-                    {loading ? "Saving..." : "Save"}
-                </Button>
-                <Button color="red" onClick={onClose} disabled={loading}>
-                    Cancel
-                </Button>
+                
+                <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                    <Button  type="submit" onClick={handleSubmit} disabled={loading}>
+                        {loading ? "Saving..." : "Save"}
+                    </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                    <Button color="red" onClick={onClose} disabled={loading}>
+                        Cancel
+                    </Button>
+                </motion.div>
             </div>
         </Modal>
     );
@@ -140,12 +160,18 @@ export const ModalCreateBreeds = ({ show, onClose }) => {
             });
 
             if (response.ok) {
-                alert("Breed created successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Jenis baru berhasil ditambahkan',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 setName("");
                 setSelectedCategory("");
                 onClose();
             } else {
-                let errorMessage = "Failed to create breed";
+                let errorMessage = "Gagal menambahkan kategori";
                 try {
                     const errorData = await response.json();
                     errorMessage = errorData.message || errorMessage;
@@ -154,7 +180,13 @@ export const ModalCreateBreeds = ({ show, onClose }) => {
                     console.error("Non-JSON error response:", text);
                     errorMessage = text;
                 }
-                alert(errorMessage);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMessage || 'Gagal menambahkan jenis baru',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             }
         } catch (err) {
             console.error(err);
@@ -169,13 +201,15 @@ export const ModalCreateBreeds = ({ show, onClose }) => {
             <div className="p-relative flex max-h-[90dvh] flex-col rounded-t-lg bg-white shadow-sm">
                 <div className="flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600 text-xl font-medium text-[var(--black)]">
                     <h3>Membuat Jenis</h3>
-                    <div
+                    <motion.div
+                        whileHover={{ scale: 1.07}} 
+                        whileTap={{scale: 0.97}}
                         type="button"
                         onClick={onClose}
                         className="ml-auto inline-flex cursor-pointer items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                         <IoCloseSharp className="h-5 w-5" />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
             <div className="flex-1 overflow-auto p-6 bg-white">
@@ -219,12 +253,16 @@ export const ModalCreateBreeds = ({ show, onClose }) => {
                 </form>
             </div>
             <div className="flex bg-white items-center space-x-2 rounded-b-lg border-gray-200 p-6 dark:border-gray-600 border-t">
-                <Button type="submit" disabled={loading} onClick={handleSubmit}>
-                    {loading ? "Saving..." : "Save"}
-                </Button>
-                <Button color="red" onClick={onClose} disabled={loading}>
-                    Cancel
-                </Button>
+                <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                    <Button type="submit" disabled={loading} onClick={handleSubmit}>
+                        {loading ? "Saving..." : "Save"}
+                    </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}>
+                    <Button color="red" onClick={onClose} disabled={loading}>
+                        Cancel
+                    </Button>
+                </motion.div>
             </div>
         </Modal>
     );
