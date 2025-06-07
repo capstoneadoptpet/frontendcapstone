@@ -108,14 +108,16 @@ const LoginPage = () => {
                 className="w-full p-2 sm:p-3 bg-gray-200 rounded text-sm sm:text-base"
                 required
               />
-              <button
+              <motion.button
+                whileHover={{ scale: 1.07}} 
+                whileTap={{scale: 0.97}}
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-2 top-3 text-gray-600 hover:text-gray-900 text-xs sm:text-sm"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              </motion.button>
             </div>
           </div>
 
