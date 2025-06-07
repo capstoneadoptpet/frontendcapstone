@@ -4,7 +4,7 @@ import { Carousel } from "../../components/pets-components/carousel-components";
 import { FaShare } from "react-icons/fa6";
 import MarkFav from "../../components/pets-components/MarkFav";
 import { motion } from "motion/react"
-im
+import Swal from "sweetalert2";
 
 const PetDetail = () => {
   const { id } = useParams();
