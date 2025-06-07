@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import HeroSection from "../../components/profile-components/hero-section";
+import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({});
-    const [isEditing, setIsEditing] = useState(false); 
-    const [description, setDescription] = useState(''); 
+    const [isEditing, setIsEditing] = useState(false);
+    const [description, setDescription] = useState('');
     const apiURL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -22,7 +24,7 @@ const ProfilePage = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
-                    setDescription(data.description); 
+                    setDescription(data.description);
                 } else {
                     console.error('Failed to fetch user data');
                 }
@@ -36,7 +38,7 @@ const ProfilePage = () => {
 
 
     const handleEditClick = () => {
-        setIsEditing(true); 
+        setIsEditing(true);
     };
 
     const handleSaveClick = async () => {
@@ -55,12 +57,32 @@ const ProfilePage = () => {
             });
 
             if (response.ok) {
-                    alert('Biodata updated successfully');
-                    console.log('Successfully updated description');
-                } else {
-                    console.error('Failed to update description');
-                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Biodata updated successfully',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+                console.log('Successfully updated description');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to update description',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+                console.error('Failed to update description');
+            }
         } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while updating the profile',
+                timer: 2000,
+                showConfirmButton: false,
+            });
             console.error('Error:', error);
         }
     };
@@ -68,9 +90,9 @@ const ProfilePage = () => {
     return (
         <div>
             <HeroSection user={user} isEditing={isEditing} setUser={setUser} />
-            <div className="section-Profile bg-gray-100 h-screen mx-10 py-5">
-                <div className="profile-info bg-white rounded-md shadow-md p-10 my-10">
-                    <p className="text-4xl font-bold">About Me</p>
+            <div className="section-Profile bg-gray-100 -h-screen mx-10 py-5 my-5">
+                <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.5 }} className="profile-info bg-white rounded-md shadow-md p-10 my-10">
+                    <p className="text-4xl font-bold">Tentang Anda</p>
                     <div className="border-t-2 mb-4"></div>
                     {isEditing ? (
                         <textarea
@@ -81,22 +103,24 @@ const ProfilePage = () => {
                     ) : (
                         <p className="text-m p-2 ">{user.description}</p>
                     )}
-                </div>
-                {isEditing ? (
-                    <button
-                        onClick={handleSaveClick}
-                        className="px-10 py-2 border-3 border-sky-500 rounded-lg bg-green-500 text-white hover:bg-green-600 cursor-pointer"
-                    >
-                        Save
-                    </button>
-                ) : (
-                    <button
-                        onClick={handleEditClick}
-                        className="px-10 py-2 rounded-lg border-3 border-sky-500 hover:bg-sky-500 hover:text-white cursor-pointer"
-                    >
-                        Edit Bio
-                    </button>
-                )}
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.7 }}>
+                    {isEditing ? (
+                        <motion.button whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}
+                            onClick={handleSaveClick}
+                            className="px-10 py-2 border-3 border-sky-500 rounded-lg bg-green-500 text-white hover:bg-green-600 cursor-pointer"
+                        >
+                            Simpan
+                        </motion.button>
+                    ) : (
+                        <motion.button whileHover={{ scale: 1.07}} whileTap={{scale: 0.97}}
+                            onClick={handleEditClick}
+                            className="px-10 py-2 rounded-lg border-3 border-sky-500 hover:bg-sky-500 hover:text-white cursor-pointer"
+                        >
+                            Edit Bio
+                        </motion.button>
+                    )}
+                </motion.div>
             </div>
         </div>
     );

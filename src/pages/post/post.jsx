@@ -1,159 +1,252 @@
-import React, { useState,useEffect } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ModalTermsPost } from '../../components/modal-TP';
+import Swal from 'sweetalert2';
+import { motion } from "motion/react"
 
 const PostPage = () => {
-    const [user, setUser] = useState({});
-    const [pet_name, setName] = useState('');
-    const [animal_type, setAnimalType] = useState('');
-    const [breed, setBreed] = useState('');
-    const [color_count, setColorCount] = useState('');
-    const [age_group, setAgeGroup] = useState('');
-    const [berat, setBerat] = useState('');
-    const [animal_gender, setAnimalGender] = useState('');
-    const [about_pet, setAboutPet] = useState('');
-    const [pictures, setPictures] = useState([null, null, null]);
-    const [alamatBerbeda, setAlamatBerbeda] = useState(false);
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [alamat, setAlamat] = useState('');
-    const [kelurahan, setKelurahan] = useState('');
-    const [kecamatan, setKecamatan] = useState('');
-    const [kota, setKota] = useState('');
-    const [provinsi, setProvinsi] = useState('');
-    const [agree, setAgree] = useState(false);
-    const navigate = useNavigate();
-    const apiURL = import.meta.env.VITE_API_URL;
+  const [user, setUser] = useState({});
+  const [pet_name, setName] = useState('');
+  const [animal_type, setAnimalType] = useState('');
+  const [breed, setBreed] = useState('');
+  const [color_count, setColorCount] = useState('');
+  const [age_group, setAgeGroup] = useState('');
+  const [berat, setBerat] = useState('');
+  const [animal_gender, setAnimalGender] = useState('');
+  const [about_pet, setAboutPet] = useState('');
+  const [pictures, setPictures] = useState([null, null, null]);
+  const [alamatBerbeda, setAlamatBerbeda] = useState(false);
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [alamat, setAlamat] = useState('');
+  const [kelurahan, setKelurahan] = useState('');
+  const [kecamatan, setKecamatan] = useState('');
+  const [kota, setKota] = useState('');
+  const [provinsi, setProvinsi] = useState('');
+  const [agree, setAgree] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const apiURL = import.meta.env.VITE_API_URL;
 
-    useEffect(() => {
-            const fetchUser = async () => {
-                const token = localStorage.getItem('auth_token');
-                try {
-                    const response = await fetch(`${apiURL}/users/profile`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
-    
-                    if (response.ok) {
-                        const data = await response.json();
-                        setUser(data);
-                    } else {
-                        console.error('Failed to fetch user data');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            };
-    
-            fetchUser();
-        }, []);
-    
-    const [categories, setCategories] = useState([]);
-    const [breeds, setBreeds] = useState([]);
-    const [ages, setAges] = useState([]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem('auth_token');
+      try {
+        const response = await fetch(`${apiURL}/users/profile`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
-        useEffect(() => {
-        fetch(`${apiURL}/pet-categories`)
-            .then(res => res.json())
-            .then(data => setCategories(data));
-        fetch(`${apiURL}/ages`)
-            .then(res => res.json())
-            .then(data => setAges(data));
-    }, [apiURL]);
-
-    useEffect(() => {
-        if (animal_type) {
-            console.log(animal_type);
-            fetch(`${apiURL}/breeds?category_id=${animal_type}`)
-                .then(res => res.json())
-                .then(data => setBreeds(data));
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
         } else {
-            setBreeds([]);
+          console.error('Failed to fetch user data');
         }
-    }, [animal_type, apiURL]);
-
-    const handlePictureChange = (idx, file) => {
-        const newPics = [...pictures];
-        newPics[idx] = file;
-        setPictures(newPics);
+      } catch (error) {
+        console.error('Error:', error);
+      }
     };
 
-    useEffect(() => {
-        if (alamatBerbeda === false) {
-            setEmail(user.email || '');
-            setPhone(user.phone || '');
-            setAlamat(user.alamat || '');
-            setKelurahan(user.kelurahan || '');
-            setKecamatan(user.kecamatan || '');
-            setKota(user.kota || '');
-            setProvinsi(user.provinsi || '');
-        }
-        else if (alamatBerbeda === true) {
-            setEmail('');
-            setPhone('');
-            setAlamat('');
-            setKelurahan('');
-            setKecamatan('');
-            setKota('');
-            setProvinsi('');
-        }
-    }, [user, alamatBerbeda]);
+    fetchUser();
+  }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('pet_name', pet_name);
-        formData.append('pet_category_id', animal_type);
-        formData.append('breed_id', breed);
-        formData.append('color_count', color_count);
-        formData.append('age_id', age_group);
-        formData.append('weight', berat);
-        formData.append('gender', animal_gender);
-        formData.append('about_pet', about_pet);
-        pictures.forEach((pic) => {
-            if (pic) {
-                formData.append('pictures[]', pic);
-            }
-        });
-        formData.append('user_id', user.user_id);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('address', alamat);
-        formData.append('kelurahan', kelurahan);
-        formData.append('kecamatan', kecamatan);
-        formData.append('kota', kota);
-        formData.append('provinsi', provinsi);
-        const token = localStorage.getItem('auth_token');
-        try {
-            const response = await fetch(`${apiURL}/posts/create`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                body: formData,
-            });
-            if (response.ok) {
-                alert('Post created successfully!');
-                navigate('/');
-            } else {
-                const errorData = await response.json();
-                alert(errorData.message || 'Failed to create post');
-            }
-        }
-        catch (error) {
-            alert('An error occurred while creating the post.');
-            console.error(error);
-        }
+  const [categories, setCategories] = useState([]);
+  const [breeds, setBreeds] = useState([]);
+  const [ages, setAges] = useState([]);
+
+  useEffect(() => {
+    fetch(`${apiURL}/pet-categories`)
+      .then(res => res.json())
+      .then(data => setCategories(data));
+    fetch(`${apiURL}/ages`)
+      .then(res => res.json())
+      .then(data => setAges(data));
+  }, [apiURL]);
+
+  useEffect(() => {
+    if (animal_type) {
+      console.log(animal_type);
+      fetch(`${apiURL}/breeds?category_id=${animal_type}`)
+        .then(res => res.json())
+        .then(data => setBreeds(data));
+    } else {
+      setBreeds([]);
     }
+  }, [animal_type, apiURL]);
 
-    return (
-     <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
-        <h1 className="text-4xl font-bold text-center mb-2">Create Your Pet Post</h1>
-        <div className="border-t-2 mb-8"></div>
-        <form onSubmit={handleSubmit}>
+const handlePictureChange = async (idx, file) => {
+  const newPics = [...pictures];
+  newPics[idx] = file;
+  const selectedCategory = categories.find(cat => String(cat.id) === String(animal_type));
+  const animalTypeName = selectedCategory ? selectedCategory.name : '';
+
+  if (file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('animal_class', animalTypeName);
+
+
+    try {
+      const response = await fetch(`${apiURL}/classification`, {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Classification result:', result.data);
+        if (result.data.is_match === true){
+          console.log('Classification Success:', result.message);
+          setPictures(newPics);
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Gambar tidak selaras dengan jenis hewan yang dipilih.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          console.log('Classification Failed: The image does not match the selected animal type.');
+        }
+        // Optionally, set state for classification result here
+      } else {
+        console.error('Failed to classify image');
+      }
+    } catch (error) {
+      console.error('Error classifying image:', error);
+    }
+  }
+};
+
+  useEffect(() => {
+    if (alamatBerbeda === false) {
+      setEmail(user.email || '');
+      setPhone(user.phone || '');
+      setAlamat(user.alamat || '');
+      setKelurahan(user.kelurahan || '');
+      setKecamatan(user.kecamatan || '');
+      setKota(user.kota || '');
+      setProvinsi(user.provinsi || '');
+    }
+    else if (alamatBerbeda === true) {
+      setEmail('');
+      setPhone('');
+      setAlamat('');
+      setKelurahan('');
+      setKecamatan('');
+      setKota('');
+      setProvinsi('');
+    }
+  }, [user, alamatBerbeda]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('pet_name', pet_name);
+    formData.append('pet_category_id', animal_type);
+    formData.append('breed_id', breed);
+    formData.append('color_count', color_count);
+    formData.append('age_id', age_group);
+    formData.append('weight', berat);
+    formData.append('gender', animal_gender);
+    formData.append('about_pet', about_pet);
+    pictures.forEach((pic) => {
+      if (pic) {
+        formData.append('pictures[]', pic);
+      }
+    });
+    formData.append('user_id', user.user_id);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('address', alamat);
+    formData.append('kelurahan', kelurahan);
+    formData.append('kecamatan', kecamatan);
+    formData.append('kota', kota);
+    formData.append('provinsi', provinsi);
+    const token = localStorage.getItem('auth_token');
+      try {
+        const response = await fetch(`${apiURL}/posts/create`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Postingan berhasil dibuat',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          navigate('/');
+        } else {
+          const errorData = await response.json();
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorData.message || 'Gagal membuat postingan',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        }
+      }
+      catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Terjadi kealahan dalam membuat postingan.',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        console.error(error);
+      }
+  }
+
+  const handleOpenModal = (e) => {
+      e.preventDefault();
+      setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+      setShowModal(false);
+  };
+
+  const handleAgree = () => {
+    setLoading(true);
+    setAgree(true);
+    setShowModal(false);
+    setLoading(false);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.3,
+            duration: 1.2
+        },
+    },
+  };
+
+  const itemVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 },
+  };
+
+  return (
+    <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="min-h-screen bg-gray-100 py-8">
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
+        <motion.h1 variants={itemVariants} className="text-4xl font-bold text-center mb-2">Buat Postingan Hewan Anda</motion.h1>
+        <motion.div variants={itemVariants} className="border-t-2 mb-8"></motion.div>
+        <motion.form variants={itemVariants} onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div>
               <label className="block font-semibold mb-1">Nama Hewan</label>
@@ -174,10 +267,10 @@ const PostPage = () => {
                 required
               >
                 <option value="" disabled>
-                    Select Tipe Hewan yang ingin dipelhara
+                  Pilih Kategori Hewan yang ingin dipelhara
                 </option>
                 {categories.map(cat => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
                 ))}
               </select>
             </div>
@@ -187,16 +280,16 @@ const PostPage = () => {
                 className="w-full border rounded px-3 py-2"
                 value={breed}
                 onChange={e => setBreed(e.target.value)}
-                disabled={!animal_type} 
+                disabled={!animal_type}
                 required
               >
                 <option value="" disabled>
-                                {animal_type
-                                    ? 'Select Jenis Hewan'
-                                    : 'Select Type Hewan First'}
-                            </option>
+                  {animal_type
+                    ? 'Pilih Jenis Hewan'
+                    : 'Pilih Type Hewan Dahulu'}
+                </option>
                 {breeds.map(br => (
-                    <option key={br.id} value={br.id}>{br.name}</option>
+                  <option key={br.id} value={br.id}>{br.name}</option>
                 ))}
               </select>
             </div>
@@ -209,14 +302,14 @@ const PostPage = () => {
                 className="w-full border rounded px-3 py-2"
                 value={color_count}
                 onChange={e => setColorCount(e.target.value)}
-                disabled={!breed} 
+                disabled={!breed}
                 required
               >
                 <option value="" disabled>
-                            {breed
-                                ? 'Select Jumlah Warna Hewan'
-                                : 'Select Jenis Hewan First'}
-                        </option>
+                  {breed
+                    ? 'Pilih Jumlah Warna Hewan'
+                    : 'Pilih Jenis Hewan Dahulu'}
+                </option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -228,16 +321,16 @@ const PostPage = () => {
                 className="w-full border rounded px-3 py-2"
                 value={age_group}
                 onChange={e => setAgeGroup(e.target.value)}
-                disabled={!color_count} 
+                disabled={!color_count}
                 required
               >
                 <option value="" disabled>
-                            {color_count
-                                ? 'Select Kelompok Usia Hewan'
-                                : 'Select Jumlah Warna Hewan First'}
-                        </option>
+                  {color_count
+                    ? 'Pilih Kelompok Usia Hewan'
+                    : 'Pilih Jumlah Warna Hewan Dahulu'}
+                </option>
                 {ages.map(age => (
-                    <option key={age.id} value={age.id}>{age.category}</option>
+                  <option key={age.id} value={age.id}>{age.category} {age.description}</option>
                 ))}
               </select>
             </div>
@@ -246,10 +339,10 @@ const PostPage = () => {
               <input
                 type="number"
                 className="w-full border rounded px-3 py-2"
-                placeholder="Fill With Number"
+                placeholder="Isi Dengan Angka"
                 value={berat}
                 onChange={e => setBerat(e.target.value)}
-                disabled={!age_group} 
+                disabled={!age_group}
                 required
               />
             </div>
@@ -262,16 +355,16 @@ const PostPage = () => {
                 className="w-full border rounded px-3 py-2"
                 value={animal_gender}
                 onChange={e => setAnimalGender(e.target.value)}
-                disabled={!berat} 
+                disabled={!berat}
                 required
               >
                 <option value="" disabled>
-                            {berat
-                                ? 'Select Gender Hewan'
-                                : 'Input Weight First'}
-                        </option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                  {berat
+                    ? 'Pilih Gender Hewan'
+                    : 'Isi Berat Dahulu'}
+                </option>
+                <option value="Jantan">Jantan</option>
+                <option value="Betina">Betina</option>
               </select>
             </div>
             <div className="md:col-span-2">
@@ -328,94 +421,94 @@ const PostPage = () => {
           <div className="mb-4">
             <label className="block font-semibold mb-1">Apakah Alamat Hewan Anda Berbeda Dengan Anda</label>
             <select
-            className="w-full md:w-1/3 border rounded px-3 py-2"
-            value={alamatBerbeda}
-            onChange={e => setAlamatBerbeda(e.target.value === "true")}
+              className="w-full md:w-1/3 border rounded px-3 py-2"
+              value={alamatBerbeda}
+              onChange={e => setAlamatBerbeda(e.target.value === "true")}
             >
-            <option value="false">No</option>
-            <option value="true">Yes</option>
+              <option value="false">No</option>
+              <option value="true">Yes</option>
             </select>
           </div>
 
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div>
-                <label className="block font-semibold mb-1">Email</label>
-                <input
+              <label className="block font-semibold mb-1">Email</label>
+              <input
                 type="email"
                 className="w-full border rounded px-3 py-2"
                 placeholder="Email@gmail.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                disabled={alamatBerbeda === false }
-                />
+                disabled={alamatBerbeda === false}
+              />
             </div>
             <div>
-                <label className="block font-semibold mb-1">Nomor Handphone</label>
-                <input
+              <label className="block font-semibold mb-1">Nomor Handphone</label>
+              <input
                 type="Number"
                 className="w-full border rounded px-3 py-2"
                 placeholder="085*****"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
-                disabled={alamatBerbeda === false }
-                />
+                disabled={alamatBerbeda === false}
+              />
             </div>
             <div>
-                <label className="block font-semibold mb-1">Alamat</label>
-                <input
+              <label className="block font-semibold mb-1">Alamat</label>
+              <input
                 type="text"
                 className="w-full border rounded px-3 py-2"
                 placeholder="Alamat"
                 value={alamat}
                 onChange={e => setAlamat(e.target.value)}
-                disabled={alamatBerbeda === false }
-                />
+                disabled={alamatBerbeda === false}
+              />
             </div>
             <div>
-                <label className="block font-semibold mb-1">Kelurahan</label>
-                <input
+              <label className="block font-semibold mb-1">Kelurahan</label>
+              <input
                 type="text"
                 className="w-full border rounded px-3 py-2"
                 placeholder="Kelurahan"
                 value={kelurahan}
                 onChange={e => setKelurahan(e.target.value)}
-                disabled={alamatBerbeda === false }
-                />
+                disabled={alamatBerbeda === false}
+              />
             </div>
             <div>
-                <label className="block font-semibold mb-1">Kecamatan</label>
-                <input
+              <label className="block font-semibold mb-1">Kecamatan</label>
+              <input
                 type="text"
                 className="w-full border rounded px-3 py-2"
                 placeholder="Kecamatan"
                 value={kecamatan}
                 onChange={e => setKecamatan(e.target.value)}
                 disabled={alamatBerbeda === false}
-                />
+              />
             </div>
             <div>
-                <label className="block font-semibold mb-1">Kota</label>
-                <input
+              <label className="block font-semibold mb-1">Kota</label>
+              <input
                 type="text"
                 className="w-full border rounded px-3 py-2"
                 placeholder="Kota"
                 value={kota}
                 onChange={e => setKota(e.target.value)}
-                disabled={alamatBerbeda === false }
-                />
+                disabled={alamatBerbeda === false}
+              />
             </div>
             <div>
-                <label className="block font-semibold mb-1">Provinsi</label>
-                <input
+              <label className="block font-semibold mb-1">Provinsi</label>
+              <input
                 type="text"
                 className="w-full border rounded px-3 py-2"
                 placeholder="Provinsi"
                 value={provinsi}
                 onChange={e => setProvinsi(e.target.value)}
-                disabled={alamatBerbeda === false }
-                />
+                disabled={alamatBerbeda === false}
+              />
             </div>
-            </div>
+          </div>
 
           <div className="flex items-center mb-4">
             <input
@@ -426,20 +519,28 @@ const PostPage = () => {
               className="mr-2"
             />
             <label htmlFor="agree" className="text-sm">
-              Saya Menyetujui <a href="#" className="text-blue-600 underline">Syarat & Ketentuan</a>
+              Saya Menyetujui <button onClick={handleOpenModal} className="text-blue-600 underline">Syarat & Ketentuan</button>
             </label>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.07}} 
+            whileTap={{scale: 0.97}}
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded"
             disabled={!agree}
           >
             Submit
-          </button>
-        </form>
-      </div>
-    </div>
+          </motion.button>
+        </motion.form>
+      </motion.div>
+      <ModalTermsPost
+        show={showModal}
+        onClose={handleCloseModal}
+        handleSubmit={handleAgree}
+        loading={loading}
+      />
+    </motion.div>
   );
 
 }

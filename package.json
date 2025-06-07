@@ -13,10 +13,12 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.5",
     "flowbite-react": "^0.11.7",
+    "motion": "^12.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.3",
+    "sweetalert2": "^11.6.13",
     "tailwindcss": "^4.1.5"
   },
   "devDependencies": {
@@ -29,5 +31,17 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.1"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/capstoneadoptpet/frontendcapstone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/capstoneadoptpet/frontendcapstone/issues"
+  },
+  "homepage": "https://github.com/capstoneadoptpet/frontendcapstone#readme"
 }

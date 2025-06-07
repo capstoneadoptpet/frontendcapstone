@@ -3,9 +3,11 @@ import { content1, content2, content3 } from "./data";
 
 const About = () => {
     return (
-        <div className="p-[3rem]">
+        <div className="max-w-7xl mx-auto md:mx-[3rem] p-4">
 
-            <h1 className="text-4xl text-(--black) my-[1rem] border-b-2">Tentang Kami</h1>
+            <div className="justify-items-center border-b-2 my-[2rem]">
+                <h1 className="text-3xl font-semibold my-[2rem]">Tentang Kami</h1>
+            </div>
 
             <Content {...content1} />
             <Content {...content2} />

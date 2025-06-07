@@ -8,12 +8,13 @@
   --header-height: 3.5rem;
 
   --blue-sky: #83b4ff;
+  --navy: #5a72a0;
   --white: #ffffff;
   --dark-grey: #d9d9d9;
   --grey: #eeeeee;
   --yellow: #fdffe2;
-  --navy: #5a72a0;
   --black: #1a2130;
+  --red: #ff0000;
   --container-color: var(--white);
   --shadow-small-img: drop-shadow(0 4px 16px var(--primary-shadow-color));
 

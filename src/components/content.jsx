@@ -1,4 +1,5 @@
 import "../styles/content.css";
+import { motion } from 'framer-motion';
 
 const Content = ({
     lightBg,
@@ -8,9 +9,25 @@ const Content = ({
     headline,
     description,
     img,
-    alt,
     imgStart,
 }) => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                delay: 0.2,
+                duration: 1
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
         <>
             <div
@@ -19,19 +36,22 @@ const Content = ({
                 }
             >
                 <div className="container items-center">
-                    <div
-                        className="row home__content-row justify-between px-[5rem] py-[2rem] "
+                    <motion.div
+                        className="row home__content-row grid grid-rows-2 md:grid-cols-2 xl:grid-cols-2 justify-center "
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
                         style={{
                             display: "flex",
                             flexDirection: imgStart === "start" ? "row-reverse" : "row",
                         }}
                     >
-                        <div className="md: col-auto">
+                        <motion.div variants={itemVariants}>
                             <div className="home__content-text-wrapper">
-                                <div className="top-line">{topLine}</div>
                                 <h1 className={lightText ? "heading" : "heading dark"}>
                                     {headline}
                                 </h1>
+                                <div className="top-line">{topLine}</div>
                                 <p
                                     className={
                                         lightTextDesc
@@ -42,8 +62,8 @@ const Content = ({
                                     {description}
                                 </p>
                             </div>
-                        </div>
-                        <div className="md: col-auto">
+                        </motion.div>
+                        <motion.div variants={itemVariants}>
                             <div className="home__content-img-wrapper">
                                 <img
                                     src={img}
@@ -52,8 +72,8 @@ const Content = ({
 
                                 />
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </div >
         </>
