@@ -30,14 +30,6 @@ const RegisterPage = () => {
             });
         if (response.ok) {
             setUsername(username);
-            const result = await response.json();
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: result.message,
-                timer: 1000,
-                showConfirmButton: false,
-            });
         }
         else {
             setUsername('');
@@ -58,14 +50,6 @@ const RegisterPage = () => {
             });
         if (response.ok) {
             setEmail(email);
-            const result = await response.json();
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: result.message,
-                timer: 1000,
-                showConfirmButton: false,
-            });
         }
         else {
             setEmail('');
