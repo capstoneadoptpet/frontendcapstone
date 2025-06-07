@@ -4,6 +4,7 @@ import { Carousel } from "../../components/pets-components/carousel-components";
 import { FaShare } from "react-icons/fa6";
 import MarkFav from "../../components/pets-components/MarkFav";
 import { motion } from "motion/react"
+im
 
 const PetDetail = () => {
   const { id } = useParams();
@@ -76,7 +77,13 @@ const PetDetail = () => {
       navigator.clipboard
         .writeText(window.location.href)
         .then(() => {
-          alert("Link copied to clipboard!");
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Link copied to clipboard!',
+            timer: 2000,
+            showConfirmButton: false,
+          });
         })
         .catch((err) => {
           alert("Failed to copy link: " + err);

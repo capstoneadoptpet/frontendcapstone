@@ -1,6 +1,6 @@
 # Adopt House Project
 
-![Background Image](src/assets/img/BG.jpg)
+![Background Image](src/assets/img/BG.webp)
 
 This is a React + Vite based web application for finding and adopting pets. The project provides features such as browsing pet categories, filtering by breed, age, gender, and location, and managing user favorites and posts.
 
@@ -25,7 +25,7 @@ This is a React + Vite based web application for finding and adopting pets. The 
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/capstoneadoptpet/frontendcapstone.git
 cd frontendcapstone
 ```
 
