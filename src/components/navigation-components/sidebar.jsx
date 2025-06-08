@@ -16,7 +16,11 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   const customTheme = {
     root: {
       "inner": "px-0 ",
-    }
+      "collapsed": {
+        "on": "hidden",
+        "off": "block"
+      }
+    },
   }
 
   const handleLogout = () => {
@@ -76,7 +80,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
   if (admin && isOpen) {
   return (
-    <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-gray-50 w-70 h-screen" theme={{customTheme}}>
+    <Drawer open={isOpen} onClose={onClose} backdrop={false} position="right" className="p-0 m-0 bg-gray-50 w-70 h-screen" theme={{customTheme}}>
       <div className="flex flex-col h-full">
       <div className="bg-gray-50 p-4 flex min-h-[10%] h-[15%] items-center justify-center">
         <div className="flex items-center gap-5">
@@ -139,7 +143,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
                 <img src={logo} alt="Logo" className="h-12 w-12" />
                 <span className="text-white text-xl font-bold">Adopt House</span>
               </motion.div>
-              <button onClick={onClose} className="text-white hover:text-gray-700 text-3xl font-bold cursor-pointer">&times;</button>
+              <motion.button initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} onClick={onClose} className="text-white hover:text-gray-700 text-3xl font-bold cursor-pointer">&times;</motion.button>
             </div>
             <DrawerItems className="p-0 bg-white justify-items-center">
               <FlowSidebar className="h-full w-80 bg-white rounded-none">

@@ -37,7 +37,7 @@ const Content = ({
             >
                 <div className="container items-center">
                     <motion.div
-                        className="row home__content-row grid grid-rows-2 md:grid-cols-2 xl:grid-cols-2 justify-center "
+                        className="row home__content-row grid grid-rows-2 sm:grid-cols-2 xl:grid-cols-2 gap-10 sm:gap-[10rem] justify-center "
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
