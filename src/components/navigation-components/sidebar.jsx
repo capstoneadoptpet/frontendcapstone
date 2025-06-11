@@ -80,7 +80,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
 
   if (admin && isOpen) {
   return (
-    <Drawer open={isOpen} onClose={onClose} backdrop={false} position="right" className="p-0 m-0 bg-gray-50 w-70 h-screen" theme={{customTheme}}>
+    <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-gray-50 w-70 h-screen" theme={{customTheme}}>
       <div className="flex flex-col h-full">
       <div className="bg-gray-50 p-4 flex min-h-[10%] h-[15%] items-center justify-center">
         <div className="flex items-center gap-5">
