@@ -16,7 +16,11 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   const customTheme = {
     root: {
       "inner": "px-0 ",
-    }
+      "collapsed": {
+        "on": "hidden",
+        "off": "block"
+      }
+    },
   }
 
   const handleLogout = () => {
@@ -78,53 +82,53 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
   return (
     <Drawer open={isOpen} onClose={onClose} position="left" className="p-0 m-0 bg-gray-50 w-70 h-screen" theme={{customTheme}}>
       <div className="flex flex-col h-full">
-      <div className="bg-gray-50 p-4 flex min-h-[10%] h-[15%] items-center justify-center">
-        <div className="flex items-center gap-5">
-          <FaGrip className="text-5xl" />
-          <span className="text-3xl font-bold">MENU</span>
+        <div className="bg-gray-50 p-4 flex min-h-[10%] h-[15%] items-center justify-center">
+          <button onClick={onClose} className="flex items-center gap-5">
+            <FaGrip className="text-5xl" />
+            <span className="text-3xl font-bold">MENU</span>
+          </button>
         </div>
-      </div>
 
-      <DrawerItems className="p-0 m-0 px-0 bg-gray-50 h-[85%] flex flex-col ">
-        <FlowSidebar theme={customTheme} className="p-0 mx-0 h-full w-70 bg-gray-50 rounded-none flex flex-col flex-grow">
-          <SidebarItems className="px-0 mx-0 flex flex-col gap-2 bg-gray-50">
-            <SidebarItemGroup className="p-0 mx-0 px-0 bg-gray-50">
-              <SidebarItem
-                as={Link}
-                to="/admin/dashboard"
-                onClick={onClose}
-                className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 pb-0 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/dashboard' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
-              >
+        <DrawerItems className="p-0 m-0 px-0 bg-gray-50 h-[85%] flex flex-col ">
+          <FlowSidebar theme={customTheme} className="p-0 mx-0 h-full w-70 bg-gray-50 rounded-none flex flex-col flex-grow">
+            <SidebarItems className="px-0 mx-0 flex flex-col gap-2 bg-gray-50">
+              <SidebarItemGroup className="p-0 mx-0 px-0 bg-gray-50">
+                <SidebarItem
+                  as={Link}
+                  to="/admin/dashboard"
+                  onClick={onClose}
+                  className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 pb-0 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/dashboard' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
+                >
+                  <div className="flex items-center gap-4 py-4 px-0">
+                    <FaRegClipboard className="text-2xl" />
+                    <span className="text-xl">Dashboard</span>
+                  </div>
+                </SidebarItem>
+
+                <SidebarItem
+                  as={Link}
+                  to="/admin/categories-post"
+                  onClick={onClose}
+                  className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/categories-post' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
+                >
                 <div className="flex items-center gap-4 py-4 px-0">
-                  <FaRegClipboard className="text-2xl" />
-                  <span className="text-xl">Dashboard</span>
+                  <FaLinesLeaning className="text-2xl" />
+                  <span className="text-xl">Kategori</span>
                 </div>
-              </SidebarItem>
-
-              <SidebarItem
-                as={Link}
-                to="/admin/categories-post"
-                onClick={onClose}
-                className={`hover:bg-yellow-50 hover:border-blue-400 hover:border-l-15 font-semibold rounded-none p-0 m-0 ${location.pathname === '/admin/categories-post' ? 'bg-yellow-50 border-blue-400 border-l-15' : ''}`}
+                </SidebarItem>
+              </SidebarItemGroup>
+            </SidebarItems>
+          </FlowSidebar>
+            <div className="p-4 mt-auto bg-gray-50">
+              <button
+                onClick={handleLogout}
+                className="w-full text-2xl font-semibold cursor-pointer hover:text-red-500"
               >
-              <div className="flex items-center gap-4 py-4 px-0">
-                <FaLinesLeaning className="text-2xl" />
-                <span className="text-xl">Kategori</span>
-              </div>
-              </SidebarItem>
-            </SidebarItemGroup>
-          </SidebarItems>
-        </FlowSidebar>
-           <div className="p-4 mt-auto bg-gray-50">
-            <button
-              onClick={handleLogout}
-              className="w-full text-2xl font-semibold cursor-pointer hover:text-red-500"
-            >
-              <FaArrowRightFromBracket className="inline-block mr-2" />
-              <span className="text-2xl">Logout</span> 
-            </button>
-          </div>
-      </DrawerItems>
+                <FaArrowRightFromBracket className="inline-block mr-2" />
+                <span className="text-2xl">Logout</span> 
+              </button>
+            </div>
+        </DrawerItems>
       </div>
     </Drawer>
   );
@@ -139,7 +143,7 @@ const Sidebar = ({ user, onClose, onOpen, isOpen }) => {
                 <img src={logo} alt="Logo" className="h-12 w-12" />
                 <span className="text-white text-xl font-bold">Adopt House</span>
               </motion.div>
-              <button onClick={onClose} className="text-white hover:text-gray-700 text-3xl font-bold cursor-pointer">&times;</button>
+              <motion.button initial={{ opacity: 0, x: -50}} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping:25, delay:0.3, duration: 1.2 }} onClick={onClose} className="text-white hover:text-gray-700 text-3xl font-bold cursor-pointer">&times;</motion.button>
             </div>
             <DrawerItems className="p-0 bg-white justify-items-center">
               <FlowSidebar className="h-full w-80 bg-white rounded-none">

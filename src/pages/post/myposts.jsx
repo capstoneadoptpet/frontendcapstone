@@ -154,7 +154,7 @@ const MyPosts = () => {
 
   return (
     <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="min-h-screen mx-auto md:mx-[3rem] py-8">
-      <h2 className="text-4xl font-bold text-center mb-2 font-poppins">Your Post Pet</h2>
+      <h2 className="text-4xl font-bold text-center mb-2 font-poppins">Postingan Hewan Anda</h2>
       <hr className="border-black w-11/12 mx-auto mb-8" />
       {deleteError && <div className="text-red-600 text-center mb-4">{deleteError}</div>}
       <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="flex flex-wrap justify-center gap-6">

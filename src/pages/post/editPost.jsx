@@ -227,7 +227,7 @@ const EditPost = () => {
     return (
         <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="min-h-screen bg-gray-100 py-8">
             <motion.div variants={containerVariants} className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
-                <motion.h1 variants={itemVariants} className="text-4xl font-bold text-center mb-2">Edit Your Pet Post</motion.h1>
+                <motion.h1 variants={itemVariants} className="text-4xl font-bold text-center mb-2">Edit Postingan Hewan Anda</motion.h1>
                 <motion.div variants={itemVariants}  className="border-t-2 mb-8"></motion.div>
                 <motion.form variants={itemVariants}  onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
