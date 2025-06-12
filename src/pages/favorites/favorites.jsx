@@ -110,7 +110,7 @@ const Favorites = () => {
     return (
         <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3 }} className="mx-auto md:mx-[3rem] p-4">
             <div className="justify-items-center border-b-2 my-[2rem]">
-                <h1 className="text-3xl font-semibold mb-6">My Favorites</h1>
+                <h1 className="text-3xl font-semibold mb-6">Favorit Saya</h1>
             </div>
             <motion.div initial={{ opacity: 0, y: -20}} animate={{ opacity: 1, y: 0}} transition={{type: "spring", stiffness: 100, damping: 20, delay: 0.3}} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-items-center">
                     {favorites.map((pet, index) => (
